@@ -31,7 +31,7 @@
 \title{The source code of nrdoc:\\ a \LaTeX\ class for NR documents}
 
 
-\author{Anders L\o land \and Harald H. Soleng}
+\author{Harald H. Soleng \and Anders L\o land }
 
 
 \date{September 2003}
@@ -706,7 +706,6 @@ Norwegian characters are supported in input.
       \addtocontents{toc}{\protect\hypertarget{toc}{}%	
         \protect\pdfbookmark[1]{\contentsname}{toc}}             
     \@starttoc{toc}%
-      \newpage ok
       \clearemptydoublepage
 }}
 
