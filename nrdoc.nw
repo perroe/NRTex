@@ -1,6 +1,6 @@
 
 
-\documentclass[british,screen]{nrdoc}
+\documentclass[british,report]{nrdoc}
 
 
 \usepackage{myweb}
@@ -12,6 +12,8 @@
 \ifx\nrdocument\undefined\relax\else
 
 \reportnumber{Sand/02/03}
+%\isbn{isbn 82-539-0481-9}
+\shortisbn{0481-9}
 \keywords{\LaTeX\ class, source code documentation}
 \project{NR mal for \LaTeX}
 \projectnumber{}
@@ -118,6 +120,7 @@ commands of the \LaTeX\ standard report class.
 
 \newcommand{\notename}{Note} 
 \newcommand{\reportname}{Report} 
+\newcommand{\publicationnumbername}{Publication no.} 
 \newcommand{\authorname}{Author} 
 \newcommand{\titlename}{Title}
 \newcommand{\datename}{Date}
@@ -296,6 +299,7 @@ We execute the following default options.
 {%
  \renewcommand{\notename}{Notat} 
  \renewcommand{\reportname}{Rapport} 
+ \renewcommand{\publicationnumbername}{Publikasjonsnr.} 
  \renewcommand{\authorname}{Forfatter} 
  \renewcommand{\titlename}{Tittel}
  \renewcommand{\datename}{Dato}
@@ -314,7 +318,8 @@ We execute the following default options.
 \ifthenelse{\boolean{nynorsk_selected}}%
 {%
  \renewcommand{\notename}{Notat} 
- \renewcommand{\reportname}{Rapport} 
+ \renewcommand{\reportname}{Rapport}  
+ \renewcommand{\publicationnumbername}{Publikasjonsnr.} 
  \renewcommand{\authorname}{Forfattar} 
  \renewcommand{\titlename}{Tittel}
  \renewcommand{\datename}{Dato}
@@ -435,6 +440,12 @@ Norwegian characters are supported in input.
 \newcommand{\printtitle}{\@title}
 \newcommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
 
+\newcommand{\printisbn}{\typeout{ISBN number not set}}
+\newcommand{\isbn}[1]{%
+\renewcommand{\printisbn}{\MakeUppercase{#1}}}
+\newcommand{\shortisbn}[1]{%
+\renewcommand{\printisbn}{\MakeUppercase{isbn 82-536-#1}}}
+
 \newcommand{\printreportnumber}{%
 \typeout{NRdoc warning: Report number not set}No number}
 \newcommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
@@ -471,8 +482,9 @@ Norwegian characters are supported in input.
 \newcommand{\nrverticalbar}{%
  \hspace{8mm}%
  \begin{rotate}{90}
+\ifthenelse{\not \boolean{screen}}{}{%
 \makebox[0pt]{\raisebox{-20mm}[0pt][0pt]{%
-{\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}%
+{\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}}%
 \end{rotate}
 }
 
@@ -483,12 +495,14 @@ Norwegian characters are supported in input.
 }
 
 \newcommand{\nrtopbar}{%
+\ifthenelse{\not\boolean{screen}}{}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
-\rule{2\paperwidth}{\nrbarwidth}}}}
+ \rule{2\paperwidth}{\nrbarwidth}}}}}
 
 \newcommand{\nrbotbar}{%
+\ifthenelse{\not\boolean{screen}}{}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos + \nrhorizontalbarwidth}
-[0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}
+ [0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}}
 
 \newcommand{\nrlogobar}{%
 \raisebox{\nrhorizontalbarstartpos + 5mm}
@@ -542,7 +556,10 @@ Norwegian characters are supported in input.
 \hspace{-25mm}%
 \begin{minipage}[b]{45mm}
 \begin{flushright}
-\textbf{\printreportnumber}
+
+\ifthenelse{\boolean{report}}%
+{\textbf{\printisbn}}
+{\textbf{\printreportnumber}}
 
 \vspace{1em}
 
@@ -617,10 +634,11 @@ Norwegian characters are supported in input.
 \begin{minipage}[t]{0.3\linewidth}
 \textbf{\datename:} \@date\\
 \textbf{\yearname:} \printyear \\
+\ifthenelse{\boolean{report}}{\textbf{\printisbn}\\ }{}%
 \textbf{%
-\ifthenelse{\boolean{report}}
-{\reporname:}
-{\notename} \numbername:} \printreportnumber 
+\ifthenelse{\boolean{report}}%
+{\publicationnumbername:}%
+{\notename\ \numbername:}} \printreportnumber 
 \end{minipage}
 
 \vspace{3em}\par
