@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.13 2003-09-30 19:04:41 soleng Exp $
+# $Id: Makefile,v 1.14 2003-09-30 19:26:06 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -30,7 +30,7 @@ bib:
 pdf:    dvi
 	dvipdfm -p a4 -o   $(MAIN).pdf $(MAIN).dvi
 
-manual: all
+manual: src
 	latex '\scrollmode \input '"$(MANUAL)";\
 	makeindex $(MANUAL); \
 	bibtex $(MANUAL); \
