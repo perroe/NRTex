@@ -60,7 +60,8 @@ install: pdf manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
-	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/
+	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
+	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 
 clean:
