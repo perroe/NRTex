@@ -74,6 +74,7 @@ pdf version with hyperlinks.
 <<helping variables>>
 <<options>>
 <<loading packages>>
+<<loading base class>>
 <<use packages>>
 <<preliminary commands>>
 <<main code>>
@@ -409,7 +410,7 @@ Norwegian characters are supported in input.
 	}{} 
 @ %
 \subsection{Base class}
-<<loading packages>>=
+<<loading base class>>=
 \ifthenelse{\boolean{longreport}}{%
   	 \LoadClass{report}
    	}{% else

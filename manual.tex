@@ -1,6 +1,6 @@
 % Specify language of report
 
-\documentclass[note,screen,british,12pt]{nrdoc}
+\documentclass[note,screen,twoside,british,12pt]{nrdoc}
 
 % -------------------------------------------------
 % BEGIN nrdoc special commands
@@ -59,6 +59,11 @@ given here: If this is an electronic report, Equations \eqref{eq:ey}
 can be found by clicking the equation number. The option
 \textit{screen} gives the lines on the front page and hyperlinks, so
 this option should not be used for a paper report. 
+By default the page layout is two-sided\footnote{On older \LaTeX\
+installations, the default is one-sided. If you want to be sure to 
+get two-sided output, specify
+the additional option \textit{twoside}\index{option!twoside} 
+in the \texttt{documentclass}  command.}
 
 \subsection{Note and report}
 The default option \textit{note}\index{option!note} gives a NR
@@ -117,7 +122,7 @@ to supply just the last five digits:
 A typical preamble\index{preamble} then looks as follows:
 \begin{verbatim}
 
-\documentclass[note,screen,british,12pt]{nrdoc}
+\documentclass[note,screen,twoside,british,12pt]{nrdoc}
 \reportnumber{sand/03/03}
 \keywords{\LaTeX, NR}
 \project{}
@@ -144,7 +149,7 @@ The abstract is obligatory!
 \mainmatter 		% required
 
 \end{verbatim}
-Note that a \verb+\mainmatter+\index{mainmatter@\verb+{\mainmatter}+}
+Note that a \verb+\mainmatter+\index{mainmatter@\verb+\mainmatter+}
 command is required before the first section or chapter.
 
 \section{Including a figure}

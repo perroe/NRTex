@@ -43,7 +43,7 @@ manual: all
 
 
 printmanual: src
-	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,british,12pt\]\{nrdoc\}/\\documentclass\[note,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
+	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,twoside,british,12pt\]\{nrdoc\}/\\documentclass\[note,twoside,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
 	latex '\scrollmode \input '"$(PRINT)";\
 	makeindex $(PRINT); \
 	bibtex $(PRINT); \
