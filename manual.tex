@@ -1,18 +1,17 @@
 % $Id$
 % Specify language of report
 
-\documentclass[note,screen,twoside,norsk,12pt]{nrdoc}
+\documentclass[note,screen,twoside,british,10pt]{nrdoc}
 
 % Verbatim is already loaded by nrdoc. It is only
 % included to make LaTeX2html work better.
 \usepackage{verbatim}   
 
-
-
 % -------------------------------------------------
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
 \reportnumber{sand/03/03}
+\publicationyear{2003}
 \keywords{\LaTeX, NR}
 \projectnumber{}
 \project{}
@@ -31,7 +30,7 @@
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald H. Soleng \email{harald.soleng@nr.no} \and 
          Anders Løland \email{anders.loland@nr.no}}
-\date{\today}
+\date{Descember 2003}
 \maketitle
 
 % The abstract must always be present
@@ -57,7 +56,8 @@ given.
 The \texttt{nrdoc} class can be used both by \LaTeX\ \index{latex@\LaTeX} 
 \citep{latex}
 (using the \texttt{latex} command) and pdf\LaTeX\ \index{pdflatex@pdf\LaTeX}
-(using the \texttt{pdflatex} command). Using the option
+(using the \texttt{pdflatex} command). Please note that you need to use 
+a reasonably recent tex distribution. Using the option
 \textit{screen} \index{screen}\index{option!screen} together with
 \texttt{pdflatex} or \texttt{latex} and
 \texttt{dvipdfm}\index{dvipdfm} gives an \textbf{electronic report
@@ -110,6 +110,10 @@ specifies the text in the heading of each page. If \verb!\shorttitle!
 taken from \verb!\title!. 
 
 The date\index{date} is taken from \verb!\date!.
+By default the year is taken from the current year at the time of processing.
+The publication year\index{year} can be set using 
+\texttt{publicationyear}\index{publicationyear@\verb+\publicationyear+}.
+
 
 The note or publication number is given by
 \verb+\reportnumber+\index{reportnumber@\verb+\reportnumber+}.
@@ -175,9 +179,27 @@ command is required before the first section or chapter.
 \section{Including a figure}
 
 On the front page, a figure\index{cover figure} can be included with
-\texttt{frontpagefigure}. Just give the full path to the figure file,
+\begin{verbatim}
+\frontpagefigure{figs/my_figure}
+\end{verbatim}
+\index{frontpagefigure@\verb+\frontpagefigure+}. 
+Just give the full path to the figure file,
 without the file extension. The figure is automatically scaled to fit
-the front page. 
+into the front page. A more low-level commands called
+\texttt{frontpagefigurecommand}%
+\index{frontpagefigurecommand@\verb+\frontpagefigurecommand+} 
+allows more control. With this commands one 
+has to specify a full
+figure inclusion command, e.g., 
+\begin{verbatim}
+\frontpagefigurecommand{%
+\includegraphics[width=50mm,height=40mm]{figs/my_figure}}
+\end{verbatim}
+If you want more than one figure on the cover you either need to combine them
+using a graphics manipulation program, or use \texttt{frontpagefigurecommand}
+with several 
+\texttt{includegraphics}\index{includegraphics@\verb+\includegraphics+} 
+commands.
 
 Other figures\index{graphics}\index{illustration} \index{figure}
 are included by \texttt{includegraphics}. An example is
@@ -319,6 +341,7 @@ an index file.
 
 
 \section{Default packages}
+
 The following packages are loaded by default:
 \begin{description}
 \item[\textit{inputenc}] Handles Norwegian
@@ -327,7 +350,7 @@ The following packages are loaded by default:
 \item[\textit{paralist}] For list
   environments. \index{package!paralist} 
 \item[\textit{fancyhdr}] For
-  headers. \index{package!fancyheadings} 
+  headers. \index{package!fancyhdr} 
 \item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
 Also contains a useful \texttt{comment} environment.
 \item[\textit{xspace}] For space control. \index{package!xspace}
@@ -338,7 +361,8 @@ Also contains a useful \texttt{comment} environment.
 \item[\textit{graphicx}] for graphics
   inclusion. \index{package!graphicx} 
 \item[\textit{babel}] For language support. \index{package!babel}
-\item[\textit{geometry}] For page geometry. \index{package!geometry} 
+%\item[\textit{geometry}] For page geometry. \index{package!geometry}
+\item[\textit{a4wide}] For page geometry. \index{package!a4wide} 
 \item[\textit{hyperref}] For hyperlinks. \index{package!hyperref}
 \end{description} 
 For more information about most of these packages,
@@ -368,9 +392,3 @@ setenv TEXINPUTS .:/nr/group/maler/nrdoc:
 \verbatiminput{ref.bib}
 
 \end{document}
-
-
-
-
-
-
