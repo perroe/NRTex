@@ -1,7 +1,7 @@
 % $Id$
-% Specify language of report
+% Specify language of the report
 
-\documentclass[report,screen,twoside,british,12pt]{nrdoc}
+\documentclass[note,screen,twoside,british,12pt]{nrdoc}
 
 % Verbatim is already loaded by nrdoc. It is only
 % included to make LaTeX2html work better.
@@ -55,7 +55,8 @@ given.
 
 The \texttt{nrdoc} class can be used both by \LaTeX\ \index{latex@\LaTeX} 
 \citep{latex}
-(using the \texttt{latex} command) and pdf\LaTeX\ \index{pdflatex@pdf\LaTeX}
+(using the \texttt{latex} command) and 
+pdf\LaTeX\ \index{pdflatex@pdf\LaTeX}
 (using the \texttt{pdflatex} command). Please note that you need to use 
 a reasonably recent tex distribution. Using the option
 \textit{screen} \index{screen}\index{option!screen} together with
@@ -110,9 +111,11 @@ specifies the text in the heading of each page. If \verb!\shorttitle!
 taken from \verb!\title!. 
 
 The date\index{date} is taken from \verb!\date!.
-By default the year is taken from the current year at the time of processing.
+By default the year is taken from the current 
+year at the time of processing.
 The publication year\index{year} can be set using 
-\texttt{publicationyear}\index{publicationyear@\verb+\publicationyear+}.
+\texttt{publicationyear}%
+\index{publicationyear@\verb+\publicationyear+}.
 
 
 The note or publication number is given by
@@ -186,7 +189,7 @@ On the front page, a figure\index{cover figure} can be included with
 Just give the full path to the figure file,
 without the file extension. The figure is automatically scaled to fit
 into the front page. A more low-level commands called
-\texttt{frontpagefigurecommand}%
+\texttt{frontpagefigure\-command}%
 \index{frontpagefigurecommand@\verb+\frontpagefigurecommand+} 
 allows more control. With this commands one 
 has to specify a full
@@ -195,10 +198,13 @@ figure inclusion command, e.g.,
 \frontpagefigurecommand{%
 \includegraphics[width=50mm,height=40mm]{figs/my_figure}}
 \end{verbatim}
-If you want more than one figure on the cover you either need to combine them
-using a graphics manipulation program, or use \texttt{frontpagefigurecommand}
+If you want more than one figure on the cover 
+you either need to combine them
+using a graphics manipulation program, or 
+use \texttt{frontpage\-figure\-command}
 with several 
-\texttt{includegraphics}\index{includegraphics@\verb+\includegraphics+} 
+\texttt{include\-graphics}%
+\index{includegraphics@\verb+\includegraphics+} 
 commands.
 
 Other figures\index{graphics}\index{illustration} \index{figure}
@@ -212,7 +218,7 @@ given here (and in Figure \ref{fig:logo}):
   \end{center}
 \end{figure}
 \end{verbatim}
-\begin{figure}[h]
+\begin{figure}[ht]
   \begin{center}
     \includegraphics[width=8cm,angle=45]{figs/fotball}
     \caption{\label{fig:logo} Rolling NR logo.}
