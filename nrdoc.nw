@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.26 2003-09-30 19:04:42 soleng Exp $
+% $Id: nrdoc.nw,v 1.27 2003-09-30 19:10:31 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -789,12 +789,12 @@ Norwegian characters are supported in input.
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
                 \chapter*{\indexname}%
-		\thispagestyle{empty}
+		\thispagestyle{empty}%
                  \addcontentsline{toc}{chapter}{\indexname}
 		 
                 \@mkboth{\MakeUppercase\indexname}%
                         {\MakeUppercase\indexname}%
-                \thispagestyle{plain}\parindent\z@
+                \parindent\z@
                 \parskip\z@ \@plus .3\p@\relax
                 \let\item\@idxitem\begin{multicols}{2}}
                {\end{multicols}}
@@ -802,12 +802,12 @@ Norwegian characters are supported in input.
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
                 \section*{\indexname}%	
-	        \thispagestyle{empty}
+	        \thispagestyle{empty}%
                  \addcontentsline{toc}{section}{\indexname}
 		 
                 \@mkboth{\MakeUppercase\indexname}%
                         {\MakeUppercase\indexname}%
-                \thispagestyle{plain}\parindent\z@
+                \parindent\z@
                 \parskip\z@ \@plus .3\p@\relax
                 \let\item\@idxitem\begin{multicols}{2}}
                {\end{multicols}}
