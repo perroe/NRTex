@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.30 2003-10-02 10:33:47 soleng Exp $
+% $Id: nrdoc.nw,v 1.31 2003-10-02 11:08:27 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -75,7 +75,7 @@ pdf version with hyperlinks.
 \subsection{Identification}
 <<class identification>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/10/01 v0.4 NR report class]
+\ProvidesClass{nrdoc}[2003/10/02 v0.4 NR report class]
 % This class file was automatically generated from the file 
 % nrreport.nw using noweb. Please don't edit this file 
 %  directly.  
@@ -425,7 +425,7 @@ Norwegian characters are supported in input.
 <<preliminary commands>>=
 \newcommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
  \ifthenelse{\equal{#1}{}}{}{%  
- \xspace (\href{mailto:#1}{\texttt{#1}})}
+ \xspace \href{mailto:#1}{\texttt{<#1>}}}
 }{}}
 
 \newcommand{\rmfrontpage}{ptm}
@@ -864,6 +864,13 @@ Norwegian characters are supported in input.
    \clearpage\lastpage@putlabel%
 } 
 @ %
+
+\section{To do list}
+
+We need to write a style file \texttt{nrdoc.perl} for \LaTeX 2html.
+Without such a file \LaTeX 2html does not understand many of
+the commands defined in packages loaded by  \texttt{nrdoc.cls}.
+A work-around is to reload these packages using usepackage.
 
 \appendix
 
