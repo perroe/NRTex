@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.26 2003-10-20 13:16:58 soleng Exp $
+# $Id: Makefile,v 1.27 2003-10-21 10:15:54 jornv Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -96,7 +96,7 @@ tgz:	src
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
 rpm:	tgz
+	-rm -rf BUILD/*
 	mkdir -p BUILD
-	rm -f BUILD/*
 	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec
 
