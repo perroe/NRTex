@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.16 2003-10-01 10:08:35 soleng Exp $
+# $Id: Makefile,v 1.17 2003-10-01 10:48:56 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -62,12 +62,13 @@ printmanual: src
 html:	src
 	latex2html -dir manual.web manual
 
-install: src pdf manual printmanual
+install: src pdf html manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
 	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
+	cp -r $(MANUAL).web/*  $(WEBPATH)/latex-maler/$(MANUAL).web/	
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 
 clean:
