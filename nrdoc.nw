@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.55 2004-02-23 09:55:42 anderslo Exp $
+% $Id: nrdoc.nw,v 1.56 2004-02-23 09:59:46 anderslo Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -527,7 +527,7 @@ and marks lines with overfull horizontal boxes.
 \DeclareOption{draft}{%
 \setboolean{draftversion}{true}%
 \PassOptionsToPackage{draft}{graphicx}%
-\PassOptionsToClass{draft}{report}%
+\PassOptionsToClass{draft}{book}%
 \PassOptionsToClass{draft}{article}%
 }
 @ %
@@ -618,11 +618,11 @@ option.
 
 <<options>>=
 \DeclareOption{twoside}{%
-\PassOptionsToClass{twoside}{report}%
+\PassOptionsToClass{twoside}{book}%
 \PassOptionsToClass{twoside}{article}}%
 
 \DeclareOption{oneside}{%
-\PassOptionsToClass{oneside}{report}%
+\PassOptionsToClass{oneside}{book}%
 \PassOptionsToClass{oneside}{article}}%
 @ %
 
