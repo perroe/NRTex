@@ -50,7 +50,8 @@ given.
 
 \section{Two ways to use the nrdoc class}
 
-The \texttt{nrdoc} class can be used both by \LaTeX\ \index{\LaTeX}
+The \texttt{nrdoc} class can be used both by \LaTeX\ \index{\LaTeX} 
+\citep{latex}
 (using the \texttt{latex} command) and pdf\LaTeX\ \index{pdf\LaTeX}
 (using the \texttt{pdflatex} command). Using the option
 \textit{screen} \index{screen}\index{option!screen} together with
@@ -68,7 +69,7 @@ note. The option  \textit{report}\index{option!report} gives a NR
 report. For a NR report, these additional variables must be
 specified:
 
-***
+
 
 \subsection{Long reports}
 
@@ -175,7 +176,7 @@ packages so that the full power of these extensions are available.
  
 Citations\index{cite}
 are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and 
-\texttt{natbib} \cite{natbib:7.1}. By default 
+\texttt{natbib} \citep{natbib:7.1}. By default 
 an author--year citation 
 scheme\footnote{A simpler numerical\index{cite!numeric
 citation label} citation scheme with citations appearing in the
@@ -273,6 +274,8 @@ The following packages are loaded by default:
 \item[\textit{geometry}] For page geometry. \index{package!geometry} 
 \item[\textit{hyperref}] For hyperlinks. \index{package!hyperref}
 \end{description} 
+For more information about most of these packages,
+consult the book by \cite{latexcompanion}.
 
 \bibliography{ref}
 

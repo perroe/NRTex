@@ -1,5 +1,8 @@
 MAIN  = nrdoc
 MANUAL = manual
+PRINT  = printmanual
+INSTALLPATH = /nr/group/maler/nrdoc
+WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift/info
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
@@ -39,8 +42,27 @@ manual: all
 	dvipdfm -p a4 -o   $(MANUAL).pdf $(MANUAL).dvi
 
 
-install:
-	cp nrdoc.cls /nr/group/maler/nrdoc/
+printmanual: src
+	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,british,12pt\]\{nrdoc\}/\\documentclass\[note,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
+	latex '\scrollmode \input '"$(PRINT)";\
+	makeindex $(PRINT); \
+	bibtex $(PRINT); \
+	latex '\scrollmode \input '"$(PRINT)";\
+	while ( \
+	grep -s 'No file $(PRINT).toc' $(PRINT).log || \
+	grep -s 'Rerun to get cross-references right'\
+	$(PRINT).log ); \
+	do latex '\scrollmode \input '"$(PRINT)"; \
+	done; \
+	dvipdfm -p a4 -o   $(PRINT).pdf $(PRINT).dvi
+
+install: pdf manual printmanual
+	cp nrdoc.cls $(INSTALLPATH)/	
+	cp nrdoc.pdf $(INSTALLPATH)/
+	cp nrdoc.html $(WEBPATH)/latex-maler.html
+	cp $(MANUAL).pdf $(INSTALLPATH)/
+	cp $(PRINT).pdf $(INSTALLPATH)/
+
 clean:
 	rm -f *.html  *~ *.aux *.dvi \
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
