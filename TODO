@@ -3,7 +3,10 @@
 
 Task					Fixed		Releases
 
-automatic update of html                1.0.3
+
+automatic update of html                1.0.3		2004.02.13
+list of examples and tables 
+improved handling in long style
 automatic version numbering	        1.0.2		2004.01.15	
 oneside does not work			1.0.1           2004.01.13
 Norwegian citation			1.0.1		
