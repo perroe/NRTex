@@ -279,7 +279,11 @@ chosen by using the option \texttt{citenumeric}.
 }
 @ %
 <<use packages>>=
-\usepackage[round]{natbib}         % for bibliography
+\ifthenelse{\boolean{citenumeric}}{%
+ \usepackage[numbers,sort&compress]{natbib}}{%
+ \usepackage[sort,round]{natbib}
+}
+        
 @ %
 \section{Setting defaults}
 
