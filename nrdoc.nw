@@ -1,6 +1,6 @@
 
 
-\documentclass[nynorsk]{nrdoc}
+\documentclass[british]{nrdoc}
 
 \usepackage{myweb}
 
@@ -11,9 +11,9 @@
 \ifx\nrdocument\undefined\relax\else
 
 \reportnumber{Sand/XX/03}
-\keywords{\LaTeX class, source code documentation}
+\keywords{\LaTeX\ class, source code documentation}
 \project{NR mal for \LaTeX}
-\projectnumber{X}
+\projectnumber{}
 \frontpagefigure{figs/texfriendly}
 \target{NRTUG (NR \TeX\ User Group)}
 \researchfield{}
@@ -308,13 +308,13 @@ We execute the following default options.
  \renewcommand{\numbername}{nr.}
  \renewcommand{\keywordsname}{Emneord} 
  \renewcommand{\targetgroupname}{M\aa lgruppe}
- \renewcommand{\availabilityname}{Tilgjengelighet}
+ \renewcommand{\availabilityname}{Tilgjengeleg}
  \renewcommand{\projectname}{Prosjekt} 
  \renewcommand{\projectnumbername}{Prosjektnr.}
  \renewcommand{\researchfieldname}{Satsningsomr\aa de}
- \renewcommand{\numberofpagesname}{Antall sider}
+ \renewcommand{\numberofpagesname}{Tal p\aa\ sider}
  \renewcommand{\openavailable}{{\AA}pen} 
- \renewcommand{\closedavailable}{Lukket}
+ \renewcommand{\closedavailable}{Lukka}
 }{}
 @ %
 
@@ -623,7 +623,7 @@ Norwegian characters are supported.
 <<main code>>=
 
 \newlength{\abstractlinesep}
-\setlength{\abstractlinesep}{-0.2em}
+\setlength{\abstractlinesep}{-0.15em}
 
 \renewenvironment{abstract}%
 {\begin{timesroman}
@@ -641,7 +641,7 @@ Norwegian characters are supported.
 \noindent\rule{\linewidth}{1pt} 
  {\footnotesize
  \ifthenelse{\boolean{language_selected}}%
-  { \ifthenelse{\boolean{norsk_selected}}
+  { \ifthenelse{\boolean{norsk_selected}\or\boolean{nynorsk_selected}}
  	{ Norsk Regnesentral\\[\abstractlinesep]
 	  Gaustadall{\'e}en 23, Postboks 114 Blindern, 
 	  0314 Oslo, Norway\\[\abstractlinesep]
