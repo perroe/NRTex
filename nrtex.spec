@@ -1,4 +1,4 @@
-# $Id: nrtex.spec,v 1.7 2003-10-20 13:16:59 soleng Exp $
+# $Id: nrtex.spec,v 1.8 2003-10-21 10:16:21 jornv Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -44,6 +44,9 @@ rm -rf %{buildroot}
 /usr/share/texmf/tex/latex/nrdoc/nrdoc.cls
 /usr/share/texmf/tex/latex/nrdoc/logos/*
 /usr/share/texmf/doc/latex/nrdoc/manual.pdf
+/usr/share/texmf/bibtex/bst/nrdoc/nrplain.bst
+/usr/share/texmf/bibtex/bst/nrdoc/nrunsrt.bst
+
 
 %changelog
 * Wed Oct 15 2003 Harald H. Soleng <harald.soleng@nr.no>
