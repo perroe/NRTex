@@ -255,7 +255,7 @@ option.
 \DeclareOption{times}{\setboolean{timesroman}{true}}
 @ %
 <<loading packages>>=
-\RequirePackage{ae}
+%\RequirePackage{ae}
 \ifthenelse{\boolean{timesroman}}{\RequirePackage{times}}{}
 @ %
 
@@ -366,6 +366,7 @@ Norwegian characters are supported.
 \RequirePackage{xspace}         % for space control
 \RequirePackage{rotating}       % for text rotation
 \RequirePackage{makeidx}        % for index
+\RequirePackage{multicol}       % for multiple columns
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -427,6 +428,7 @@ Norwegian characters are supported.
 \newcommand{\rmfrontpage}{ptm}
 \newenvironment{timesroman}{\fontencoding{T1}\fontfamily{ptm}\selectfont}{}
 
+\renewcommand{\ttdefault}{aett}
 
 \definecolor{nrblue}{cmyk}{1,0.72,0,0.18}
 
@@ -746,6 +748,19 @@ Norwegian characters are supported.
             \usepackage{nralphabib}
             \bibliographystyle{nralpha}
 }
+\renewenvironment{theindex}{%                
+                 \clearemptydoublepage
+                \section*{\indexname}%
+		\ifthenelse{\boolean{screen}}{
+                 \addcontentsline{toc}{section}{\indexname}}%	
+                 {} 
+		 
+                \@mkboth{\MakeUppercase\indexname}%
+                        {\MakeUppercase\indexname}%
+                \thispagestyle{plain}\parindent\z@
+                \parskip\z@ \@plus .3\p@\relax
+                \let\item\@idxitem\begin{multicols}{2}}
+               {\end{multicols}}
 
 \AtEndDocument{\printindex\label{LastPage}}
 @ %

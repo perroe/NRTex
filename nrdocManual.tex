@@ -1,6 +1,6 @@
 % Specify language of report
 
-\documentclass[screen,note,british]{nrdoc}
+\documentclass[screen,note,british,12pt]{nrdoc}
 
 
 % -------------------------------------------------
@@ -19,6 +19,7 @@
 \fi
 % END nrdoc special commands
 % ------------------------------------------------
+
 
 \makeindex
 
@@ -57,30 +58,47 @@ gives an \textbf{electronic report with hyperlinks}.\index{hyperlinks}
 
 \subsection{Including a figure}
 
-Figures are included by \texttt{includegraphics}. An example is given
+On the front page, a figure\index{figure} 
+can be included with \texttt{frontpagefigure}.
+Just give the full path to the figure file, without the file extension.
+The figure is automatically scaled to fit the front page.
+
+Other
+figures are included by \texttt{includegraphics}. An example is given
 here:
 \begin{verbatim}
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=8cm]{figs/fotball}
-    \caption{\label{fig:logo} NR logo.}
+    \includegraphics[width=8cm,angle=45]{figs/fotball}
+    \caption{\label{fig:logo} Rolling NR logo.}
   \end{center}
 \end{figure}
 \end{verbatim}
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=8cm]{figs/fotball}
-    \caption{\label{fig:logo} NR logo.}
+    \includegraphics[width=8cm,angle=45]{figs/fotball}
+    \caption{\label{fig:logo} Rolling NR logo.}
   \end{center}
 \end{figure}
 Note that the extension of the figure file name should be dropped. The
-reason is that \LaTeX\ will find the required file itself. The figure
-files should have the following format:
+reason is that \LaTeX\ will find the required file itself. 
+The figure
+files should have the following format:\index{fornmat}
 \begin{itemize}
 \item \texttt{latex}: postscript [.ps] or encapsulated postscript [.eps]
 \item \texttt{pdflatex}:pdf  [.pdf] or jpeg [.jpeg/.jpg]
 \end{itemize}
 
+\section{Fonts}
+
+The default size is 11pt, but 10pt and 12pt sizes are also supported
+through standard 
+options.\index{option!10pt}\index{option!11pt}\index{option!12pt}
+
+The standard font is type 1 versions of computer modern. The exception is
+the typewriter font which has been replaced with almost European fonts.
+There is also the option \textit{times} giving built-in times-roman fonts.
+These fonts are used on the cover and the title page.
 
 \section{Mathematics}\index{mathematics}
 
@@ -94,7 +112,7 @@ power of these extensions are available.
   \mathcal{K}_{s'}(s_i)Ew^2(s_i).
 \end{split}
 \end{align}
-Equation \eqref{eq:ey} is a very nice equation.
+Equations \eqref{eq:ey} are very nice equations.
 
 
 \section{Citation using \textsc{Bib}\TeX}
@@ -104,6 +122,7 @@ similar to \texttt{natbib}. This style file is automatically loaded by
 \texttt{nrdoc}. Some examples
 are given in Table \ref{tab:cite}.
 \begin{table}[ht]
+\centering
 \begin{tabular}{lll}
 \hline
 usual citations &  
@@ -136,7 +155,8 @@ only the author &
 \label{tab:cite} 
 \end{table}
 The \textsc{Bib}\TeX{} file (\texttt{ref.bib}) is given in 
-Appendix \ref{sec:ref.bib}. A simpler numerical\index{numeric citation label} 
+Appendix \ref{sec:ref.bib}. 
+A simpler numerical\index{numeric citation label} 
 citation scheeme
 with citations appearing in the order of citations is supported as well
 using the option \textit{citenumeric}.
@@ -144,13 +164,33 @@ using the option \textit{citenumeric}.
 \section{Languages}
 
 The following options are available for 
-different language support:
+different language\index{language} support:
 \begin{description}
-\item[norsk] bokm\aa l.
-\item[nynorsk] nynorsk.
-\item[american] u.s.\ english (default)
-\item[british] u.s.\ english (default)
+\item[\textit{norsk}] bokm\aa l.\index{option!norsk}
+\item[\textit{nynorsk}] nynorsk.\index{option!nynorsk}
+\item[\textit{american}] u.s.\ english (default)\index{option!american}
+\item[\textit{british}] u.k.\ english \index{option!british}
 \end{description}
+
+\section{The draft option}
+
+The draft option prevents figure inclusion, turns off the cover generation 
+and adds
+marks on oversized lines.
+
+\section{Making an index}
+
+There is support for making indexes with makeindex.
+Add the command \texttt{\\makeindex} in the preamble, and
+run \texttt{makeindex} on the main tex file. This generates
+an index file. It is called at \verb!\end{document}!.
+
+
+\section{Long reports}
+
+The class option \textit{long}\index{option!long} 
+gives access to part\index{part} and chapter\index{chapter} commands.
+By default the highest level is section.
 
 \bibliography{ref}
 
