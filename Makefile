@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.12 2003-09-30 18:54:08 soleng Exp $
+# $Id: Makefile,v 1.13 2003-09-30 19:04:41 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -58,7 +58,7 @@ printmanual: src
 	done; \
 	dvipdfm -p a4 -o   $(PRINT).pdf $(PRINT).dvi
 
-install: pdf manual printmanual
+install: src pdf manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
