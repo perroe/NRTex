@@ -1,29 +1,44 @@
 %\documentclass[norsk,report,twopage]{nrdoc}
-\documentclass{nrdoc}
 
-\reportnumber{Sand/XX/03}
-\publicationyear{2253 R.E.}
-\date{September}
+\documentclass[british,times]{nrdoc}
+
+%\documentclass{article}
+
+
+
 \usepackage{noweb}
 
 
- 
+\ifx\nrdocument\undefined\relax\else
 
+\reportnumber{Sand/XX/03}
+\keywords{\LaTeX class, source code documentation}
+\project{NR mal for \LaTeX}
+\projectnumber{X}
+\frontpagefigure{figs/texfriendly}
+
+\fi
 
 \begin{document}
 
-\frontpagefigure{figs/texfriendly}
+
 \title{NRdoc: a \LaTeX\ class for NR documents}
-\author{Lars L\o vold\and Harald H. Soleng}
+\author{Anders L\o land \and Harald H. Soleng}
 
 
+\date{September}
 
 \maketitle
+
 
 \begin{abstract}
 This document contains and documents the full source
 code of the \texttt{nrdoc} class.
 \end{abstract}
+
+
+
+
 
 \section{Introduction}
 
@@ -78,6 +93,7 @@ commands of the \LaTeX\ standard report class.
 \usepackage{calc}		% for math
 \newboolean{longreport}
 \setboolean{longreport}{false}
+
 \newcommand{\notename}{Note} 
 \newcommand{\reportname}{Report} 
 \newcommand{\authorname}{Author} 
@@ -85,8 +101,18 @@ commands of the \LaTeX\ standard report class.
 \newcommand{\datename}{Date}
 \newcommand{\yearname}{Year}
 \newcommand{\numbername}{no.}
+\newcommand{\keywordsname}{Keywords}
+\newcommand{\targetgroupname}{Target group}
+\newcommand{\availabilityname}{Availability}
+\newcommand{\projectname}{Project}
+\newcommand{\projectnumbername}{Project no.}
+\newcommand{\fieldname}{Research field}
+\newcommand{\numberofpagesname}{No.\ of pages}
 
-\newcommand{\printyear}{\typeout{publicationyear not defined}}
+
+\newcommand{\nrdocument}{NR Document}
+
+\newcommand{\printyear}{\number\year}
 \newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
 
 \renewcommand{\and}{\linebreak}
@@ -132,7 +158,7 @@ and marks lines with overfull horizontal boxes.
 
 \subsection{Document type options}
 The current version of the
-\text{nrdoc} class supports two documents types,
+\texttt{nrdoc} class supports two documents types,
 the \texttt{note} and the \texttt{report}. 
 
 <<helping variables>>=
@@ -140,11 +166,13 @@ the \texttt{note} and the \texttt{report}.
 \setboolean{draftversion}{false}
 \newboolean{report}
 \setboolean{report}{false}
-
+\newboolean{screen}
+\setboolean{screen}{false}
 @ %
 <<options>>=
 \DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
+\DeclareOption{screen}{\setboolean{screen}{true}}
 @ %
 
 \subsection{Language options}
@@ -184,8 +212,6 @@ the \texttt{note} and the \texttt{report}.
 
 
 
-%\DeclareOption{dvipdfm}{\setboolean{dvipdfm}{true}}
-%\DeclareOption{screen}{\setboolean{screen}{true}}
 
 @ %
 <<loading packages>>=
@@ -241,6 +267,13 @@ We execute the following default options.
  \renewcommand{\datename}{Dato}
  \renewcommand{\yearname}{{\AA}r}
  \renewcommand{\numbername}{nr.}
+ \renewcommand{\keywordsname}{N{\o}kkelord}
+ \renewcommand{\targetgroupname}{M\aa lgruppe}
+ \renewcommand{\availabilityname}{Tilgjengelighet}
+ \renewcommand{\projectname}{Prosjekt}
+ \renewcommand{\projectnumbername}{Prosjektnr.}
+ \renewcommand{\fieldname}{Satsningsomr\aa de}
+ \renewcommand{\numberofpagesname}{Antall sider}
 }{}
 \ifthenelse{\boolean{nynorsk_selected}}%
 {%
@@ -251,6 +284,13 @@ We execute the following default options.
  \renewcommand{\datename}{Dato}
  \renewcommand{\yearname}{{\AA}r}
  \renewcommand{\numbername}{nr.}
+ \renewcommand{\keywordsname}{N{\o}kkelord:} 
+ \renewcommand{\targetgroupname}{M\aa lgruppe}
+ \renewcommand{\availabilityname}{Tilgjengelighet}
+ \renewcommand{\projectname}{Prosjekt} 
+ \renewcommand{\projectnumbername}{Prosjektnr.}
+ \renewcommand{\fieldname}{Satsningsomr\aa de}
+ \renewcommand{\numberofpagesname}{Antall sider}
 }{}
 @ %
 
@@ -276,7 +316,7 @@ Norwegian characters are supported.
 \subsection{Utilities}
 <<loading packages>>=
 \RequirePackage{paralist}	% for list environments
-\RequirePackage{tabularx}	% for automatic column width 
+%\RequirePackage{fancybox}	% for defining Sbox 
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
 \RequirePackage{ae}             % for new texttt
@@ -296,7 +336,10 @@ Norwegian characters are supported.
 
 \subsection{Hypertext tools}
 <<use packages>>=
+\ifthenelse{\boolean{screen}}{
 \usepackage{hyperref}		% hypertex tools
+}
+	
 @ 
 
 \subsection{Language support}
@@ -320,9 +363,17 @@ Norwegian characters are supported.
 \definecolor{nrblue}{cmyk}{1,0.72,0,0.18}
 
 \newcommand{\printreportnumber}{%
-\typeout{Report number not set}No number}
-\newcommand{\reportnumber}[1]{%
-\renewcommand{\printreportnumber}{#1}}
+\typeout{NRdoc warning: Report number not set}No number}
+\newcommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{#1}}
+
+\newcommand{\printkeywords}{\typeout{NRdoc warning: Keywords not defined}}
+\newcommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
+
+\newcommand{\printproject}{\typeout{NRdoc warning: Project not defined}}
+\newcommand{\project}[1]{\renewcommand{\printproject}{#1}}
+
+\newcommand{\printprojectnumber}{\typeout{NRdoc warning: Project number not defined}}
+\newcommand{\projectnumber}[1]{\renewcommand{\printprojectnumber}{#1}}
 
 
 \setboolean{frontpagefiguredefined}{false}
@@ -444,7 +495,13 @@ Norwegian characters are supported.
 
 <<preliminary commands>>=
 
+
+
 \newcommand{\nrtitlepagetop}{%
+\mbox{}
+
+\vspace{-20mm}
+
 \noindent
  \ifthenelse{\boolean{language_selected}}%
 {\ifthenelse{\boolean{english_selected}}%
@@ -466,6 +523,7 @@ Norwegian characters are supported.
 \clearemptydoublepage
 \thispagestyle{empty} 
 
+
 \nrtitlepagetop
 
 \vspace{1.0em}
@@ -475,8 +533,6 @@ Norwegian characters are supported.
 \textbf{\titlename:} 
 \begin{minipage}[t]{80mm}\raggedright
 \@title 
-petrblah blah blah blah blah blah blah blah blah blah blah blah blah blah
-blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 \end{minipage}
 
 \vspace{1em}
@@ -494,24 +550,38 @@ blah blah blah blah blah blah blah blah blah blah blah blah blah blah
 {\notename} \numbername:} \printreportnumber 
 \end{minipage}
 
-\titlepage
+\vspace{3em}
 
 
-\clearpage
 }
 
 @ %
 
 
 <<main code>>=
+
+\renewenvironment{abstract}%
+{\noindent\textbf{\abstractname:}}%
+{\vfill
+\noindent\textbf{\keywordsname:} \printkeywords \vspace{1em}\par
+\noindent\textbf{\projectname:} \printproject \vspace{1em}\par
+\noindent\textbf{\projectnumbername} \printprojectnumber \vspace{1em}\par
+
+
+\noindent\textbf{\numberofpagesname:} \pageref{LastPage} 
+\clearemptydoublepage}
+
 \renewcommand{\maketitle}[1]{%
+	\ifthenelse{\boolean{screen}}{ 
 	\hypersetup{pdftitle={\@title},
-		    pdfauthor={Norwegian Computing Center}}%
+		    pdfauthor={Norwegian Computing Center}}}{}
 	\nrfrontpage		
 	
 	\nrtitlepage
     
 }
+
+\AtEndDocument{\label{LastPage}}
 @ %
 
 
