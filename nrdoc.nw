@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.57 2004-03-02 08:28:33 soleng Exp $
+% $Id: nrdoc.nw,v 1.58 2004-03-05 09:24:58 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -1152,7 +1152,6 @@ A work-around is to reload these packages using usepackage.
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
 <<version number>>
-\ProvidesClass{nrdoc}[2004/01/31 v1.0.2 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
