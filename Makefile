@@ -1,11 +1,15 @@
-# $Id: Makefile,v 1.21 2003-10-15 08:14:38 soleng Exp $
+# $Id: Makefile,v 1.22 2003-10-16 13:24:13 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
 PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
+
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
 VERSION = 0.1.0
+RPMDIR	= rpm
+RPM_BUILD_ROOT = $(RPMDIR)
+SRCDIR  = $(RPMDIR)/SOURCES
 TMPDIR  = nrtex-$(VERSION)
 
 .SUFFIXES: .nw .tex .dvi .pdf
@@ -81,14 +85,14 @@ clean:
 	*.idx *.lof *.ilg
 
 tgz:  	src manual
-	if [ ! -d $(TMPDIR) ];   		\
-		then mkdir -p $(TMPDIR); 	\
+	if [ ! -d $(SRCDIR)/$(TMPDIR) ];   		\
+		then mkdir -p $(SRCDIR)/$(TMPDIR); 	\
 	fi;					\
-	cp logos/*.pdf logos/*.eps ${MAIN}.cls nrtex.spec $(MANUAL).pdf  \
-	$(TMPDIR)/
-	tar cvf  $(TMPDIR).tar $(TMPDIR)/*
-	gzip -f $(TMPDIR).tar
-	rm -rf $(TMPDIR)
+	cp logos/*.pdf logos/*.eps ${MAIN}.cls  $(MANUAL).pdf  \
+	$(SRCDIR)/$(TMPDIR)/
+	cp $(RPMDIR)/SPECS/nrtex.spec $(SRCDIR)/$(TMPDIR)/
+	cd $(SRCDIR); tar cvfz  $(TMPDIR).tar.gz $(TMPDIR)/*
+	rm -rf $(SRCDIR)/$(TMPDIR)
 
 rpm:	tgz
-	rpmbuild -v -tb $(TMPDIR).tar.gz
+	rpmbuild -v -tb $(SRCDIR)/$(TMPDIR).tar.gz
