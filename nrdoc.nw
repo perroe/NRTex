@@ -1,11 +1,9 @@
-% $Id: nrdoc.nw,v 1.27 2003-09-30 19:10:31 soleng Exp $
+% $Id: nrdoc.nw,v 1.28 2003-10-01 10:08:35 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
 \usepackage{myweb}
 
-
-%\usepackage{layout} 
 % ------------------------------------------------- 
 % BEGIN nrdoc special commands 
 \ifx\nrdocument\undefined\relax\else 
@@ -41,7 +39,6 @@ document class is to provide a unified style for NR notes and
 reports confomring with standard typographical practice in 
 Norwegian and English. 
 \end{abstract} 
-
 
 \tableofcontents
 
@@ -107,10 +104,7 @@ commands of the \LaTeX\ standard report class.
 
 \usepackage{ifthen}		% for logic in class file
 \usepackage{calc}		% for math in class file
-
-\newboolean{longreport}        
-
-
+    
 \newcommand{\notename}{Note} 
 \newcommand{\reportname}{Report} 
 \newcommand{\publicationnumbername}{Publication no.} 
@@ -128,7 +122,6 @@ commands of the \LaTeX\ standard report class.
 \newcommand{\numberofpagesname}{No.\ of pages}
 \newcommand{\openavailable}{Open} 
 \newcommand{\closedavailable}{Closed}
-
 \newcommand{\nrdocument}{NR Document}
 
 \renewcommand{\and}{\linebreak}
@@ -163,8 +156,6 @@ and marks lines with overfull horizontal boxes.
 \PassOptionsToClass{draft}{report}%
 \PassOptionsToClass{draft}{article}%
 }
-
-
 @ %
 
 \subsection{Document type options}
@@ -178,6 +169,7 @@ the \texttt{note} and the \texttt{report}.
 \newboolean{screen}        
 \newboolean{closedavailability} 
 \newboolean{bluelines} 
+\newboolean{longreport}    
 @ %
 <<options>>=
 \DeclareOption{long}{\setboolean{longreport}{true}}
@@ -471,7 +463,6 @@ Norwegian characters are supported in input.
 \typeout{NRdoc warning: Reserach field not defined}}
 \newcommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
 
-
 \newboolean{frontpagefiguredefined}
 \newcommand{\frontpagefigurefile}{}
 \newcommand{\frontpagefigure}[1]{%
@@ -578,7 +569,6 @@ Norwegian characters are supported in input.
 \end{minipage}}\par%
 } 
 
-
 \newcommand{\nrfrontpage}{%
 \ifthenelse{\boolean{draftversion}}{}{% else final version
 \thispagestyle{empty}%
@@ -653,8 +643,6 @@ Norwegian characters are supported in input.
 
 
 <<main code>>=
-
-
 \ifthenelse{\boolean{longreport}}%
 {% \mainmatter is already defined
 }%
@@ -706,7 +694,6 @@ Norwegian characters are supported in input.
 \clearemptydoublepage}
 
 \renewcommand{\maketitle}[1]{%
-
 	\hypersetup{pdftitle={\printtitle},		    
 		    pdfauthor={Norwegian Computing Center}}
 	
@@ -765,7 +752,6 @@ Norwegian characters are supported in input.
     }
   }
 
-
 \pagestyle{fancy}
 
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
@@ -784,7 +770,6 @@ Norwegian characters are supported in input.
             \bibliographystyle{plainnat}
 }
  
-
 \ifthenelse{\boolean{longreport}}{%
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
@@ -856,19 +841,13 @@ Norwegian characters are supported in input.
        {\@latex@warning{Empty `thebibliography' environment}}% '
       \endlist} 
 
-
 \def\lastpage@putlabel{\addtocounter{page}{-1}%
    \immediate\write\@auxout{\string
    \newlabel{LastPage}{{}{\thepage}{\relax}{}{}}}%
    \addtocounter{page}{1}}
-
 } 
 
-
-
-\AtBeginDocument{\label{OK}} 
-
-
+\AtBeginDocument{} 
 
 \AtEndDocument{%
    \printindex%
@@ -883,4 +862,3 @@ Norwegian characters are supported in input.
 
 \end{document}
 
-%

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.15 2003-09-30 19:30:36 soleng Exp $
+# $Id: Makefile,v 1.16 2003-10-01 10:08:35 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -57,6 +57,10 @@ printmanual: src
 	do latex '\scrollmode \input '"$(PRINT)"; \
 	done; \
 	dvipdfm -p a4 -o   $(PRINT).pdf $(PRINT).dvi
+
+
+html:	src
+	latex2html -dir manual.web manual
 
 install: src pdf manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
