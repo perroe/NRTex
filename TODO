@@ -3,7 +3,8 @@
 
 Task					Fixed		Releases
 
-
+bug when longreport is and language 
+is not specified
 automatic update of html                1.0.3		2004.02.13
 list of examples and tables 
 improved handling in long style
