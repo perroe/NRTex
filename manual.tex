@@ -3,6 +3,7 @@
 
 \documentclass[note,screen,twoside,british,12pt]{nrdoc}
 
+\usepackage{verbatim}
 % -------------------------------------------------
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
@@ -23,7 +24,8 @@
 \begin{document}
 
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
-\author{Harald Soleng\and Anders Løland}
+\author{Harald Soleng \email{harald.soleng@nr.no} \and 
+         Anders Løland \email{anders.loland@nr.no}}
 \date{\today}
 \maketitle
 
@@ -143,10 +145,15 @@ author(s) and abstract:
 \makeindex
 \begin{document}
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
-\author{Harald Soleng\and Anders Løland}
+\author{Harald Soleng \email{harald.soleng@nr.no} \and 
+	Anders Løland \email{anders.loland@nr.no}}
 \date{\today}
-\maketitle
 
+\maketitle
+\end{verbatim}
+Separate each author with the \verb+\and+\index{and@\verb+\and+}
+command. The email\index{email@\verb+\email+} address is optional.
+\begin{verbatim}
 \begin{abstract}
 The abstract is obligatory!
 \end{abstract}

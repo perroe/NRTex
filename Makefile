@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.18 2003-10-01 14:05:21 soleng Exp $
+# $Id: Makefile,v 1.19 2003-10-02 10:33:47 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -61,7 +61,7 @@ printmanual: src
 
 
 html:	src
-	latex2html -dir manual.web -local_icons manual
+	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
 install: src pdf html manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
