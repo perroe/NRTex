@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.54 2004-02-13 12:02:55 soleng Exp $
+% $Id: nrdoc.nw,v 1.55 2004-02-23 09:55:42 anderslo Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -509,11 +509,11 @@ The usual options for font size 10pt, 11pt, and
 12pt font size are supported.
 <<options>>=
 \DeclareOption{10pt}{%
-\PassOptionsToClass{10pt}{report}\PassOptionsToClass{10pt}{article}}
+\PassOptionsToClass{10pt}{book}\PassOptionsToClass{10pt}{article}}
 \DeclareOption{11pt}{%
-\PassOptionsToClass{11pt}{report}\PassOptionsToClass{11pt}{article}}
+\PassOptionsToClass{11pt}{book}\PassOptionsToClass{11pt}{article}}
 \DeclareOption{12pt}{%
-\PassOptionsToClass{12pt}{report}\PassOptionsToClass{12pt}{article}}
+\PassOptionsToClass{12pt}{book}\PassOptionsToClass{12pt}{article}}
 
 @ %
 Font size 11pt is default.
