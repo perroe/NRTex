@@ -58,18 +58,21 @@ The \texttt{nrdoc} class can be used both by \LaTeX\ \index{latex@\LaTeX}
 given here: If this is an electronic report, Equations \eqref{eq:ey}
 can be found by clicking the equation number. The option
 \textit{screen} gives the lines on the front page and hyperlinks, so
-this option should not be used for a paper report. 
+this option should not be used for a paper report. However, if you
+want to print the report and want the lines and the NR logo on the
+front page, but not the hyperlinks, use the option
+\texttt{nolinks}\index{nolinks} together with the \texttt{screen} option.
 By default the page layout is two-sided\footnote{On older \LaTeX\
 installations, the default is one-sided. If you want to be sure to 
-get two-sided output, specify
-the additional option \textit{twoside}\index{option!twoside} 
-in the \texttt{documentclass}  command.}
+get two-sided output, specify the additional option
+\textit{twoside}\index{option!twoside} in the \texttt{documentclass}
+command.} 
 
 \subsection{Note and report}
 The default option \textit{note}\index{option!note} gives a NR
 note. The option  \textit{report}\index{option!report} gives a NR
-report. For a NR report, these additional variables must be
-specified:
+report. For a NR report, additional variables described in Section
+\ref{sec:fronttitle} must be specified.
 
 
 
@@ -83,7 +86,7 @@ By default the highest level is section\index{section}.
 The option \textit{closed}
 \index{option!closed} gives a closed report. 
 
-\section{Front and title page}
+\section{Front and title page\label{sec:fronttitle}}
 
 For the title page to work, the abstract\index{abstract} (summary) must be
 present. The title is set by \verb!\title!. \index{title}
@@ -136,8 +139,8 @@ At the beginning of the document, we specify the title,
 author(s) and abstract:
 \begin{verbatim}
 \begin{document}
-\title{}
-\author{}
+\title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
+\author{Harald Soleng\and Anders Løland}
 \date{\today}
 \maketitle
 
@@ -145,8 +148,8 @@ author(s) and abstract:
 The abstract is obligatory!
 \end{abstract}
 
-\tableofcontents 	% optional
-\mainmatter 		% required
+\tableofcontents        % optional
+\mainmatter             % required
 
 \end{verbatim}
 Note that a \verb+\mainmatter+\index{mainmatter@\verb+\mainmatter+}
@@ -262,13 +265,13 @@ only the author &
 \verb!\citeauthor{mardia79}! \\
 \hline
 \end{tabular}
-\caption{Examples of citations using \textsc{Bib}\TeX{}.}
+\caption{Examples of citations using {Bib}\TeX{}.}
 \label{tab:cite} 
 \end{table}
-The citations are listed in a  \textsc{Bib}\TeX{} file with the extencions
+
+The citations are listed in a {Bib}\TeX{} file with the extension
 \texttt{.bib}. An example (\texttt{ref.bib}) is given in Appendix
-\ref{sec:ref.bib}. Use the \texttt{bibtex} command to run   
-\textsc{Bib}\TeX{}.
+\ref{sec:ref.bib}. Use the \texttt{bibtex} command to run {Bib}\TeX{}.
 
 
 \section{Languages}
@@ -276,13 +279,13 @@ The citations are listed in a  \textsc{Bib}\TeX{} file with the extencions
 The following options are available for 
 different language\index{language} support:
 \begin{description}
-\item[\textit{american}] us english (default)\index{option!american} 
-\item[\textit{british}] uk english \index{option!british} 
-\item[\textit{english}] uk english \index{option!english} 
-\item[\textit{norsk}] bokm\aa l.\index{option!norsk} 
-\item[\textit{nynorsk}] nynorsk.\index{option!nynorsk} 
-\item[\textit{UKenglish}] uk english \index{option!UKenglish}
-\item[\textit{USenglish}] uk english \index{option!USenglish} 
+\item[\textit{american}] US english (default).\index{option!american} 
+\item[\textit{british}] UK english. \index{option!british} 
+\item[\textit{english}] US english. \index{option!english} 
+\item[\textit{norsk}] Bokm\aa l.\index{option!norsk} 
+\item[\textit{nynorsk}] Nynorsk.\index{option!nynorsk} 
+\item[\textit{UKenglish}] UK english. \index{option!UKenglish}
+\item[\textit{USenglish}] US english. \index{option!USenglish} 
 \end{description}
 
 \section{The draft option}\index{option!draft}
@@ -295,7 +298,7 @@ generation and adds marks on oversized lines.
 There is support for making indexes with makeindex.
 Add the command \verb!\makeindex! in the preamble, and
 run \texttt{makeindex} on the main tex file. This generates
-an index file. It is called at \verb!\end{document}!.
+an index file.
 
 
 \section{Default packages}
