@@ -1,4 +1,4 @@
-\documentclass[dvipdfm, english]{nrdoc}
+\documentclass[english]{nrdoc}
 \reportnumber{Sand/02/XX}
 \usepackage{noweb}
 
@@ -7,7 +7,7 @@
 
 
 \begin{document}
-%\layout
+
 \frontpagefigure{\scalebox{7}{NR-\LaTeX}}
 \title{NRdoc: a \LaTeX\ class for NR documents}
 \author{Harald H. Soleng}
@@ -36,6 +36,8 @@ pdf version with hyperlinks.
 <<helping variables>>
 <<options>>
 <<loading packages>>
+<<use packages>>
+<<preliminary commands>>
 <<main code>>
 @ %
 
@@ -166,7 +168,7 @@ The default font of \texttt{nrdoc} is computer modern.
 For those who want to use times-roman fonts, we offer the times
 option. 
 <<helping variables>>=
-\newboolean{timesromand}
+\newboolean{timesroman}
 \setboolean{timesroman}{false}
 @ %
 <<options>>=
@@ -210,6 +212,7 @@ Norwegian characters are supported.
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
 \RequirePackage{ae}             % for new texttt
+
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -218,7 +221,15 @@ Norwegian characters are supported.
 \RequirePackage{graphicx}	% for graphics inclusion
 @ %
 
+\subsection{Using a4 paper}
+<<use packages>>=
+\usepackage{a4wide}		% a4 paper size
+@ %
 
+\subsection{Hypertext tools}
+<<use packages>>=
+\usepackage{hyperref}		% hypertex tools
+@ 
 
 \subsection{Language support}
 <<loading packages>>=
@@ -237,26 +248,40 @@ Norwegian characters are supported.
 
 \section{Front page}
 
-<<main code>>=
+<<preliminary commands>>=
 \newcommand{\printreportnumber}{%
 \typeout{Report number not set}No number}
 \newcommand{\reportnumber}[1]{%
 \renewcommand{\printreportnumber}{#1}}
 
-
+\renewcommand{\maketitle}[1]{%
+	\hypersetup{pdftitle={\@title},
+		    pdfauthor={\@author}}%
+	\thispagestyle{empty}		
+	
+}
 \setboolean{frontpagefiguredefined}{false}
 \newcommand{\frontpagefigurefile}{}
 \newcommand{\frontpagefigure}[1]{%
  \renewcommand{\frontpagefigurefile}{#1}%
  \setboolean{frontpagefiguredefined}{true}}
+<<main code>>=
 
-\usepackage{a4wide}
+
+
+@ %
+
+<<umain code>>=
+
+
+
+
+
+
 								       
 @ %
-<<main code>>=
-\ifthenelse{\boolean{dvipdfm}}{
-   \usepackage[dvipdfm]{hyperref}}{
-   \usepackage{hyperref}}      
+<<umain code>>=
+   
 \def\@maketitle{%
  \hypersetup{pdftitle={\@title},
 	     pdfauthor={\@author}}%
@@ -336,8 +361,8 @@ should have the following layout:
 	Doffen Duck}
 
 % Optional front page figure
-\frontpagefigure{%
-\includegraphics[width=100mm]{epsfigure_file}}
+%\frontpagefigure{%
+%\includegraphics[width=100mm]{epsfigure_file}}
 
 \maketitle
 
@@ -354,7 +379,7 @@ Dette arbeidet var sponset av Skrue McDuck.
 \end{verbatim}
 
 
-\appendix
+
 
 \section{Auxillary variables}
 
@@ -364,8 +389,7 @@ Dette arbeidet var sponset av Skrue McDuck.
 
 
 \newboolean{frontpagefiguredefined}
-\newboolean{dvipdfm}
-\newboolean{screen}
+
 @ %
 
 \end{document}
