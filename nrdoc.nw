@@ -1,6 +1,6 @@
 
 
-\documentclass[british]{nrdoc}
+\documentclass[british,screen]{nrdoc}
 
 
 \usepackage{myweb}
@@ -50,8 +50,6 @@ Norwegian and English.
 
 
 \tableofcontents
-
-\listoffigures
 
 \mainmatter
 
@@ -385,7 +383,7 @@ Norwegian characters are supported in input.
   \usepackage[dvipdfm,colorlinks=true,plainpages=false,backref=page]{hyperref}
 \fi
   }{%
-\usepackage[colorlinks=false,plainpages=false]{hyperref}}
+\usepackage[draft=true]{hyperref}}
 	
 @ 
 
@@ -505,21 +503,22 @@ Norwegian characters are supported in input.
 
 \newcommand{\nrlogobar}{%
 \raisebox{\nrhorizontalbarstartpos + 5mm}
-[0pt][0pt]{\hspace{-5mm} %
+[0pt][0pt]{\hspace{-5mm}%
+\ifthenelse{\not\boolean{screen}}{}{%
 \ifthenelse{\boolean{language_selected}}{%
 \ifthenelse{\boolean{english_selected}}{%
 \includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}}{%
 \includegraphics[height=15mm]{/nr/group/sand/logo/logonor}}
 }{% 
 \includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}
-}
-}%
+}}}%
 \hfill%
 \raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
+\ifthenelse{\not\boolean{screen}}{}{%
 \scalebox{1}[1.1]{%
 \textbf{\Huge{\ifthenelse{\boolean{report}}{\MakeUppercase{\reportname}}{%
  \MakeUppercase{\notename}}}}}}\makebox[0mm]{}
-}
+}}
 
 \newcommand{\nrhorizontalbar}{%
 \nrwhitebar%
@@ -676,18 +675,18 @@ Norwegian characters are supported in input.
  	{ Norsk Regnesentral\\[\abstractlinesep]
 	  Gaustadall{\'e}en 23, Postboks 114 Blindern, 
 	  0314 Oslo, Norway\\[\abstractlinesep]
-	  Telefon: 22 85 25 00, telefaks: 22 69 76 60, \texttt{www.nr.no}
+	  Telefon: 22 85 25 00, telefaks: 22 69 76 60, \url{www.nr.no}
  	}
    	{ Norwegian Computing Center\\[\abstractlinesep]
 	  Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
 	  NO-0314 Oslo, Norway\\[\abstractlinesep]
-	  Telephone: +47 2285 2500, telefax: +47 2269 7660, \texttt{www.nr.no}
+	  Telephone: +47 2285 2500, telefax: +47 2269 7660, \url{www.nr.no}
    	}
   }
   { Norwegian Computing Center\\[\abstractlinesep]
     Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
     NO-0314 Oslo, Norway\\[\abstractlinesep]
-    Telephone: +47 2285 2500, telefax: +47 2269 7660, \texttt{www.nr.no}
+    Telephone: +47 2285 2500, telefax: +47 2269 7660, \url{www.nr.no}
   }\par\noindent		
   Copyright \copyright\ \printyear\ 
   by Norwegian Computing Center, Oslo, Norway\\ 
@@ -803,9 +802,52 @@ Norwegian characters are supported in input.
                {\end{multicols}}
   }
 
-
-\AtBeginDocument{%
+\ifthenelse{\boolean{longreport}}{%
+\renewenvironment{thebibliography}[1]
+     {\chapter*{\refname
+        \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}% 
+       \addcontentsline{toc}{chapter}{\refname}
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+}{%
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname
+        \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}% 
+      \addcontentsline{toc}{section}{\refname}
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
 }
+
+
+\AtBeginDocument{}
 
 \AtEndDocument{\printindex\label{LastPage}}
 
