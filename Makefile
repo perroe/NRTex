@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.22 2003-10-16 13:24:13 soleng Exp $
+# $Id: Makefile,v 1.23 2003-10-20 06:40:40 jornv Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -7,10 +7,12 @@ INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
 VERSION = 0.1.0
-RPMDIR	= rpm
-RPM_BUILD_ROOT = $(RPMDIR)
-SRCDIR  = $(RPMDIR)/SOURCES
-TMPDIR  = nrtex-$(VERSION)
+TGZNAME=nrtex-${VERSION}
+RPMFLAGS =   --define "_sourcedir $$PWD" \
+             --define "_builddir $$PWD/BUILD" \
+             --define "_rpmdir $$PWD" \
+             --define "_srcrpmdir $$PWD"
+
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
@@ -84,15 +86,13 @@ clean:
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
 	*.idx *.lof *.ilg
 
-tgz:  	src manual
-	if [ ! -d $(SRCDIR)/$(TMPDIR) ];   		\
-		then mkdir -p $(SRCDIR)/$(TMPDIR); 	\
-	fi;					\
-	cp logos/*.pdf logos/*.eps ${MAIN}.cls  $(MANUAL).pdf  \
-	$(SRCDIR)/$(TMPDIR)/
-	cp $(RPMDIR)/SPECS/nrtex.spec $(SRCDIR)/$(TMPDIR)/
-	cd $(SRCDIR); tar cvfz  $(TMPDIR).tar.gz $(TMPDIR)/*
-	rm -rf $(SRCDIR)/$(TMPDIR)
+tgz:	src
+	mkdir -p ${TGZNAME}
+	cp logos/*.pdf logos/*.eps ${MAIN}.cls \
+	${TGZNAME}
+	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
 rpm:	tgz
-	rpmbuild -v -tb $(SRCDIR)/$(TMPDIR).tar.gz
+	mkdir -p BUILD
+	rm -f BUILD/*
+	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec

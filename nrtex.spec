@@ -1,6 +1,6 @@
-# $Id: nrtex.spec,v 1.4 2003-10-17 07:43:51 soleng Exp $
+# $Id: nrtex.spec,v 1.5 2003-10-20 06:40:41 jornv Exp $
 
-_topdir: $HOME/nrtex/rpm
+# %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
 Version: 0.1.0
@@ -27,7 +27,7 @@ be able to produce NR reports or notes using latex.
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/ 
 mkdir -p -m755  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
-install -m644 manual.pdf  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
+#install -m644 manual.pdf  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 install -m644 *.eps *.pdf  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
 install -m644 nrdoc.cls  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/
 
@@ -42,7 +42,7 @@ rm -rf %{buildroot}
 %defattr(-, root, root)
 /usr/share/texmf/tex/latex/nrdoc/nrdoc.cls
 /usr/share/texmf/tex/latex/nrdoc/logos/*
-/usr/share/texmf/doc/latex/nrdoc/manual.pdf
+#/usr/share/texmf/doc/latex/nrdoc/manual.pdf
 
 %changelog
 * Wed Oct 15 2003 Harald H. Soleng <harald.soleng@nr.no>
