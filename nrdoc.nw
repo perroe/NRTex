@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.36 2003-10-05 19:05:32 soleng Exp $
+% $Id: nrdoc.nw,v 1.37 2003-10-16 12:55:43 anderslo Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -374,7 +374,7 @@ Norwegian characters are supported in input.
 
 \subsection{Utilities}
 <<loading packages>>=
-\RequirePackage{fancyheadings}	% for headers
+\RequirePackage{fancyhdr}	% for headers
 \RequirePackage{rotating}       % for text rotation
 \RequirePackage{makeidx}        % for index
 \RequirePackage{multicol}       % for multiple columns
@@ -763,8 +763,7 @@ Norwegian characters are supported in input.
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
               {\MakeUppercase\listfigurename}}% 
-   
-      \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+         \addtocontents{toc}{\protect\hypertarget{toc}{}%	
         \protect\pdfbookmark[1]{\listfigurename}{toc}} 
     \@starttoc{lof}% 
     \clearemptydoublepage
@@ -779,7 +778,17 @@ Norwegian characters are supported in input.
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
+% Fancy heading for first chapter page also
+\fancypagestyle{plain}{%
+\cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
+\rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
+{\fancyplain{\bf\thepage}{\bf\thepage}}
+\lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
+{\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
+}
+
 \renewcommand{\sectionmark}[1]{\markboth{}{}}
+
 
 \ifthenelse{\boolean{citenumeric}}{%
             \bibliographystyle{unsrtnat}
