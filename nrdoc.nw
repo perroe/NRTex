@@ -11,7 +11,7 @@
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
 
-\reportnumber{Sand/XX/03}
+\reportnumber{Sand/02/03}
 \keywords{\LaTeX\ class, source code documentation}
 \project{NR mal for \LaTeX}
 \projectnumber{}
