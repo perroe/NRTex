@@ -38,7 +38,6 @@
 \newboolean{draftversion}
 \newboolean{report}
 \newboolean{screen}
-\setboolean{screen}{false}
 \newboolean{closedavailability}
 \newboolean{indentpar}
 
@@ -48,6 +47,7 @@
 \newboolean{english_selected}
 \newboolean{citenumeric}
 \newboolean{hidden}
+\newboolean{dvips}
 
 
 \newcounter{numberofauthors}
@@ -176,6 +176,8 @@
 \DeclareOption{report}{\setboolean{report}{true}}
 
 
+\DeclareOption{dvips}{\setboolean{dvips}{true}}
+
 \DeclareOption{screen}{\setboolean{screen}{true}%
   \PassOptionsToClass{oneside}{book}%
   \PassOptionsToClass{oneside}{article}
@@ -302,7 +304,8 @@ the documentclass command!\MessageBreak}}{}
 
 \RequirePackage{afterpage}      % for float control
 \RequirePackage{color}          % for colour
-\RequirePackage{graphicx}       % for graphics inclusion
+\RequirePackage{graphicx}
+      
 \ifthenelse{\boolean{language_selected}}{%
   \RequirePackage{babel}
 }{}
@@ -351,9 +354,14 @@ the documentclass command!\MessageBreak}}{}
                   plainpages=false,citecolor=nrblue,%
                   backref=page]{hyperref}
 \else
+  \ifthenelse{\boolean{dvips}}{
+  \RequirePackage[dvips,colorlinks=true,pdfpagelabels,
+                  plainpages=false,citecolor=nrblue,%
+                  backref=page]{hyperref}}{%
   \RequirePackage[dvipdfm,colorlinks=true,pdfpagelabels,
                   plainpages=false,citecolor=nrblue,%
                   backref=page]{hyperref}
+  }
 \fi
   }{%
 % Set all hypertex links black %
@@ -361,10 +369,15 @@ the documentclass command!\MessageBreak}}{}
   \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,plainpages=false,%
                   linkcolor=black,citecolor=black,%
                   pagecolor=black,urlcolor=black]{hyperref}
-\else
+\else 
+  \ifthenelse{\boolean{dvips}}{
+  \RequirePackage[dvips,colorlinks=true,pdfpagelabels,plainpages=false,%
+                  linkcolor=black,citecolor=black,%
+                  pagecolor=black,urlcolor=black]{hyperref}}{%
   \RequirePackage[dvipdfm,colorlinks=true,pdfpagelabels,plainpages=false,%
                   linkcolor=black,citecolor=black,%
                   pagecolor=black,urlcolor=black]{hyperref}
+  }
 \fi
 }
 
