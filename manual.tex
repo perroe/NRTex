@@ -11,9 +11,6 @@
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
 \researchfield{}
-
-%\nrtitle{User manual for nrdoc: a \LaTeX\ class for notes and reports}
-%\shorttitle{User manual for nrdoc}
 \fi
 % END nrdoc special commands
 % ------------------------------------------------
@@ -50,9 +47,9 @@ given.
 
 \section{Two ways to use the nrdoc class}
 
-The \texttt{nrdoc} class can be used both by \LaTeX\ \index{\LaTeX} 
+The \texttt{nrdoc} class can be used both by \LaTeX\ \index{latex@\LaTeX} 
 \citep{latex}
-(using the \texttt{latex} command) and pdf\LaTeX\ \index{pdf\LaTeX}
+(using the \texttt{latex} command) and pdf\LaTeX\ \index{pdflatex@pdf\LaTeX}
 (using the \texttt{pdflatex} command). Using the option
 \textit{screen} \index{screen}\index{option!screen} together with
 \texttt{pdflatex} or \texttt{latex} and
@@ -78,12 +75,12 @@ gives access to part\index{part} and chapter\index{chapter} commands.
 By default the highest level is section\index{section}.
 
 \subsection{Closed}
-The option \textit{closedavailability}
-\index{option!closedavailability} gives a closed report. 
+The option \textit{closed}
+\index{option!closed} gives a closed report. 
 
 \section{Front and title page}
 
-For the title page to work, the abstract (summary) must be
+For the title page to work, the abstract\index{abstract} (summary) must be
 present. The title is set by \verb!\title!. \index{title}
 \verb!\nrtitle! \index{nrtitle} can be used to specify the title in
 the title page (this is convenient if the title on the front page
@@ -92,30 +89,73 @@ specifies the text in the heading of each page. If \verb!\shorttitle!
 \index{shorttitle} is not specified, the text in the heading will be
 taken from \verb!\title!. 
 
-The date is taken from \verb!\date!.
+The date\index{date} is taken from \verb!\date!.
 
-For reports, you need to supply the isbn number. 
+The note or publication number is given by
+\verb+\reportnumber+\index{reportnumber@\verb+\reportnumber+}.
+The keywords of the document are given by
+\verb+\keywords+\index{keywords@\verb+\keywords+}.
+The project number is given by 
+\verb+\project+\index{project@\verb+\project+}, and the target group by
+\verb+\target+\index{target@\verb+\target+}.
+The research field is specified using
+\verb+\researchfield+\index{researchfield@\verb+\researchfield+}.
+
+For reports, you also need to supply the isbn\index{isbn number} number. 
 The isbn number consists
 of a country code, a publisher code, 
 a publication number and a control digit.
-You can either use \texttt{isbn} to supply 
-the full number or \texttt{shortisbn} 
+You can either use \texttt{isbn}\index{isbn@\verb+\isbn+} to supply 
+the full number or 
+\texttt{shortisbn}\index{shortisbn@\verb+\shortisbn+}
 to supply just the last five digits:
 \begin{verbatim}
 \isbn{82-539-0481-9}
 \shortisbn{0481-9}
 \end{verbatim}
 
+A typical preamble\index{preamble} then looks as follows:
+\begin{verbatim}
 
+\documentclass[note,screen,british,12pt]{nrdoc}
+\reportnumber{sand/03/03}
+\keywords{\LaTeX, NR}
+\project{}
+\frontpagefigure{figs/texfriendly} % No file extension.
+\target{All employees}
+\researchfield{}
+
+\makeindex
+\end{verbatim}
+At the beginning of the document, we specify the title,
+author(s) and abstract:
+\begin{verbatim}
+\begin{document}
+\title{}
+\author{}
+\date{\today}
+\maketitle
+
+\begin{abstract}
+The abstract is obligatory!
+\end{abstract}
+
+\tableofcontents 	% optional
+\mainmatter 		% required
+
+\end{verbatim}
+Note that a \verb+\mainmatter+\index{mainmatter@\verb+{\mainmatter}+}
+command is required before the first section or chapter.
 
 \section{Including a figure}
 
-On the front page, a figure\index{figure} can be included with
+On the front page, a figure\index{cover figure} can be included with
 \texttt{frontpagefigure}. Just give the full path to the figure file,
 without the file extension. The figure is automatically scaled to fit
 the front page. 
 
-Other figures are included by \texttt{includegraphics}. An example is
+Other figures\index{graphics}\index{illustration} \index{figure}
+are included by \texttt{includegraphics}. An example is
 given here (and in Figure \ref{fig:logo}):
 \begin{verbatim}
 \begin{figure}[ht]
@@ -175,7 +215,8 @@ packages so that the full power of these extensions are available.
 \section{Citation using {Bib}\TeX}
  
 Citations\index{cite}
-are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and 
+are handled by {Bib}\TeX\ 
+\index{bibtex@BiB\TeX}\index{cite!BiB\TeX@bibtex} and 
 \texttt{natbib} \citep{natbib:7.1}. By default 
 an author--year citation 
 scheme\footnote{A simpler numerical\index{cite!numeric
@@ -219,9 +260,10 @@ only the author &
 \caption{Examples of citations using \textsc{Bib}\TeX{}.}
 \label{tab:cite} 
 \end{table}
-The citations are listed in a {Bib}\TeX{} file with the extencions
+The citations are listed in a  \textsc{Bib}\TeX{} file with the extencions
 \texttt{.bib}. An example (\texttt{ref.bib}) is given in Appendix
-\ref{sec:ref.bib}. Use the \texttt{bibtex} command to run  {Bib}\TeX{}.
+\ref{sec:ref.bib}. Use the \texttt{bibtex} command to run   
+\textsc{Bib}\TeX{}.
 
 
 \section{Languages}
@@ -262,11 +304,11 @@ The following packages are loaded by default:
 \item[\textit{fancyheadings}] For
   headers. \index{package!fancyheadings} 
 \item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
+Also contains a useful \texttt{comment} environment.
 \item[\textit{xspace}] For space control. \index{package!xspace}
 \item[\textit{rotating}] For text rotation. \index{package!rotating} 
 \item[\textit{makeidx}] For index. \index{package!makeidx}
-\item[\textit{multicol}] For multiple
-  columns. \index{package!multicol} 
+\item[\textit{multicol}] For multiple columns. \index{package!multicol} 
 \item[\textit{color}] For colour. \index{package!color}
 \item[\textit{graphicx}] for graphics
   inclusion. \index{package!graphicx} 
@@ -284,11 +326,12 @@ consult the book by \cite{latexcompanion}.
 
 \section{Setting up Unix variables}
 For the system to find the \texttt{nrdoc} class, the variable
-\texttt{TEXINPUTS} needs to be set. If you use \texttt{tcsh} (that is
+\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} needs to be set. 
+If you use \texttt{tcsh} (that is
 you have a \texttt{.cshrc} file), the  \texttt{.cshrc} file should
 include this line:
 \begin{verbatim}
-setenv TEXINPUTS .:/nr/group/maler/latex:
+setenv TEXINPUTS .:/nr/group/maler/nrdoc:
 \end{verbatim}
 
 \section{The \LaTeX{} code for this document\label{sec:code}}
