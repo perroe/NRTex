@@ -1,7 +1,9 @@
-\documentclass[english]{nrdoc}
-%\documentclass{nrdoc}
+%\documentclass[norsk,report,twopage]{nrdoc}
+\documentclass{nrdoc}
 
-\reportnumber{Sand/02/XX}
+\reportnumber{Sand/XX/03}
+\publicationyear{2253 R.E.}
+\date{September}
 \usepackage{noweb}
 
 
@@ -12,8 +14,16 @@
 
 \frontpagefigure{figs/texfriendly}
 \title{NRdoc: a \LaTeX\ class for NR documents}
-\author{Harald H. Soleng}
+\author{Lars L\o vold\and Harald H. Soleng}
+
+
+
 \maketitle
+
+\begin{abstract}
+This document contains and documents the full source
+code of the \texttt{nrdoc} class.
+\end{abstract}
 
 \section{Introduction}
 
@@ -68,9 +78,18 @@ commands of the \LaTeX\ standard report class.
 \usepackage{calc}		% for math
 \newboolean{longreport}
 \setboolean{longreport}{false}
-\newcommand{\notename}{Notat} 
-\newcommand{\reportname}{Rapport} 
+\newcommand{\notename}{Note} 
+\newcommand{\reportname}{Report} 
+\newcommand{\authorname}{Author} 
+\newcommand{\titlename}{Title}
+\newcommand{\datename}{Date}
+\newcommand{\yearname}{Year}
+\newcommand{\numbername}{no.}
 
+\newcommand{\printyear}{\typeout{publicationyear not defined}}
+\newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
+
+\renewcommand{\and}{\linebreak}
 <<options>>=
 \DeclareOption{long}{\setboolean{longreport}{true}}
 @ %
@@ -119,14 +138,12 @@ the \texttt{note} and the \texttt{report}.
 <<helping variables>>=
 \newboolean{draftversion}
 \setboolean{draftversion}{false}
-\newboolean{note}
-\setboolean{note}{false}
 \newboolean{report}
 \setboolean{report}{false}
 
 @ %
 <<options>>=
-\DeclareOption{note}{\setboolean{note}{true}}
+\DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
 @ %
 
@@ -165,10 +182,7 @@ the \texttt{note} and the \texttt{report}.
 			\setboolean{firstindent}{true}
 			\setboolean{language_selected}{true}}
 
-\ifthenelse{\boolean{english_selected}}{%
- \renewcommand{\notename}{Note} 
- \renewcommand{\reportname}{Report} 
-}{}
+
 
 %\DeclareOption{dvipdfm}{\setboolean{dvipdfm}{true}}
 %\DeclareOption{screen}{\setboolean{screen}{true}}
@@ -196,13 +210,48 @@ option.
 \ifthenelse{\boolean{timesroman}}{\RequirePackage{times}}{}
 @ %
 
+
+\subsection{Page layout}
+
+<<options>>=
+\ifthenelse{\boolean{longreport}}%
+{\DeclareOption{twoside}{\PassOptionsToClass{twoside}{report}}%
+ \DeclareOption{oneside}{\PassOptionsToClass{oneside}{report}}%
+}%
+{\DeclareOption{twoside}{\PassOptionsToClass{twoside}{article}}%
+ \DeclareOption{oneside}{\PassOptionsToClass{oneside}{article}}%
+}
+@ %
+
+
+
 \section{Setting defaults}
 
 We execute the following default options.
 <<options>>=
-\ExecuteOptions{11pt,norsk,note}
+\ExecuteOptions{11pt,note,twoside}
 \ProcessOptions*
 
+\ifthenelse{\boolean{norsk_selected}}%
+{%
+ \renewcommand{\notename}{Notat} 
+ \renewcommand{\reportname}{Rapport} 
+ \renewcommand{\authorname}{Forfatter} 
+ \renewcommand{\titlename}{Tittel}
+ \renewcommand{\datename}{Dato}
+ \renewcommand{\yearname}{{\AA}r}
+ \renewcommand{\numbername}{nr.}
+}{}
+\ifthenelse{\boolean{nynorsk_selected}}%
+{%
+ \renewcommand{\notename}{Notat} 
+ \renewcommand{\reportname}{Rapport} 
+ \renewcommand{\authorname}{Forfattar} 
+ \renewcommand{\titlename}{Tittel}
+ \renewcommand{\datename}{Dato}
+ \renewcommand{\yearname}{{\AA}r}
+ \renewcommand{\numbername}{nr.}
+}{}
 @ %
 
 \section{Useful packages}
@@ -227,6 +276,7 @@ Norwegian characters are supported.
 \subsection{Utilities}
 <<loading packages>>=
 \RequirePackage{paralist}	% for list environments
+\RequirePackage{tabularx}	% for automatic column width 
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
 \RequirePackage{ae}             % for new texttt
@@ -310,14 +360,19 @@ Norwegian characters are supported.
 \newcommand{\nrlogobar}{%
 \raisebox{\nrhorizontalbarstartpos + 5mm}
 [0pt][0pt]{\hspace{-5mm} %
+\ifthenelse{\boolean{language_selected}}{%
 \ifthenelse{\boolean{english_selected}}{%
 \includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}}{%
-\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}}}%
+\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}}
+}{% 
+\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}
+}
+}%
 \hfill%
 \raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
 \scalebox{1}[1.1]{%
-\textbf{\Huge{\ifthenelse{\boolean{note}}{\MakeUppercase{\notename}}{%
- \MakeUppercase{\reportname}}}}}}\makebox[0mm]{}
+\textbf{\Huge{\ifthenelse{\boolean{report}}{\MakeUppercase{\reportname}}{%
+ \MakeUppercase{\notename}}}}}}\makebox[0mm]{}
 }
 
 \newcommand{\nrhorizontalbar}{%
@@ -327,117 +382,150 @@ Norwegian characters are supported.
 \nrlogobar%
 }
 
-
 \newcommand{\nrtitlebar}{%
 \raisebox{10mm}[0pt][0pt]{%
-\makebox[40mm]{}
+\makebox[80mm]{}
+\makebox[40mm]{%
 \begin{minipage}[c]{120mm}
 \begin{center}
 \Huge\textbf{\@title}
 \end{center}
-\end{minipage}}\par}
+\end{minipage}}}%
+\par}
 
 \newcommand{\nrfigurebar}{%
 \raisebox{-140mm}[0pt][0pt]{%
-\makebox[40mm]{}
+\makebox[80mm]{}\makebox[40mm]{%
 \begin{minipage}[c]{120mm}
 \begin{center}
 \ifthenelse{\boolean{frontpagefiguredefined}}{%
    \includegraphics[width=120mm]{\frontpagefigurefile}}{} 
 \end{center}
-\end{minipage}}\par}
+\end{minipage}}}%
+\par}
 
 
-\newcommand{\frontpage}{%
+\newcommand{\nrauthorbar}{%
+\raisebox{-200mm}[0pt][0pt]{%
+\hspace{-25mm}%
+\begin{minipage}[b]{45mm}
+\begin{flushright}
+\textbf{\printreportnumber}
+
+\vspace{1em}
+
+\@author
+
+\vspace{2em}
+
+\@date
+\end{flushright}
+\end{minipage}}\par%
+} 
+
+
+\newcommand{\nrfrontpage}{%
 \ifthenelse{\boolean{draftversion}}{}{% else final version
- \thispagestyle{empty}
-\nrtitlebar
-\nrfigurebar
-\color{nrblue}
-\nrverticalbar
-\nrhorizontalbar
-\color{black}
-
-
-
- \clearpage}
+\thispagestyle{empty}%
+\nrtitlebar%
+\nrfigurebar%
+\nrauthorbar%
+\color{nrblue}%
+\nrverticalbar%
+\nrhorizontalbar%
+\color{black}%
+\clearpage}
 }
+
+
+@ %
+
+\section{Title page}
+
+<<preliminary commands>>=
+
+\newcommand{\nrtitlepagetop}{%
+\noindent
+ \ifthenelse{\boolean{language_selected}}%
+{\ifthenelse{\boolean{english_selected}}%
+ {\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}%
+ }%
+ {\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}
+ }%
+}%
+{\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}
+} \hfill\textbf{NR \ifthenelse{\boolean{report}}{\reportname}{\notename} }
+
+\noindent
+\rule{\linewidth}{1pt}
+}
+
+
+\newcommand{\nrtitlepage}{%
+ 
+\clearemptydoublepage
+\thispagestyle{empty} 
+
+\nrtitlepagetop
+
+\vspace{1.0em}
+
+\noindent
+\begin{minipage}[t]{0.7\linewidth}
+\textbf{\titlename:} 
+\begin{minipage}[t]{80mm}\raggedright
+\@title 
+petrblah blah blah blah blah blah blah blah blah blah blah blah blah blah
+blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+\end{minipage}
+
+\vspace{1em}
+
+\noindent
+\textbf{\authorname:} 
+\begin{minipage}[t]{80mm}\raggedright\@author \end{minipage}
+\end{minipage}%
+\begin{minipage}[t]{0.3\linewidth}
+\textbf{\datename:} \@date\\
+\textbf{\yearname:} \printyear \\
+\textbf{%
+\ifthenelse{\boolean{report}}
+{\reporname:}
+{\notename} \numbername:} \printreportnumber 
+\end{minipage}
+
+\titlepage
+
+
+\clearpage
+}
+
+@ %
 
 
 <<main code>>=
 \renewcommand{\maketitle}[1]{%
 	\hypersetup{pdftitle={\@title},
-		    pdfauthor={\@author}}%
-	\frontpage		
+		    pdfauthor={Norwegian Computing Center}}%
+	\nrfrontpage		
 	
-	%\titlepage
+	\nrtitlepage
     
 }
 @ %
 
 
-<<umain code>>=
-   
-\def\@maketitle{%
- \hypersetup{pdftitle={\@title},
-	     pdfauthor={\@author}}%
-  \thispagestyle{empty}
-  \null
-  \vspace{-28mm}
+\section{Auxillary variables}
 
-  \noindent
-  \mbox{}\hspace{40mm}\makebox[108.824mm]{%
-   \begin{minipage}{110mm}\centering
-  {\huge\bfseries \@title \par}%
-  \end{minipage}}
+<<helping variables>>=
+\newcommand{\clearemptydoublepage}{%
+\newpage{\pagestyle{empty}\cleardoublepage}}
 
-  \vfill
-    
-  \noindent
-  \mbox{}\hspace{40mm}\makebox[108.824mm]{%
-  \begin{minipage}{110mm}\centering
-   \ifthenelse{\boolean{frontpagefiguredefined}}{%
-   \frontpagefigurefile}{} 
-  \end{minipage}}
-  \vfill
 
-   \noindent
-     \raisebox{20mm}[0pt][0pt]{%
-  \mbox{}\hspace{-20mm}\begin{minipage}{45mm}\raggedleft
-  \MakeUppercase{\printreportnumber}\\[1em]
- 
-  \begin{tabular}[t]{r@{}}%
-        \large\@author%
-  \end{tabular}%
+\newboolean{frontpagefiguredefined}
 
-  \large\today\\[3em]
- 
-  {\small \copyright\ Norsk Regnesentral}
-  \end{minipage}} 
-  
-  
-  \newpage\thispagestyle{empty}%
-  \mbox{}\newpage\setcounter{page}{1}
-
-  \null
-  \vskip 2em%
-  \begin{center}%
-  \let \footnote \thanks
-    {\LARGE \@title \par}%
-    \vskip 1.5em%
-    {\large
-      \lineskip .5em%
-      \begin{tabular}[t]{c}%
-        \@author
-      \end{tabular}\par}%
-    \vskip 1em%
-    {\large \@date}%
-  \end{center}%
-  \par
-  \vskip 1.5em}
-\ifthenelse{\boolean{screen}}{\hypersetup{colorlinks=true}}{%
- \hypersetup{pdfborder={0 0 0}}}
 @ %
+
 
 \section{Usage} \label{Sect:Usage}
 
@@ -475,18 +563,6 @@ Dette arbeidet var sponset av Skrue McDuck.
 \end{verbatim}
 
 
-
-
-\section{Auxillary variables}
-
-<<helping variables>>=
-\newcommand{\clearemptydoublepage}{%
-\newpage{\pagestyle{empty}\cleardoublepage}}
-
-
-\newboolean{frontpagefiguredefined}
-
-@ %
 
 \end{document}
 
