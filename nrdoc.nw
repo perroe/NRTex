@@ -507,10 +507,10 @@ Norwegian characters are supported in input.
 \ifthenelse{\not\boolean{screen}}{}{%
 \ifthenelse{\boolean{language_selected}}{%
 \ifthenelse{\boolean{english_selected}}{%
-\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}}{%
-\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}}
+\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}}{%
+\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logonor}}
 }{% 
-\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}
+\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}
 }}}%
 \hfill%
 \raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
@@ -596,12 +596,12 @@ Norwegian characters are supported in input.
 \noindent
  \ifthenelse{\boolean{language_selected}}%
 {\ifthenelse{\boolean{english_selected}}%
- {\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}%
+ {\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}%
  }%
- {\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}
+ {\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logonor}
  }%
 }%
-{\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}
+{\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}
 } \hfill\textbf{NR \ifthenelse{\boolean{report}}{\reportname}{\notename} }
 
 \noindent

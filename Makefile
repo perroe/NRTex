@@ -40,7 +40,7 @@ manual: all
 
 
 install:
-	cp nrreport.cls /nr/user/soleng/texinputs/tex/
+	cp nrdoc.cls /nr/group/maler/nrdoc/
 clean:
 	rm -f *.html  *~ *.aux *.dvi \
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
