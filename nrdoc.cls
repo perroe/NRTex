@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/02/17 v2.0.1 NR report class]
+\ProvidesClass{nrdoc}[2005/02/28 v2.0.2 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -38,6 +38,7 @@
 \newboolean{draftversion}
 \newboolean{report}
 \newboolean{screen}
+\setboolean{screen}{false}
 \newboolean{closedavailability}
 \newboolean{indentpar}
 
@@ -149,7 +150,7 @@
 \providecommand{\frontpagefigurecommand}[1]{%
 \renewcommand{\frontpagefigurecommands}{#1}}
 
-\renewcommand{\and}{\ifthenelse{\boolean{hidden}}{\addtocounter{numberofauthors}{1}\typeout{Adding an author \thenumberofauthors}}{\linebreak}}
+\renewcommand{\and}{\ifthenelse{\boolean{hidden}}{\addtocounter{numberofauthors}{1}}{\linebreak}}
 
 \newboolean{titlepage}
 
@@ -175,7 +176,10 @@
 \DeclareOption{report}{\setboolean{report}{true}}
 
 
-\DeclareOption{screen}{\setboolean{screen}{true}}
+\DeclareOption{screen}{\setboolean{screen}{true}%
+  \PassOptionsToClass{oneside}{book}%
+  \PassOptionsToClass{oneside}{article}
+}
 
 \DeclareOption{oneside}{%
   \PassOptionsToClass{oneside}{book}%
@@ -185,13 +189,14 @@
 \DeclareOption{twoside}{%	
   \PassOptionsToClass{twoside}{book}%
   \PassOptionsToClass{twoside}{article}%
+  \ifthenelse{\boolean{screen}}{%
   \ClassError{nrdoc}{%
 The options `twoside' and `screen' are incompatible}{%
 Oh dear! Have you ever tried twosided printing on a %
 computer screen?\MessageBreak 
 It could damage your eyes. I rather advise you to
 remove either\MessageBreak the `screen' or the `twoside' option in %
-the documentclass command!\MessageBreak}
+the documentclass command!\MessageBreak}}{}
 }%
 
 
@@ -232,7 +237,7 @@ the documentclass command!\MessageBreak}
 
 \DeclareOption*{\PackageWarning{nrdoc}{Option `\CurrentOption' ignored.}}
 
-\ExecuteOptions{10pt,note}
+\ExecuteOptions{10pt,note,twoside}
 
 
 \ProcessOptions\relax
@@ -447,17 +452,13 @@ the documentclass command!\MessageBreak}
 \renewcommand{\footnoterule}{%
   \noindent\color[gray]{0.55}\rule{\textwidth}{0.5pt}\vspace{0.5\baselineskip}\normalcolor}
 
-% Fix cleardoublepage
-% This had unwanted side-effects
-%\let\origdoublepage\cleardoublepage
-%\providecommand{\clearemptydoublepage}{%
-%  \clearpage
-%  {\pagestyle{empty}\origdoublepage}%
-%}
-%\let\cleardoublepage\clearemptydoublepage
+
 
 \providecommand{\clearemptydoublepage}{%
-\newpage{\pagestyle{empty}\cleardoublepage}}
+\ifthenelse{\boolean{screen}}{%
+  \clearpage}{%
+  \newpage{\pagestyle{empty}\cleardoublepage}}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Front page definition
@@ -869,6 +870,8 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \qquad\thepage}
 }
 % Fancy footer for ``plain'' pages also
+\ifthenelse{\boolean{@twoside}}
+{%
 \fancypagestyle{plain}{%
   \fancyhead{}
   \fancyfoot{}
@@ -878,6 +881,16 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \fancyfoot[LE]{\sffamily\bfseries\footnotesize%
     \thepage%
     \qquad\usebox{\footerlogo}}
+}
+}{%
+\fancypagestyle{plain}{%
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[RO]{\sffamily\bfseries\footnotesize%
+    \qquad\usebox{\footerlogo}%
+    \qquad\thepage}
+ 
+}	
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
