@@ -1,9 +1,9 @@
-# $Id: nrtex.spec,v 1.9 2004-01-06 08:39:44 soleng Exp $
+# $Id: nrtex.spec,v 1.10 2004-01-09 15:23:58 wolfgang Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
-Version: 1.0.1
+Version: 0.6.0
 Release: 1
 Copyright: Norwegian Computing Center
 Group: Applications/Publishing
