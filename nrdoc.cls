@@ -1,0 +1,904 @@
+%%
+%% This is file nrdoc2.cls
+%%
+%% Based on nrdoc.cls by
+%% Harald H. Soleng <harald.soleng@nr.no>
+%% Anders Løland <anders.loland@nr.no>
+%%
+%% by Lars Brusletto Sveen <lars@munch-design.no>
+%%
+%% Edited by H. H. Soleng, February 2005
+
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+
+\ProvidesClass{nrdoc}[2005/02/15 v2.0 NR report class]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Adding logic and math to latex for easy programming
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{ifthen}             % for logic in class file
+\RequirePackage{calc}               % for math in class file
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Adding new variables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+    \pdffalse
+\else
+    \pdfoutput=1
+    \pdftrue
+    \pdfcompresslevel=9
+\fi
+
+\newboolean{longreport}
+\newboolean{draftversion}
+\newboolean{report}
+\newboolean{screen}
+\newboolean{closedavailability}
+\newboolean{indentpar}
+
+\newboolean{language_selected}
+\newboolean{norsk_selected}
+\newboolean{nynorsk_selected}
+\newboolean{english_selected}
+\newboolean{citenumeric}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Adding new functions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\authorname}            {Author}
+\providecommand{\availabilityname}      {Availability}
+\providecommand{\closedavailable}       {Closed}
+\providecommand{\datename}              {Date}
+\providecommand{\examplename}           {Example}
+\providecommand{\emailname}             {e-mail}
+\providecommand{\keywordsname}          {Keywords}
+\providecommand{\listexamplename}       {List of Examples}
+\providecommand{\numberofpagesname}     {Number of pages}
+\providecommand{\notename}              {Note}
+\providecommand{\nrdocument}            {NR Document}
+\providecommand{\openavailable}         {Open}
+\providecommand{\projectname}           {Project}
+\providecommand{\projectnumbername}     {Project number}
+\providecommand{\publicationnumbername} {Publication number}
+\providecommand{\reportnumbername}      {Report no}
+\providecommand{\notenumbername}        {Note no}
+\providecommand{\researchfieldname}     {Research field}
+\providecommand{\reportname}            {Report}
+\providecommand{\targetgroupname}       {Target group}
+\providecommand{\titlename}             {Title}
+\providecommand{\yearname}              {Year}
+\providecommand{\isbnname}              {ISBN}
+\providecommand{\nrname}                {Norwegian Computing Center}
+\providecommand{\aboutauthorsheading}   {Authors}
+
+
+\providecommand{\aboutauthors}[1]{\renewcommand{\aboutauthorstext}{#1}}
+
+\providecommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
+    \ifthenelse{\equal{#1}{}}{}{%
+      \xspace\href{mailto:#1}{\texttt{<#1>}}}%
+  }{\ignorespaces}}
+
+\providecommand{\printyear}{\number\year}
+\providecommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
+
+\providecommand{\printshorttitle}{\@title}
+\providecommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
+
+\providecommand{\printtitle}{\@title}
+\providecommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
+
+\providecommand{\printisbn}{\typeout{NRdoc warning: ISBN number not set}}
+\providecommand{\isbn}[1]{%
+  \renewcommand{\printisbn}{#1}}
+\providecommand{\shortisbn}[1]{%
+  \renewcommand{\printisbn}{82-536-#1}}
+
+\providecommand{\printreportnumber}{%
+  \typeout{NRdoc warning: Report number not set}No number}
+\providecommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
+    \MakeUppercase{#1}}}
+
+\providecommand{\printkeywords}{%
+                \typeout{NRdoc warning: Keywords not defined}}
+\providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
+
+\providecommand{\printproject}{%
+                \typeout{NRdoc warning: Project not defined}}
+\providecommand{\project}[1]{\renewcommand{\printproject}{#1}}
+
+\providecommand{\printprojectnumber}{%
+\typeout{NRdoc warning: Project number not defined}}
+\providecommand{\projectnumber}[1]{\renewcommand{\printprojectnumber}{#1}}
+
+\providecommand{\printtarget}{%
+                \typeout{NRdoc warning: Target group not defined}}
+\providecommand{\target}[1]{\renewcommand{\printtarget}{#1}}
+
+\providecommand{\printresearchfield}{%
+\typeout{NRdoc warning: Reserach field not defined}}
+\providecommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
+
+\newboolean{frontpagefiguredefined}
+\providecommand{\frontpagefigurefile}{}
+\providecommand{\frontpagefigure}[1]{%
+\renewcommand{\frontpagefigurefile}{#1}%
+\setboolean{frontpagefiguredefined}{true}}
+
+\providecommand{\frontpagefigurecommands}{}
+\providecommand{\frontpagefigurecommand}[1]{%
+\renewcommand{\frontpagefigurecommands}{#1}}
+
+\renewcommand{\and}{\linebreak}
+
+\newboolean{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Handling options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{long}{\setboolean{longreport}{true}}
+\DeclareOption{10pt}{%
+\PassOptionsToClass{10pt}{book}\PassOptionsToClass{10pt}{article}}
+\DeclareOption{11pt}{%
+\PassOptionsToClass{11pt}{book}\PassOptionsToClass{11pt}{article}}
+\DeclareOption{12pt}{%
+\PassOptionsToClass{12pt}{book}\PassOptionsToClass{12pt}{article}}
+
+\DeclareOption{draft}{%
+\setboolean{draftversion}{true}%
+\PassOptionsToPackage{draft}{graphicx}%
+\PassOptionsToClass{draft}{book}%
+\PassOptionsToClass{draft}{article}%
+}
+\DeclareOption{note}{\setboolean{report}{false}}
+\DeclareOption{report}{\setboolean{report}{true}}
+\DeclareOption{screen}{\setboolean{screen}{true}}
+\DeclareOption{closed}{\setboolean{closedavailability}{true}}
+\DeclareOption{indentpar}{\setboolean{indentpar}{true}}
+% The bluelines option is obsolete (kept for backwards compatability)
+\DeclareOption{bluelines}{\typeout{NRdoc warining: Option bluelines is obsolete.}}
+\DeclareOption{american}{\PassOptionsToPackage{american}{babel}
+                         \setboolean{language_selected}{true}
+                         \setboolean{english_selected}{true}}
+\DeclareOption{british}{\PassOptionsToPackage{british}{babel}
+                        \setboolean{language_selected}{true}
+                        \setboolean{english_selected}{true}}
+\DeclareOption{english}{\PassOptionsToPackage{english}{babel}
+                        \setboolean{language_selected}{true}
+                        \setboolean{english_selected}{true}}
+\DeclareOption{UKenglish}{\PassOptionsToPackage{UKenglish}{babel}
+                          \setboolean{language_selected}{true}
+                          \setboolean{english_selected}{true}}
+\DeclareOption{USenglish}{\PassOptionsToPackage{USenglish}{babel}
+                          \setboolean{language_selected}{true}
+                          \setboolean{english_selected}{true}}
+\DeclareOption{norsk}{\PassOptionsToPackage{norsk}{babel}
+                      \setboolean{norsk_selected}{true}
+                      \setboolean{language_selected}{true}}
+\DeclareOption{nynorsk}{\PassOptionsToPackage{nynorsk}{babel}
+                        \setboolean{nynorsk_selected}{true}
+                        \setboolean{language_selected}{true}}
+% The times option is obsolete (kept for backwards compatability)
+\DeclareOption{times}{\typeout{NRdoc warning: Option times is obsolete.}}
+
+\DeclareOption{twoside}{%
+  \PassOptionsToClass{twoside}{book}%
+  \PassOptionsToClass{twoside}{article}}%
+
+\DeclareOption{oneside}{%
+  \PassOptionsToClass{oneside}{book}%
+  \PassOptionsToClass{oneside}{article}}%
+\DeclareOption{citenumeric}{%
+  \setboolean{citenumeric}{true}}
+
+\ExecuteOptions{10pt,note}
+\ProcessOptions*
+
+%  Norwegian translation of cover and title side expressions
+\ifthenelse{\boolean{norsk_selected} \or
+            \boolean{nynorsk_selected}}{%
+        \renewcommand{\authorname}              {Forfatter}
+        \renewcommand{\availabilityname}        {Tilgjengelighet}
+        \renewcommand{\closedavailable}         {Lukket}
+        \renewcommand{\datename}                {Dato}
+        \renewcommand{\examplename}             {Eksempel}
+        \renewcommand{\emailname}               {e-post}
+        \renewcommand{\keywordsname}            {Emneord}
+        \renewcommand{\listexamplename}         {Eksempler}
+        \renewcommand{\numberofpagesname}       {Antall sider}
+        \renewcommand{\notename}                {Notat}
+        \renewcommand{\openavailable}           {{\AA}pen}
+        \renewcommand{\reportname}              {Rapport}
+        \renewcommand{\projectname}             {Prosjekt}
+        \renewcommand{\projectnumbername}       {Prosjektnummer}
+        \renewcommand{\publicationnumbername}   {Publikasjonsnummer}
+        \renewcommand{\reportnumbername}        {Rapportnr}
+        \renewcommand{\notenumbername}          {Notatnr}
+        \renewcommand{\researchfieldname}       {Satsningsomr\aa de}
+        \renewcommand{\targetgroupname}         {M\aa lgruppe}
+        \renewcommand{\titlename}               {Tittel}
+        \renewcommand{\yearname}                {{\AA}r}
+        \renewcommand{\nrname}                  {Norsk Regnesentral}
+        \renewcommand{\aboutauthorsheading}     {Forfatterne}
+
+%  Nynorsk
+\ifthenelse{\boolean{nynorsk_selected}}{%
+        \renewcommand{\listexamplename}         {Eksempel}
+        \renewcommand{\authorname}              {Forfattar}
+        \renewcommand{\availabilityname}        {Tilgjengeleg}
+        \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
+        \renewcommand{\closedavailable}         {Lukka}
+        \renewcommand{\aboutauthorsheading}     {Forfattarane}
+        }{}
+}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Loading other packages and the base class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[latin1]{inputenc}
+\RequirePackage{amsmath}        % for advanced math
+\RequirePackage{fancyhdr}       % for headers
+\RequirePackage{rotating}       % for text rotation
+\RequirePackage{makeidx}        % for index
+\RequirePackage{multicol}       % for multiple columns
+\RequirePackage{paralist}       % for list environments
+\RequirePackage{verbatim}       % extra verbatims
+\RequirePackage{xspace}         % for space control
+\RequirePackage{textcomp}       % for special characters
+\RequirePackage{array}          % for tabular functionality
+
+\ifpdf\RequirePackage{thumbpdf} \fi      % for thumbnails
+
+\RequirePackage{afterpage}      % for float control
+\RequirePackage{color}          % for colour
+\RequirePackage{graphicx}       % for graphics inclusion
+\ifthenelse{\boolean{language_selected}}{%
+  \RequirePackage{babel}
+}{}
+
+\ifthenelse{\boolean{longreport}}%
+{\LoadClass{book}[2000/05/19]}%
+{\LoadClass{article}[2000/05/19]}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Loading other packages after the base class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Set Palatino as the text font. Mathpazo loads Palatino-like fonts
+% for math mode.
+%
+% For now, set Helvetica as the sans serif fonts. This should be
+% changed to Arial in a future version.
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\ttdefault}{aett}
+\RequirePackage{mathpazo}
+
+% The leading should be increased slightly for Palatino. This setting
+% gives a leading of approx. 14pt for 10 pt text.
+\renewcommand{\baselinestretch}{1.167}
+
+\ifthenelse{\boolean{citenumeric}}{%
+ \RequirePackage[numbers,sort&compress]{natbib}}{%
+ \RequirePackage[sort,round]{natbib}
+}
+
+% NR profile blue in CMYK values
+\definecolor{nrblue}{cmyk}{1,0.66,0,0}
+
+\ifthenelse{\boolean{screen}}{
+% use hypertex tools
+\ifpdf
+  \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,%
+                  plainpages=false,citecolor=nrblue,%
+                  backref=page]{hyperref}
+\else
+  \RequirePackage[dvipdfm,colorlinks=true,pdfpagelabels,
+                  plainpages=false,citecolor=nrblue,%
+                  backref=page]{hyperref}
+\fi
+  }{%
+% Set all hypertex links black %
+\ifpdf
+  \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,plainpages=false,%
+                  linkcolor=black,citecolor=black,%
+                  pagecolor=black,urlcolor=black]{hyperref}
+\else
+  \RequirePackage[dvipdfm,colorlinks=true,pdfpagelabels,plainpages=false,%
+                  linkcolor=black,citecolor=black,%
+                  pagecolor=black,urlcolor=black]{hyperref}
+\fi
+}
+
+% Load parskip to get ``block'' paragraphs and set parskip. Note that
+% this may have adverse effects since \parskip is used in many places.
+% The package corrects the behaviour in the toc and in lists. Spacing
+% around sections is corrected through titlesec. Further corrections
+% may be needed.
+\ifthenelse{\boolean{indentpar}}{}{%
+  \RequirePackage{parskip}[2001/04/09]
+  \parskip=0.5\baselineskip
+  \advance\parskip by 0pt plus 2pt
+}
+
+% Load geometry and set page layout
+\RequirePackage{geometry}[2002/07/08]
+\geometry{a4paper, left=30mm, right=30mm, top=20mm, bottom=35mm,
+  footskip=20mm, footnotesep=\baselineskip, nohead}
+
+% Load the titlesec package to control the formatting of titles
+\RequirePackage[sf,bf,raggedright,noindentafter]{titlesec}[2002/04/07]
+\ifthenelse{\boolean{longreport}}{%
+  \titleformat{\part}[display]%
+    {\centering\sffamily\bfseries\Huge}%
+    {\partname\ \thepart}%
+    {0pt}{}[\thispagestyle{empty}]
+  \titleformat{\chapter}[hang]%
+    {\sffamily\bfseries}%
+    {\Huge\thechapter}%
+    {1em}{\huge}[\thispagestyle{fancy}]
+  \titlespacing{\chapter}{0pt}{-\baselineskip}{10ex}
+  \titleformat{\section}[hang]%
+    {\sffamily\bfseries}%
+    {\Large\thesection}%
+    {0.5em}{\Large}
+  \titlespacing{\section}{0pt}{\baselineskip-\parskip}{-\parskip}
+  \titleformat{\subsection}[hang]
+    {\sffamily\bfseries}%
+    {\normalsize\thesubsection}%
+    {0.5em}{\normalsize}}{% else
+  \titleformat{\section}[hang]%
+    {\sffamily\bfseries}%
+    {\LARGE\thesection}%
+    {0.5em}{\LARGE}
+  \titlespacing{\section}{0pt}{1.5\baselineskip-0.5\parskip}{\baselineskip-\parskip}
+  \titleformat{\subsection}[hang]
+    {\sffamily\bfseries}%
+    {\large\thesubsection}%
+    {0.5em}{\large}
+  \titleformat{\subsubsection}[hang]
+    {\sffamily\bfseries}%
+    {\normalsize\thesubsubsection}%
+    {0.5em}{\normalsize}}
+\titlespacing{\subsection}{0pt}{\baselineskip-\parskip}{-\parskip}
+\titlespacing{\subsubsection}{0pt}{\baselineskip-\parskip}{-\parskip}
+
+% Format the captions
+\RequirePackage{caption}[2004/01/23]
+\captionsetup{%
+  format=default,
+  labelsep=period,
+  singlelinecheck=false,
+  font={small, sf}}
+
+% Absolute positioning of elements, handy for the front page
+\RequirePackage[absolute]{textpos}[2003/09/07]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Miscellaneous formatting
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Turn off Victorian inter-sentence spacing.
+\frenchspacing
+
+% Fix layout of list environments with utilities from the paralist
+% package.
+\setdefaultitem{\textperiodcentered}{--}{\textasteriskcentered}{\footnotesize\textbullet}
+\setdefaultenum{1.}{a.}{1)}{a)}
+\setdefaultleftmargin{2em}{2em}{2em}{2em}{1em}{1em}
+
+% Fix footnote marker and rule
+\def\@makefntext#1{\noindent\@makefootmark.\quad#1}
+\def\@makefootmark{\@thefnmark}
+\renewcommand{\footnoterule}{%
+  \noindent\color[gray]{0.55}\rule{\textwidth}{0.5pt}\vspace{0.5\baselineskip}\normalcolor}
+
+% Fix cleardoublepage
+\let\origdoublepage\cleardoublepage
+\providecommand{\clearemptydoublepage}{%
+  \clearpage
+  {\pagestyle{empty}\origdoublepage}%
+}
+\let\cleardoublepage\clearemptydoublepage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Front page definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\textblockorigin{0mm}{0mm}
+
+\providecommand{\frontpageprintelements}{%
+  \begin{textblock}{211}(0,0)
+    \noindent
+    \ifthenelse{\boolean{report}}{%
+      \ifthenelse{\boolean{norsk_selected} \or
+        \boolean{nynorsk_selected}}{%
+        \includegraphics{elements/rapport-s1}
+      }{%
+        \includegraphics{elements/report-s1}
+      }}{%
+      \ifthenelse{\boolean{norsk_selected} \or
+        \boolean{nynorsk_selected}}{%
+        \includegraphics{elements/notat-s1}
+      }{%
+        \includegraphics{elements/note-s1}
+      }}
+  \end{textblock}
+}
+
+\providecommand{\frontpageprinttitle}{
+    \begin{textblock}{122}(58,50)
+      \noindent\begin{minipage}{122mm}
+        \fontfamily{\sfdefault}
+        \fontseries{bx}
+        \fontsize{30}{36}
+        \selectfont
+        \raggedright
+        \noindent\@title
+      \end{minipage}
+    \end{textblock}
+}
+\providecommand{\frontpageprintmatter}{%
+  \begin{textblock}{185}(18,234)
+    \parindent=\z@
+    \begin{sffamily}
+      \bfseries
+      \begin{tabular}{@{}>{\raggedleft}p{25.5mm}@{}p{14.5mm}@{}>{\raggedright\let\\\tabularnewline}p{122mm}}
+        \ifthenelse{\boolean{report}}{%
+          \colorbox{nrblue}{\textcolor{white}{\reportnumbername}}
+        }{%
+          \colorbox{nrblue}{\textcolor{white}{\notenumbername}}
+        }
+        && \printreportnumber\\
+        \colorbox{nrblue}{\textcolor{white}{\authorname}}
+        && \@author\\
+        \colorbox{nrblue}{\textcolor{white}{\datename}}
+        && \@date\\
+        \ifthenelse{\boolean{report}}{%
+          \colorbox{nrblue}{\textcolor{white}{\isbnname}}}{}
+        && \ifthenelse{\boolean{report}}{\printisbn}{}
+      \end{tabular}
+    \end{sffamily}
+  \end{textblock}
+}
+\providecommand{\frontpageprintfigure}{%
+  \begin{textblock}{147}(58,114)
+    \noindent
+    \ifthenelse{\boolean{frontpagefiguredefined}}{%
+      \includegraphics[width=120mm]{\frontpagefigurefile}}{
+      \frontpagefigurecommands}
+  \end{textblock}
+}
+
+\providecommand{\nrfrontpage}{%
+  \ifthenelse{\boolean{draftversion}}{}{% else final version
+    \thispagestyle{empty}%
+    \noindent
+    \frontpageprinttitle
+    \frontpageprintmatter
+    \frontpageprintfigure
+    \frontpageprintelements
+    % Trick LaTeX into believing there is something here...
+    \hspace{0pt}
+    \clearpage
+  }
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   ``About'' page definition (page 2)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\aboutpageentry}[2]{%
+  \noindent\textbf{\sffamily\large#1}\\
+  #2}
+
+\providecommand{\aboutauthorstext}{%
+Use \texttt{$\backslash$aboutauthors} to enter author information.}
+
+\providecommand{\aboutnrtext}{%
+  Norsk Regnesentral (Norwegian Computing Center, NR) is a private,
+  independent, non-profit foundation established in 1952. NR carries
+  out contract research and development projects in the areas of
+  information and communication technology and applied statistical
+  modeling. The clients are a broad range of industrial, commercial
+  and public service organizations in the national as well as the
+  international market. Our scientific and technical capabilities are
+  further developed in co-operation with The Research Council of
+  Norway and key customers. The results of our projects may take the
+  form of reports, software, prototypes, and short courses. A proof of
+  the confidence and appreciation our clients have for us is given by
+  the fact that most of our new contracts are signed with previous
+  customers.}
+
+% A separate translation into nynorsk should be provided here
+\ifthenelse{\boolean{norsk_selected} \or
+  \boolean{nynorsk_selected}}{%
+  \renewcommand{\aboutnrtext}{%
+    Norsk Regnesentral (NR) er en privat, uavhengig stiftelse som
+    utf{\o}rer oppdragsforskning for bedrifter og det offentlige i det
+    norske og internasjonale markedet. NR ble etablert i 1952 og har
+    kontorer i Informatikkbygningen ved Universitetet i Oslo. NR er et
+    av Europas st{\o}rste milj{\o}er innen anvendt statistikk. Det
+    jobbes med sv{\ae}rt mange forskjellige problemstillinger slik som
+    estimering av torskebestanden, finansiell risiko, beskrivelse av
+    geologien i petroleumsreservoarer og overv{\aa}king av
+    klimaendringer. NR er ogs{\aa} ledende i Norge innen utvalgte
+    deler av informasjons- og kommunikasjonsteknologi.
+    Problemstillinger kan v{\ae}re overv{\aa}ke inntrengning i
+    datasystemer, e-l{\ae}ring i skole og n{\ae}ringsliv, bruk av
+    datateknologi i markedsanalyser samt anvendelser av multimedia
+    p{\aa} forskjellige plattformer. NRs visjon er
+    forskningsresultater som brukes og synes.}}{}
+
+% The command \aboutothers is provided to allow entries for other
+% organisations, eg. if an author is external to NR. A
+% redefinition should be of the form:
+%  \renewcommand{\aboutothers}{%
+%    \aboutpageentry{Company A}{%
+%      Company A specialises in ...}}
+% If several entries are required, use multiple calls to
+% \aboutpageentry and separate them with \par\bigskip as in
+% \aboutpagetext below.
+\providecommand{\aboutothers}{}
+
+\providecommand{\printaboutpagetext}{%
+  \aboutpageentry{\aboutauthorsheading}{\aboutauthorstext}\par\bigskip
+  \aboutpageentry{\nrname}{\aboutnrtext}\par\bigskip
+  \aboutothers
+}
+
+\providecommand{\nraboutpage}{%
+  \thispagestyle{empty}
+  \noindent
+  \includegraphics{elements/NR-logo_utvidet_60-5mm_cmyk}
+  \par\vspace{4\baselineskip}
+  \printaboutpagetext
+  \par\vfill\noindent
+  \begin{textblock}{151}(30,267)
+    \noindent
+    \includegraphics{elements/NR-address}
+  \end{textblock}
+  \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Title page definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newdimen\@bls   \@bls\baselineskip
+\newdimen\@ls    \@ls\lineskip
+\newdimen\@lsl   \@lsl\lineskiplimit
+\def\@oninterlineskip{\baselineskip\@bls\lineskip\@ls\lineskiplimit\@lsl}
+\newenvironment{titlelist}{\offinterlineskip\begin{list}{}%
+    {\labelwidth=1.5em%
+     \labelsep=0pt%
+     \leftmargin=0pt%
+     \rightmargin=0pt%
+     \topsep=0pt%
+     \parsep=0pt%
+     \partopsep=0pt%
+     \itemsep=0.5\@bls%
+     \sffamily}}{\end{list}}
+\def\t@textbox#1#2{\begin{minipage}[t]{#1}\@oninterlineskip\raggedright
+    \strut#2\strut
+  \end{minipage}}
+\def\t@text#1#2{\t@textbox{0.3\textwidth}{#1}\hfill\t@textbox{0.67\textwidth}{#2}}
+\def\titleitem#1#2{\item\t@text{#1}{#2}}
+
+\providecommand{\nrtitlepage}{%
+  \thispagestyle{plain}
+  \setboolean{titlepage}{true}
+  \renewcommand{\and}{,\ }
+  \parindent=\z@
+  \begin{titlelist}
+    \titleitem{\textbf{\large\titlename}}{\textbf{\large\printtitle}}
+    \titleitem{\textbf{\authorname}}     {\textbf{\@author}}
+    \titleitem{\datename}                {\@date}
+    \titleitem{\yearname}                {\printyear}
+    \ifthenelse{\boolean{report}}{\titleitem{\isbnname}{\printisbn}}{}
+    \titleitem{\publicationnumbername}   {\printreportnumber}
+  \end{titlelist}
+  \par\vspace{4\baselineskip}
+}
+
+\newboolean{titlepagemade}
+
+% Mainmatter is not needed (kept for backwards compatability)
+\ifthenelse{\boolean{longreport}}{
+  \renewcommand{\mainmatter}{\typeout{NRdoc info: The command mainmatter is not needed.}}}{%
+  \providecommand{\mainmatter}{\typeout{NRdoc info: The command mainmatter is not needed.}}}
+
+\ifthenelse{\boolean{longreport}}{%
+  \newenvironment{abstract}{%
+    \ifthenelse{\not\boolean{titlepagemade}}{%
+      \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
+    \noindent\textbf{\sffamily\large\abstractname}\\*}
+  {\vfill
+    \parindent=\z@
+    \begin{titlelist}
+      \titleitem{\keywordsname}        {\printkeywords}
+      \titleitem{\targetgroupname}     {\printtarget}
+      \titleitem{\availabilityname}    {\ifthenelse{\boolean{closedavailability}}{\closedavailable}{\openavailable}}
+      \titleitem{\projectname}         {\printproject}
+      \titleitem{\projectnumbername}   {\printprojectnumber}
+      \titleitem{\researchfieldname}   {\printresearchfield}
+      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}
+      \titleitem{\copyright\ Copyright}{\nrname}
+    \end{titlelist}
+  }}{%
+  \renewenvironment{abstract}{%
+    \ifthenelse{\not\boolean{titlepagemade}}{%
+      \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
+    \noindent\textbf{\sffamily\large\abstractname}\\*}
+  {\vfill\noindent
+    \parindent=\z@
+    \begin{titlelist}
+      \titleitem{\keywordsname}        {\printkeywords}
+      \titleitem{\targetgroupname}     {\printtarget}
+      \titleitem{\availabilityname}    {\ifthenelse{\boolean{closedavailability}}{\closedavailable}{\openavailable}}
+      \titleitem{\projectname}         {\printproject}
+      \titleitem{\projectnumbername}   {\printprojectnumber}
+      \titleitem{\researchfieldname}   {\printresearchfield}
+      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}
+      \titleitem{\copyright\ Copyright}{\nrname}
+    \end{titlelist}
+  }}
+
+\renewcommand{\maketitle}[1]{%
+  \setboolean{titlepagemade}{true}
+  \hypersetup{pdftitle={\printtitle}, pdfauthor={Norwegian Computing Center}}
+  \pagenumbering{arabic}
+  \nrfrontpage
+  \nraboutpage
+  \nrtitlepage
+  \relax
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Toc, lof etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\tableofcontents}{%
+  \clearemptydoublepage
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\contentsname}}{%
+    \section*{\contentsname}}
+  \addtocontents{toc}{\protect\hypertarget{toc}{}%
+    \protect\pdfbookmark[1]{\contentsname}{toc}}
+  \@starttoc{toc}%
+}
+
+\renewcommand{\listoffigures}{%
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\listfigurename}}{%
+    \section*{\listfigurename}}
+  \addtocontents{lof}{\protect\hypertarget{lof}{}%
+    \protect\pdfbookmark[1]{\listfigurename}{lof}}
+  \@starttoc{lof}%
+}
+
+\renewcommand{\listoftables}{%
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\listtablename}}{%
+    \section*{\listtablename}}
+  \addtocontents{lot}{\protect\hypertarget{lot}{}%
+    \protect\pdfbookmark[1]{\listtablename}{lot}}
+  \@starttoc{lot}%
+}
+
+\newcommand{\listofexamples}{%
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\listexamplename}}{%
+    \section*{\listexamplename}}
+  \addtocontents{loe}{\protect\hypertarget{loe}{}%
+    \protect\pdfbookmark[1]{\listexamplename}{loe}}
+  \@starttoc{loe}%
+}
+
+% Example environment
+\ifthenelse{\boolean{longreport}}{
+  \newcounter{example}[chapter]
+  \def\theexample{\thechapter.\@arabic\c@example}
+}{
+  \newcounter{example}[section]
+  \def\theexample{\thesection.\@arabic\c@example}
+}
+\let\l@example\l@figure
+\providecommand\ext@example{loe}
+\providecommand\fnum@example{\examplename~\theexample}
+\def\toclevel@example{0}
+\def\ftype@example{2}
+
+\newenvironment{example}{%
+  \def\@captype{example}
+}{}
+
+\captionsetup[example]{%
+  format=default,
+  labelsep=period,
+  singlelinecheck=false,
+  font={normalsize, rm},
+  labelfont=bf}
+
+% Titletoc formats the table of contents, LoF etc.
+\RequirePackage{titletoc}[2002/03/27]
+\contentsmargin{2em}
+\ifthenelse{\boolean{longreport}}{
+  \titlecontents{part}[2em]%
+    {\bigskip\sffamily\bfseries}{\contentslabel{2em}}%
+    {\hspace{-2em}}%
+    {\titlerule*[1pc]{}\contentspage}
+  \titlecontents{chapter}[2em]%
+    {\bigskip\sffamily\bfseries}{\contentslabel{2em}}%
+    {\hspace{-2em}}%
+    {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+  \titlecontents{section}[5em]%
+    {\sffamily}{\contentslabel{3em}}%
+    {\hspace{-3em}}%
+    {\titlerule*[1pc]{.}\contentspage}
+  \titlecontents{subsection}[9em]%
+    {\sffamily}{\contentslabel{4em}}%
+    {\hspace{-4em}}%
+    {\titlerule*[1pc]{.}\contentspage}}{% else
+  \titlecontents{section}[2em]%
+    {\bigskip\sffamily\bfseries}{\contentslabel{2em}}%
+    {\hspace{-2em}}%
+    {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+  \titlecontents{subsection}[5em]%
+    {\sffamily}{\contentslabel{3em}}%
+    {\hspace{-3em}}%
+    {\titlerule*[1pc]{.}\contentspage}
+  \titlecontents{subsubsection}[9em]%
+    {\sffamily}{\contentslabel{4em}}%
+    {\hspace{-4em}}%
+    {\titlerule*[1pc]{.}\contentspage}}
+\titlecontents{figure}[2em]%
+  {\sffamily}{\contentslabel{2em}}%
+  {\hspace{-2em}}%
+  {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+\titlecontents{table}[2em]%
+  {\sffamily}{\contentslabel{2em}}%
+  {\hspace{-2em}}%
+  {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+\contentsuse{example}{loe}
+\titlecontents{example}[2em]%
+  {\sffamily}{\contentslabel{2em}}%
+  {\hspace{-2em}}%
+  {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Fancy footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\newsavebox{\footerlogo}
+\savebox{\footerlogo}{\raisebox{-0.5ex}{\includegraphics{elements/NR-logo_footer}}}
+\ifthenelse{\boolean{@twoside}}
+{%
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[RO]{\sffamily\bfseries\footnotesize%
+    \printshorttitle{}%
+    \qquad\usebox{\footerlogo}%
+    \qquad\thepage}
+  \fancyfoot[LE]{\sffamily\bfseries\footnotesize%
+    \thepage%
+    \qquad\usebox{\footerlogo}%
+    \qquad\printshorttitle{}}
+}{%
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[RO]{\sffamily\bfseries\footnotesize%
+    \printshorttitle{}%
+    \qquad\usebox{\footerlogo}%
+    \qquad\thepage}
+}
+% Fancy footer for ``plain'' pages also
+\fancypagestyle{plain}{%
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[RO]{\sffamily\bfseries\footnotesize%
+    \qquad\usebox{\footerlogo}%
+    \qquad\thepage}
+  \fancyfoot[LE]{\sffamily\bfseries\footnotesize%
+    \thepage%
+    \qquad\usebox{\footerlogo}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Bibliography and index
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{citenumeric}}{%
+  \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
+  \typeout{nrdoc uses numeric citation labels}
+}{%
+  \ifthenelse{\boolean{norsk_selected}%
+    \or%
+    \boolean{nynorsk_selected}}{%
+    \typeout{nrdoc uses alphabethic citation labels}
+    \bibliographystyle{nrnorsk}
+  }{%
+    \bibliographystyle{plainnat} %\bibliographystyle{nrplain}
+    \typeout{nrdoc uses alphabethic citation labels}
+  }
+}
+
+\renewenvironment{thebibliography}[1]{%
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\refname}\addcontentsline{toc}{chapter}{\refname}}{%
+    \section*{\refname}\addcontentsline{toc}{section}{\refname}}
+  \list{\@biblabel{\@arabic\c@enumiv}}{%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}%
+{\def\@noitemerr
+  {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
+
+\renewenvironment{theindex}{%
+  \clearemptydoublepage
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\indexname}%
+    \addcontentsline{toc}{chapter}{\indexname}}{%
+    \section*{\indexname}%
+    \addcontentsline{toc}{section}{\indexname}}
+  \begin{multicols}{2}
+  \thispagestyle{fancy}\parindent\z@
+  \parskip\z@ \@plus .3\p@\relax
+  \let\item\@idxitem}
+  {\end{multicols}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   LastPage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\lastpage@putlabel{\addtocounter{page}{-1}%
+  \immediate\write\@auxout{\string
+    \newlabel{LastPage}{{}{\thepage}{\relax}{}{}}}%
+  \addtocounter{page}{1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Misc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{longreport}}{%
+  \renewcommand\chapter{%
+    \clearemptydoublepage
+    \global\@topnum\z@
+    \@afterindentfalse
+    \secdef\@chapter\@schapter}}{}
+
+\providecommand{\floor}[1]{\lfloor #1 \rfloor}
+\providecommand{\ceil}[1]{\lceil #1 \rceil}
+
+\AtBeginDocument{}
+
+\AtEndDocument{%
+  \printindex%
+  \clearpage\lastpage@putlabel%
+}

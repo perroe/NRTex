@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.6 2004-10-05 14:43:27 soleng Exp $
+# $Id: rpmspecfile.in,v 1.7 2005-02-15 09:57:05 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -27,6 +27,7 @@ mkdir -p -m755  %{buildroot}/usr/share/texmf/bibtex/bst/nrdoc/
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/ 
 mkdir -p -m755  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
+mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/elements/
 install -m644 manual.pdf  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 install -m644 *.eps *.pdf *.jpg *.png %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
 install -m644 nrdoc.cls  nrfoils.cls background.sty %{buildroot}/usr/share/texmf/tex/latex/nrdoc/
@@ -45,6 +46,7 @@ rm -rf %{buildroot}
 /usr/share/texmf/tex/latex/nrdoc/nrfoils.cls
 /usr/share/texmf/tex/latex/nrdoc/background.sty
 /usr/share/texmf/tex/latex/nrdoc/logos/*
+/usr/share/texmf/tex/latex/nrdoc/elements/*
 /usr/share/texmf/doc/latex/nrdoc/manual.pdf
 /usr/share/texmf/bibtex/bst/nrdoc/nrplain.bst
 /usr/share/texmf/bibtex/bst/nrdoc/nrunsrt.bst
@@ -52,6 +54,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Feb 15 2005 Harald H. Soleng <harald.soleng@nr.no>
+- Release of new layout. Version 2.0.0
 * Wed Sep 15 2004 Harald H. Soleng <harald.soleng@nr.no>
 - Added background.sty
 * Thu Aug 26 2004 Harald H. Soleng <harald.soleng@nr.no>

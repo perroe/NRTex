@@ -20,34 +20,18 @@ RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_srcrpmdir $$PWD"
 RPMFILE = i386/nrtex-${VERSION}-${PATCH}.i386.rpm
 
-.SUFFIXES: .nw .tex .dvi .pdf
+.SUFFIXES: .tex .dvi .pdf
 
 .SILENT: config
 
-all:	src pdf 
+all:	pdf 
 
 config:
 	configure
-src:
-	noweb $(MAIN).nw
 
-dvi: 	src bib
-	latex '\scrollmode \input '"$(MAIN)";\
-	while ( \
-	grep -s 'No file $(MAIN).toc' $(MAIN).log || \
-	grep -s 'Rerun to get cross-references right'\
-	$(MAIN).log ); \
-	do latex '\scrollmode \input '"$(MAIN)";\
-	done
 
-bib:
-	latex '\scrollmode \input '"$(MAIN)"; \
-	bibtex $(MAIN)
 
-pdf:    dvi
-	dvipdfm -p a4 -o   $(MAIN).pdf $(MAIN).dvi
-
-manual: src
+manual: 
 	latex '\scrollmode \input '"$(MANUAL)";\
 	makeindex $(MANUAL); \
 	bibtex $(MANUAL); \
@@ -61,7 +45,7 @@ manual: src
 	dvipdfm -p a4 -o   $(MANUAL).pdf $(MANUAL).dvi
 
 
-printmanual: src
+printmanual: 
 	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,twoside,british,12pt\]\{nrdoc\}/\\documentclass\[note,twoside,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
 	latex '\scrollmode \input '"$(PRINT)";\
 	makeindex $(PRINT); \
@@ -76,15 +60,13 @@ printmanual: src
 	dvipdfm -p a4 -o   $(PRINT).pdf $(PRINT).dvi
 
 
-html:	src
+html:	
 	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
-install: src pdf html manual printmanual rpm
+install: pdf html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrfoils.cls $(INSTALLPATH)/
 	cp background.sty $(INSTALLPATH)/
-#	cp logos/* $(INSTALLPATH)/logos/	
-	cp nrdoc.pdf $(INSTALLPATH)/	
 	cp manual.pdf $(INSTALLPATH)/	
 	cp nrplain.bst $(INSTALLPATH)/	
 	cp nrunsrt.bst  $(INSTALLPATH)/		
@@ -105,6 +87,7 @@ clean:
 tgz:	src
 	mkdir -p ${TGZNAME}
 	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png \
+	cp elements/*.eps elements/*.pdf \
 	${MAIN}.cls nrfoils.cls background.sty $(MANUAL).pdf \
 	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}

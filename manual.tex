@@ -10,7 +10,7 @@
 % -------------------------------------------------
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
-\reportnumber{sand}
+\reportnumber{sand/}
 %\publicationyear{2003}
 \keywords{\LaTeX, NR}
 \projectnumber{}
@@ -30,6 +30,7 @@
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald H. Soleng \email{harald.soleng@nr.no} \and 
          Anders Løland \email{anders.loland@nr.no}}
+\aboutauthors{Local \LaTeX\ gurus}
 \date{\today}
 \maketitle
 
@@ -43,8 +44,6 @@ Norwegian and English.
 
 \tableofcontents
 
-% The mainmatter must always be present
-\mainmatter
 
 \section{Introduction}
 This document gives an example of the use of the \texttt{nrdoc} class. 
@@ -162,6 +161,8 @@ author(s) and abstract:
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald Soleng \email{harald.soleng@nr.no} \and 
         Anders Løland \email{anders.loland@nr.no}}
+
+\aboutauthors{Local \TeX\ Gurus}
 \date{\today}
 
 \maketitle
@@ -174,7 +175,7 @@ The abstract is obligatory!
 \end{abstract}
 
 \tableofcontents        % optional
-\mainmatter             % required
+
 
 \end{verbatim}
 Note that a \verb+\mainmatter+\index{mainmatter@\verb+\mainmatter+}
