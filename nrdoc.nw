@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.39 2003-10-16 13:24:13 soleng Exp $
+% $Id: nrdoc.nw,v 1.40 2003-10-17 11:53:51 anderslo Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -618,7 +618,7 @@ Norwegian characters are supported in input.
 \nrverticalbar%
 \nrhorizontalbar%
 \color{black}%
-\clearpage}
+\clearemptydoublepage}
 }
 @ %
 
@@ -710,7 +710,8 @@ Norwegian characters are supported in input.
   All rights reserved. Printed in Norway.
  }
 \end{timesroman}
-\clearemptydoublepage}
+\clearemptydoublepage
+}
 
 \renewcommand{\maketitle}[1]{%
 	\hypersetup{pdftitle={\printtitle},		    
@@ -726,7 +727,7 @@ Norwegian characters are supported in input.
 \ifthenelse{\boolean{longreport}}{%
 \renewcommand{\tableofcontents}{%
     \thispagestyle{empty}
-    \section*{\contentsname
+    \chapter*{\contentsname
         \@mkboth{%
            \contentsname}{\contentsname}}%          
       \addtocontents{toc}{\protect\hypertarget{toc}{}%	
@@ -876,8 +877,7 @@ Norwegian characters are supported in input.
    
 \renewcommand\chapter{\ifthenelse{\boolean{screen}}{}{\clearemptydoublepage}%
 			\if@openright\cleardoublepage\else\clearpage\fi
-                    \thispagestyle{plain}%
-                    \global\@topnum\z@
+	   	    \global\@topnum\z@
                     \@afterindentfalse
                     \secdef\@chapter\@schapter}
 \def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
