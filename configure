@@ -1,11 +1,18 @@
 #!/usr/bin/perl
 $versionFile = "version";
+$patchFile = "release";
+
 open VERSION, $versionFile || die "Can't open file \"$versionFile\": $!\n";
 while (<VERSION>) {
   $version = $_;
 }
 close VERSION;
 
+open PATCH, $patchFile || die "Can't open file \"$patchFile\": $!\n";
+while (<PATCH>) {
+  $patch = $_;
+}
+close PATCH;
 
 print "\nConfiguring nrdoc version $version\n";
 
@@ -35,8 +42,10 @@ open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
 
 while (<INPUT>) {
   s/\<\<version_number\>\>/$version/;
+  s/\<\<patch_number\>\>/$patch/;
   print OUTPUT;
 }
 close OUTPUT;
 print "Updated version number in $output.\n";
+print "Updated patch number in $output.\n";
 close INPUT;

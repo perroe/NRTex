@@ -1,10 +1,10 @@
-# $Id: rpmspecfile.in,v 1.1 2004-01-13 13:10:45 soleng Exp $
+# $Id: rpmspecfile.in,v 1.2 2004-01-14 15:00:57 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
 Version: <<version_number>>
-Release: 1
+Release: <<patch_number>>
 Copyright: Norwegian Computing Center
 Group: Applications/Publishing
 BuildRoot: %{_builddir}/%{name}-root
