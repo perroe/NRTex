@@ -1,7 +1,6 @@
 % Specify language of report
 
-\documentclass[screen,note,british,12pt]{nrdoc}
-
+\documentclass[note,british,12pt]{nrdoc}
 
 % -------------------------------------------------
 % BEGIN nrdoc special commands
@@ -9,7 +8,7 @@
 \reportnumber{sand/03/03}
 \keywords{\LaTeX, NR}
 \project{}
-\projectnumber{}
+\project{}
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
 \researchfield{}
@@ -29,7 +28,7 @@
 
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald Soleng\and Anders Løland}
-\date{September 2003}
+\date{\today}
 \maketitle
 
 % The abstract must always be present
@@ -42,6 +41,7 @@ Norwegian and English.
 
 \tableofcontents
 
+% The mainmatter must always be present
 \mainmatter
 
 \section{Introduction}
@@ -51,23 +51,59 @@ given.
 
 \section{Two ways to use the nrdoc class}
 
-The \texttt{nrdoc} class can be used both by \LaTeX\ (using the
-\texttt{latex} command) and pdf\LaTeX\ (using the \texttt{pdflatex}
-command). Using the option 
-\textit{screen} \index{screen}\index{option!screen}
-together with \texttt{pdflatex} or \texttt{latex} and \texttt{dvipdfm}
-gives an \textbf{electronic report with hyperlinks}.\index{hyperlinks}
+The \texttt{nrdoc} class can be used both by \LaTeX\ \index{\LaTeX}
+(using the \texttt{latex} command) and pdf\LaTeX\ \index{pdf\LaTeX}
+(using the \texttt{pdflatex} command). Using the option
+\textit{screen} \index{screen}\index{option!screen} together with
+\texttt{pdflatex} or \texttt{latex} and
+\texttt{dvipdfm}\index{dvipdfm} gives an \textbf{electronic report
+  with hyperlinks}.\index{hyperlinks} An example of the hyperlinks is
+given here: If this is an electronic report, Equations \eqref{eq:ey}
+can be found by clicking the equation number. The option
+\textit{screen} gives the lines on the front page and hyperlinks, so
+this option should not be used for a paper report. 
 
-\subsection{Including a figure}
+\subsection{Note and report}
+The default option \textit{note}\index{option!note} gives a NR
+note. The option  \textit{report}\index{option!report} gives a NR
+report. For a NR report, these additional variables must be
+specified:
 
-On the front page, a figure\index{figure} 
-can be included with \texttt{frontpagefigure}.
-Just give the full path to the figure file, without the file extension.
-The figure is automatically scaled to fit the front page.
+***
 
-Other
-figures are included by \texttt{includegraphics}. An example is given
-here:
+\subsection{Long reports}
+
+The class option \textit{long}\index{option!long} 
+gives access to part\index{part} and chapter\index{chapter} commands.
+By default the highest level is section\index{section}.
+
+\subsection{Closed}
+The option \textit{closedavailability}
+\index{option!closedavailability} gives a closed report. 
+
+\section{Front and title page}
+
+For the title page to work, the abstract (summary) must be
+present. The title is set by \verb!\title!. \index{title}
+\verb!\nrtitle! \index{nrtitle} can be used to specify the title in
+the title page (this is convenient if the title on the front page
+includes some line shifts). \verb!\shorttitle! \index{nrtitle}
+specifies the text in the heading of each page. If \verb!\shorttitle!
+\index{shorttitle} is not specified, the text in the heading will be
+taken from \verb!\title!. 
+
+The date is taken from \verb!\date!.
+
+
+\section{Including a figure}
+
+On the front page, a figure\index{figure} can be included with
+\texttt{frontpagefigure}. Just give the full path to the figure file,
+without the file extension. The figure is automatically scaled to fit
+the front page. 
+
+Other figures are included by \texttt{includegraphics}. An example is
+given here (and in Figure \ref{fig:logo}):
 \begin{verbatim}
 \begin{figure}[ht]
   \begin{center}
@@ -85,11 +121,19 @@ here:
 Note that the extension of the figure file name should be dropped. The
 reason is that \LaTeX\ will find the required file itself. 
 The figure
-files should have the following format:\index{fornmat}
-\begin{itemize}
-\item \texttt{latex}: postscript [.ps] or encapsulated postscript [.eps]
-\item \texttt{pdflatex}:pdf  [.pdf] or jpeg [.jpeg/.jpg]
-\end{itemize}
+files should have the following format:\index{format}
+\begin{description}
+\item [\LaTeX] postscript [.ps] or encapsulated postscript
+  [.eps] \index{format!postscript}
+\item [pdf\LaTeX] pdf  [.pdf] or jpeg [.jpeg/.jpg]
+  \index{format!pdf} \index{format!jpeg}
+\end{description}
+
+\subsection{Format conversion}
+postscript files can be converted to pdf using the \texttt{ps2pdf}
+command or Acrobat Distiller. 
+pdf files can be converted to postscript using the \texttt{pdf2ps}
+command or Adobe Acrobat. 
 
 \section{Fonts}
 
@@ -99,14 +143,14 @@ options.\index{option!10pt}\index{option!11pt}\index{option!12pt}
 
 The standard font is type 1 versions of computer modern. The exception is
 the typewriter font which has been replaced with almost European fonts.
-There is also the option \textit{times} giving built-in times-roman fonts.
-These fonts are used on the cover and the title page.
+There is also the option \textit{times} \index{option!times} giving
+built-in times-roman fonts.  These fonts are used on the cover and the
+title page. 
 
 \section{Mathematics}\index{mathematics}
 
 The \texttt{nrdoc} class loads the ams\index{amslatex@ams\LaTeX} 
-packages so that the full
-power of these extensions are available.
+packages so that the full power of these extensions are available.
 \begin{align}\label{eq:ey}
 \begin{split}
   EY(s)&=\sum_{i=1}^n \mathcal{K}_s(s_i)Ew(s_i),\\
@@ -114,85 +158,104 @@ power of these extensions are available.
   \mathcal{K}_{s'}(s_i)Ew^2(s_i).
 \end{split}
 \end{align}
-Equations \eqref{eq:ey} are very nice equations.
 
+\section{Citation using {Bib}\TeX}
 
-\section{Citation using \textsc{Bib}\TeX}
-
-Citations\index{cite} are handled by \textsc{Bib}\TeX\ and a style file
-similar to \texttt{natbib}. This style file is automatically loaded by
-\texttt{nrdoc}. Some examples
-are given in Table \ref{tab:cite}.
+Citations\index{cite}
+are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and the
+\texttt{natbib}\footnote{A simpler numerical\index{cite!numeric
+    citation label} citation scheme with citations appearing in the
+  order of citations is supported as well using the option
+  \textit{citenumeric}. This is intended for documents that need
+  numerical citations due to external demands.} 
+style. This style is automatically loaded by \texttt{nrdoc}. Some
+examples are given in Table \ref{tab:cite}.    
 \begin{table}[ht]
 \centering
 \begin{tabular}{lll}
 \hline
 usual citations &  
-\protect\cite{host02} & 
-\verb!\cite{host02}! \\
+\protect\cite{mardia79} & 
+\verb!\cite{mardia79}! \\
 in parentheses  &  
-\protect\citep{host02} & 
-\verb!\citep{host02}!\\
+\protect\citep{mardia79} & 
+\verb!\citep{mardia79}!\\
 with a see     &  
-\protect\citep[see][]{host02} &
-\verb!\citep[see][]{host02}!\\
+\protect\citep[see][]{mardia79} &
+\verb!\citep[see][]{mardia79}!\\
 with a section/page & 
-\protect\citet[Section 2]{host02} & 
-\verb!\citet{host02}!\\
+\protect\citet[Section 2]{mardia79} & 
+\verb!\citet{mardia79}!\\
 will all authors & 
-\protect\citet*{host02} & 
-\verb!\citet*{host02}!\\
+\protect\citet*{mardia79} & 
+\verb!\citet*{mardia79}!\\
 without parentheses & 
-\protect\citealt{host02}&
-\verb!\citealt{host02}!\\
+\protect\citealt{mardia79}&
+\verb!\citealt{mardia79}!\\
 only the year & 
-\protect\citeyear{host02} & 
-\verb!\citeyear{host02}!\\
+\protect\citeyear{mardia79} & 
+\verb!\citeyear{mardia79}!\\
 only the author & 
-\protect\citeauthor{host02} &
-\verb!\citeauthor{host02}! \\
+\protect\citeauthor{mardia79} &
+\verb!\citeauthor{mardia79}! \\
 \hline
 \end{tabular}
 \caption{Examples of citations using \textsc{Bib}\TeX{}.}
 \label{tab:cite} 
 \end{table}
-The \textsc{Bib}\TeX{} file (\texttt{ref.bib}) is given in 
-Appendix \ref{sec:ref.bib}. 
-A simpler numerical\index{numeric citation label} 
-citation scheeme
-with citations appearing in the order of citations is supported as well
-using the option \textit{citenumeric}.
+The citations are listed in a {Bib}\TeX{} file with the extencions
+\texttt{.bib}. An example (\texttt{ref.bib}) is given in Appendix
+\ref{sec:ref.bib}. Use the \texttt{bibtex} command to run  {Bib}\TeX{}.
+
 
 \section{Languages}
 
 The following options are available for 
 different language\index{language} support:
 \begin{description}
-\item[\textit{norsk}] bokm\aa l.\index{option!norsk}
-\item[\textit{nynorsk}] nynorsk.\index{option!nynorsk}
-\item[\textit{american}] u.s.\ english (default)\index{option!american}
-\item[\textit{british}] u.k.\ english \index{option!british}
+\item[\textit{norsk}] bokm\aa l.\index{option!norsk} 
+\item[\textit{nynorsk}] nynorsk.\index{option!nynorsk} 
+\item[\textit{american}] u.s.\ english
+  (default)\index{option!american} 
+\item[\textit{british}] u.k.\ english \index{option!british} 
 \end{description}
 
-\section{The draft option}
+\section{The draft option}\index{option!draft}
 
-The draft option prevents figure inclusion, turns off the cover generation 
-and adds
-marks on oversized lines.
+The draft option prevents figure inclusion, turns off the cover
+generation and adds marks on oversized lines.
 
-\section{Making an index}
+\section{Making an index}\index{index}
 
 There is support for making indexes with makeindex.
-Add the command \texttt{\\makeindex} in the preamble, and
+Add the command \verb!\makeindex! in the preamble, and
 run \texttt{makeindex} on the main tex file. This generates
 an index file. It is called at \verb!\end{document}!.
 
 
-\section{Long reports}
-
-The class option \textit{long}\index{option!long} 
-gives access to part\index{part} and chapter\index{chapter} commands.
-By default the highest level is section.
+\section{Default packages}
+The following packages are loaded by default:
+\begin{description}
+\item[\textit{inputenc}] Handles Norwegian
+  letters. \index{package!inputenc} 
+\item[\textit{amsmath}] For advanced math. \index{package!amsmath} 
+\item[\textit{paralist}] For list
+  environments. \index{package!paralist} 
+\item[\textit{fancyheadings}] For
+  headers. \index{package!fancyheadings} 
+\item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
+\item[\textit{xspace}] For space control. \index{package!xspace}
+\item[\textit{rotating}] For text rotation. \index{package!rotating} 
+\item[\textit{makeidx}] For index. \index{package!makeidx}
+\item[\textit{multicol}] For multiple
+  columns. \index{package!multicol} 
+\item[\textit{color}] For colour. \index{package!color}
+\item[\textit{graphicx}] for graphics
+  inclusion. \index{package!graphicx} 
+\item[\textit{babel}] For language support. \index{package!babel}
+\item[\textit{geometry}] For page geometry. \index{package!geometry} 
+\item[\textit{hyperref}] For hyperlinks. \index{package!hyperref}
+\end{description} 
 
 \bibliography{ref}
 
@@ -201,7 +264,7 @@ By default the highest level is section.
 
 \section{The \LaTeX{} code for this document\label{sec:code}}
 \verbatiminput{manual.tex}
-\section{The \textsc{Bib}\TeX{} file (\texttt{ref.bib})}\label{sec:ref.bib}
+\section{The {Bib}\TeX{} file (ref.bib)}\label{sec:ref.bib}
 \verbatiminput{ref.bib}
 
 \end{document}
