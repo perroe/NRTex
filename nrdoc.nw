@@ -1,6 +1,7 @@
 
 
-\documentclass[british]{nrdoc}
+\documentclass[british,screen]{nrdoc}
+
 
 \usepackage{myweb}
 
@@ -49,6 +50,8 @@ Norwegian and English.
 
 \tableofcontents
 
+\listoffigures
+
 \mainmatter
 
 \section{Introduction}
@@ -59,9 +62,7 @@ and as a result the NR reports have varied in appearance and style.
 
 The following \LaTeX2e\ class answers this problem.
 This document is generated from the noweb file containing the
-source code for the class. Users of \LaTeX\ not interested
-in the implementional details could
-proceed to Section~\ref{Sect:Usage}.
+source code for the class. 
 
 
 \section{Specification}
@@ -110,11 +111,10 @@ commands of the \LaTeX\ standard report class.
     \pdfcompresslevel=9
 \fi
 
+\usepackage{ifthen}		% for logic in class file
+\usepackage{calc}		% for math in class file
 
-\usepackage{ifthen}		% for logic
-\usepackage{calc}		% for math
-\newboolean{longreport}
-\setboolean{longreport}{false}
+\newboolean{longreport}        
 
 \newcommand{\notename}{Note} 
 \newcommand{\reportname}{Report} 
@@ -133,10 +133,7 @@ commands of the \LaTeX\ standard report class.
 \newcommand{\openavailable}{Open} 
 \newcommand{\closedavailable}{Closed}
 
-
 \newcommand{\nrdocument}{NR Document}
-
-
 
 \renewcommand{\and}{\linebreak}
 @ %
@@ -148,7 +145,6 @@ commands of the \LaTeX\ standard report class.
 The usual options for font size 10pt, 11pt, and 
 12pt font size are supported.
 <<options>>=
-
 \DeclareOption{10pt}{%
 \PassOptionsToClass{10pt}{report}\PassOptionsToClass{10pt}{article}}
 \DeclareOption{11pt}{%
@@ -181,14 +177,10 @@ The current version of the
 the \texttt{note} and the \texttt{report}. 
 
 <<helping variables>>=
-\newboolean{draftversion}
-\setboolean{draftversion}{false}
-\newboolean{report}
-\setboolean{report}{false}
-\newboolean{screen}
-\setboolean{screen}{false}
-\newboolean{closedavailability}
-\setboolean{closedavailability}{false}
+\newboolean{draftversion}  
+\newboolean{report}        
+\newboolean{screen}        
+\newboolean{closedavailability} 
 @ %
 <<options>>=
 \DeclareOption{long}{\setboolean{longreport}{true}}
@@ -202,13 +194,9 @@ the \texttt{note} and the \texttt{report}.
 
 <<helping variables>>=
 \newboolean{language_selected}
-\setboolean{language_selected}{false}
 \newboolean{norsk_selected}
-\setboolean{norsk_selected}{false}
 \newboolean{nynorsk_selected}
-\setboolean{nynorsk_selected}{false}
 \newboolean{english_selected}
-\setboolean{english_selected}{false}
 \newboolean{firstindent}
 @ %
 <<options>>=
@@ -224,6 +212,14 @@ the \texttt{note} and the \texttt{report}.
 			\setboolean{language_selected}{true}
 			\setboolean{english_selected}{true}	
 			\setboolean{firstindent}{false}}
+\DeclareOption{UKenglish}{\PassOptionsToPackage{UKenglish}{babel}
+			\setboolean{language_selected}{true}
+			\setboolean{english_selected}{true}	
+			\setboolean{firstindent}{false}}
+\DeclareOption{USenglish}{\PassOptionsToPackage{USenglish}{babel}
+			\setboolean{language_selected}{true}
+			\setboolean{english_selected}{true}	
+			\setboolean{firstindent}{false}}
 \DeclareOption{norsk}{\PassOptionsToPackage{norsk}{babel}
 			\setboolean{norsk_selected}{true}	
 			\setboolean{firstindent}{true}
@@ -232,13 +228,8 @@ the \texttt{note} and the \texttt{report}.
 			\setboolean{nynorsk_selected}{true}	
 			\setboolean{firstindent}{true}
 			\setboolean{language_selected}{true}}
-
-
-
-
 @ %
 <<loading packages>>=
-
 \ifthenelse{\boolean{firstindent}}{%
  \RequirePackage{indentfirst}
 }{}
@@ -282,15 +273,13 @@ chosen by using the option \texttt{citenumeric}.
 
 <<helping variables>>=
 \newboolean{citenumeric}
-\setboolean{citenumeric}{false}
-
 <<options>>=
 \DeclareOption{citenumeric}{%
 \setboolean{citenumeric}{true}
 }
 @ %
 <<use packages>>=
-\usepackage{natbib}         % for bibliography
+\usepackage[round]{natbib}         % for bibliography
 @ %
 \section{Setting defaults}
 
@@ -337,8 +326,6 @@ We execute the following default options.
  \renewcommand{\openavailable}{{\AA}pen} 
  \renewcommand{\closedavailable}{Lukka}
 }{}
-
-
 @ %
 
 \section{Useful packages}
@@ -348,7 +335,7 @@ A number of useful packages are preloaded by default.
 
 \subsection{Font encoding}
 Let us use the latin1 input encoding so that
-Norwegian characters are supported.
+Norwegian characters are supported in input.
 <<loading packages>>=
 \RequirePackage[latin1]{inputenc}  
 @ %
@@ -362,7 +349,6 @@ Norwegian characters are supported.
 
 \subsection{Utilities}
 <<loading packages>>=
-
 \RequirePackage{paralist}	% for list environments
 \RequirePackage{fancyheadings}	% for headers
 \RequirePackage{verbatim}	% extra verbatims
@@ -390,7 +376,8 @@ Norwegian characters are supported.
 \else
   \usepackage[dvipdfm,colorlinks=true,plainpages=false,backref=page]{hyperref}
 \fi
-  }{}
+  }{%
+\usepackage[colorlinks=false,plainpages=false]{hyperref}}
 	
 @ 
 
@@ -428,7 +415,6 @@ Norwegian characters are supported.
 
 <<preliminary commands>>=
 
-
 \newcommand{\rmfrontpage}{ptm}
 \newenvironment{timesroman}{\fontencoding{T1}\fontfamily{ptm}\selectfont}{}
 
@@ -439,7 +425,6 @@ Norwegian characters are supported.
 \newcommand{\printyear}{\number\year}
 \newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
 
-
 \newcommand{\printshorttitle}{\@title}
 \newcommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
 
@@ -448,7 +433,8 @@ Norwegian characters are supported.
 
 \newcommand{\printreportnumber}{%
 \typeout{NRdoc warning: Report number not set}No number}
-\newcommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{\MakeUppercase{#1}}}
+\newcommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
+\MakeUppercase{#1}}}
 
 \newcommand{\printkeywords}{\typeout{NRdoc warning: Keywords not defined}}
 \newcommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
@@ -456,17 +442,19 @@ Norwegian characters are supported.
 \newcommand{\printproject}{\typeout{NRdoc warning: Project not defined}}
 \newcommand{\project}[1]{\renewcommand{\printproject}{#1}}
 
-\newcommand{\printprojectnumber}{\typeout{NRdoc warning: Project number not defined}}
+\newcommand{\printprojectnumber}{%
+\typeout{NRdoc warning: Project number not defined}}
 \newcommand{\projectnumber}[1]{\renewcommand{\printprojectnumber}{#1}}
 
 \newcommand{\printtarget}{\typeout{NRdoc warning: Target group not defined}}
 \newcommand{\target}[1]{\renewcommand{\printtarget}{#1}}
 
-\newcommand{\printresearchfield}{\typeout{NRdoc warning: Reserach field not defined}}
+\newcommand{\printresearchfield}{%
+\typeout{NRdoc warning: Reserach field not defined}}
 \newcommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
 
 
-\setboolean{frontpagefiguredefined}{false}
+\newboolean{frontpagefiguredefined}
 \newcommand{\frontpagefigurefile}{}
 \newcommand{\frontpagefigure}[1]{%
 \renewcommand{\frontpagefigurefile}{#1}%
@@ -483,7 +471,6 @@ Norwegian characters are supported.
 {\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}%
 \end{rotate}
 }
-
 
 \newcommand{\nrwhitebar}{%
 \noindent\hspace{-20mm}%
@@ -546,7 +533,6 @@ Norwegian characters are supported.
 \end{minipage}}}%
 \par}
 
-
 \newcommand{\nrauthorbar}{%
 \raisebox{-200mm}[0pt][0pt]{%
 \hspace{-25mm}%
@@ -578,16 +564,11 @@ Norwegian characters are supported.
 \color{black}%
 \clearpage}
 }
-
-
 @ %
 
 \section{Title page}
 
 <<preliminary commands>>=
-
-
-
 \newcommand{\nrtitlepagetop}{%
 \mbox{}
 
@@ -608,12 +589,9 @@ Norwegian characters are supported.
 \rule{\linewidth}{1pt}
 }
 
-
 \newcommand{\nrtitlepage}{%
- 
-\clearemptydoublepage
+ \clearemptydoublepage
 \thispagestyle{empty} 
-
 
 \nrtitlepagetop
 
@@ -641,22 +619,17 @@ Norwegian characters are supported.
 {\notename} \numbername:} \printreportnumber 
 \end{minipage}
 
-\vspace{3em}
-
-
+\vspace{3em}\par
 }
-
 @ %
 
 
 <<main code>>=
-
 \ifthenelse{\boolean{longreport}}%
-{% 
-	
+{% \mainmatter is already defined
 }%
 {% else
-	\newcommand{\mainmatter}{\pagenumbering{arabic}}
+   \newcommand{\mainmatter}{\pagenumbering{arabic}}
 }
 
 \newlength{\abstractlinesep}
@@ -703,30 +676,25 @@ Norwegian characters are supported.
 \clearemptydoublepage}
 
 \renewcommand{\maketitle}[1]{%
-	\ifthenelse{\boolean{screen}}{ 
+
 	\hypersetup{pdftitle={\printtitle},		    
-		    pdfauthor={Norwegian Computing Center}}}{}
-
-
+		    pdfauthor={Norwegian Computing Center}}
 	
 	\begin{timesroman}
 	\nrfrontpage		
 	\pagenumbering{roman}\addtocounter{page}{-\value{page}}
 	\nrtitlepage
-	\end{timesroman}
-    
+	\end{timesroman}    
 }
 
-
 \ifthenelse{\boolean{longreport}}{%
-\renewcommand\tableofcontents{%
+\renewcommand\tableofontents{%
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
-           \contentsname}{\contentsname}}%
-      \ifthenelse{\boolean{screen}}{
+           \contentsname}{\contentsname}}%          
       \addtocontents{toc}{\protect\hypertarget{toc}{}%	
-        \protect\pdfbookmark[0]{\contentsname}{toc}}}{}              
+        \protect\pdfbookmark[0]{\contentsname}{toc}}             
     \@starttoc{toc}%
 \clearemptydoublepage
 }}{
@@ -734,16 +702,42 @@ Norwegian characters are supported.
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
-           \contentsname}{\contentsname}}%
-      \ifthenelse{\boolean{screen}}{
+           \contentsname}{\contentsname}}%          
       \addtocontents{toc}{\protect\hypertarget{toc}{}%	
-        \protect\pdfbookmark[1]{\contentsname}{toc}}}{}              
+        \protect\pdfbookmark[1]{\contentsname}{toc}}             
     \@starttoc{toc}%
-\clearemptydoublepage
+      \newpage ok
+      \clearemptydoublepage
 }}
 
-\pagestyle{fancy}
+\ifthenelse{\boolean{longreport}}{%
+\renewcommand\listoffigures{% 
+   \thispagestyle{empty}
+    \chapter*{\listfigurename
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}}%
+      
+      \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[0]{\listfigurename}{toc}}
+    \@starttoc{lof}% 
+    \clearemptydoublepage
+    }
+}{% else
+\renewcommand\listoffigures{% 
+    \thispagestyle{empty}
+    \section*{\listfigurename
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}}% 
+   
+      \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[1]{\listfigurename}{toc}} 
+    \@starttoc{lof}% 
+    \clearemptydoublepage
+    }
+  }
 
+
+\pagestyle{fancy}
 
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 \rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
@@ -753,22 +747,21 @@ Norwegian characters are supported.
 
 \renewcommand{\sectionmark}[1]{\markboth{}{}}
 
-
 \ifthenelse{\boolean{citenumeric}}{%
             \bibliographystyle{unsrtnat}
             \typeout{nrdoc uses numeric citation labels}
 }{% 
-            \typeout{nrdoc uses alphabetic citation labels}
-           
+            \typeout{nrdoc uses alphabethic citation labels}
             \bibliographystyle{plainnat}
 }
+ 
 
+\ifthenelse{\boolean{longreport}}{%
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
-                \section*{\indexname}%
-		\ifthenelse{\boolean{screen}}{
-                 \addcontentsline{toc}{section}{\indexname}}%	
-                 {} 
+                \chapter*{\indexname}%
+	
+                 \addcontentsline{toc}{chapter}{\indexname}
 		 
                 \@mkboth{\MakeUppercase\indexname}%
                         {\MakeUppercase\indexname}%
@@ -776,88 +769,32 @@ Norwegian characters are supported.
                 \parskip\z@ \@plus .3\p@\relax
                 \let\item\@idxitem\begin{multicols}{2}}
                {\end{multicols}}
+}{% else
+\renewenvironment{theindex}{%                
+                 \clearemptydoublepage
+                \section*{\indexname}%
+                 \addcontentsline{toc}{section}{\indexname}
+		 
+                \@mkboth{\MakeUppercase\indexname}%
+                        {\MakeUppercase\indexname}%
+                \thispagestyle{plain}\parindent\z@
+                \parskip\z@ \@plus .3\p@\relax
+                \let\item\@idxitem\begin{multicols}{2}}
+               {\end{multicols}}
+  }
+
+
+\AtBeginDocument{%
+}
 
 \AtEndDocument{\printindex\label{LastPage}}
 
 @ %
 
+\appendix
 
-\section{Auxillary variables}
-
-<<helping variables>>=
-
-
-\newboolean{frontpagefiguredefined}
-
-@ %
-
-
-\section{Usage} \label{Sect:Usage}
-
-A NR report source file using the [[nrreport]] class  
-should have the following layout:
-
-
-\begin{verbatim}
-% Specify language of report
-\documentclass[norsk]{nrreport}
-
-
-
-
-% -------------------------------------------------
-% BEGIN nrdoc specieal commands
-\ifx\nrdocument\undefined\relax\else
-
-\reportnumber{adm/03/03}
-\keywords{and}
-\project{Sv\o mmetrening}
-\projectnumber{X}
-\frontpagefigure{figs/picture}
-\target{Alle ansatte}
-\researchfield{}
-\fi
-% END nrdoc special commands
-% ------------------------------------------------
-
-\begin{document}
-
-
-
-\title{Nytt fra Andeby}
-\author{Ole Duck\and
-        Dole Duck\and
-	Doffen Duck}
-
-\maketitle
-
-
-\begin{abstract}
-Andedammen er igjen \aa pen.
-\end{abstract}
-
-
-
-
-% Optional front page figure
-%\frontpagefigure{%
-%\includegraphics[width=100mm]{epsfigure_file}}
-
-\maketitle
-
-\section{Andedammen gjenåpnet}
-
-Det er med stor glede vi kan fortelle at Andedammen på
-nytt er åpnet. Vannkvaliteten er up\aa klagelig.
-
-\section{Reklame}
-
-Dette arbeidet var sponset av Skrue McDuck.
-
-\end{document}
-\end{verbatim}
-
-
+\section{The class file}
+\verbatiminput{nrdoc.cls}
 
 \end{document}
 
