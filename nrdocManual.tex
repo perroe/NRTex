@@ -1,30 +1,33 @@
 % Specify language of report
-\documentclass[screen,note,british,12pt]{nrdoc}
-\usepackage{natbib}
 
+\documentclass[screen,note,british]{nrdoc}
 
 
 % -------------------------------------------------
 % BEGIN nrdoc special commands
-
+\ifx\nrdocument\undefined\relax\else
 \reportnumber{sand/XX/03}
 \keywords{\LaTeX, NR}
 \project{}
 \projectnumber{}
-\frontpagefigure{figs/fotball}
+\frontpagefigure{figs/fotball} % No file extension.
 \target{All employees}
 \researchfield{}
-\nrtitle{nrdoc: \LaTeX{} class for notes and reports}
+
+%\nrtitle{User manual for nrdoc: a \LaTeX\ class for notes and reports}
+%\shorttitle{User manual for nrdoc}
+\fi
 % END nrdoc special commands
 % ------------------------------------------------
+
+\makeindex
 
 \begin{document}
 
 
 
-\title{nrdoc: \LaTeX{} class for notes and reports}
-\author{Harald Soleng\and
-        Anders Løland}
+\title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
+\author{Harald Soleng\and Anders Løland}
 \date{\today}
 \maketitle
 
@@ -40,19 +43,22 @@ Norwegian and English.
 
 \section{Introduction}
 This document gives an example of the use of the \texttt{nrdoc} class. 
-In Appendix \ref{sec:code} the \LaTeX{} source code for this document is
+In Appendix \ref{sec:code} the \LaTeX\ source code for this document is
 given.  
 
 \section{Two ways to use the nrdoc class}
+
 The \texttt{nrdoc} class can be used both by \LaTeX (using the
-\texttt{latex} command) and pdf\LaTeX (using the \texttt{pdflatex}
-command). Using \texttt{pdflatex} and including the option \textit{screen}
-gives an \textbf{electronic report with hyperlinks}.
+\texttt{latex} command) and pdf\LaTeX\ (using the \texttt{pdflatex}
+command). Using the option 
+\textit{screen} \index{screen}\index{option!screen}
+together with \texttt{pdflatex} or \texttt{latex} and \texttt{dvipdfm}
+gives an \textbf{electronic report with hyperlinks}.\index{hyperlinks}
 
 \subsection{Including a figure}
-Figures are included by \texttt{includefigure}. An example is given
-here:
 
+Figures are included by \texttt{includegraphics}. An example is given
+here:
 \begin{verbatim}
 \begin{figure}[ht]
   \begin{center}
@@ -68,16 +74,19 @@ here:
   \end{center}
 \end{figure}
 Note that the extension of the figure file name should be dropped. The
-reason is that \LaTeX will find the required file itself. The figure
+reason is that \LaTeX\ will find the required file itself. The figure
 files should have the following format:
 \begin{itemize}
 \item \texttt{latex}: postscript [.ps] or encapsulated postscript [.eps]
-\item \texttt{pdflatex}: .pdf or .jpeg/.jpg
+\item \texttt{pdflatex}:pdf  [.pdf] or jpeg [.jpeg/.jpg]
 \end{itemize}
 
 
-\section{Mathematics}
+\section{Mathematics}\index{mathematics}
 
+The \texttt{nrdoc} class loads the ams\index{amslatex@ams\LaTeX} 
+packages so that the full
+power of these extensions are available.
 \begin{align}\label{eq:ey}
 \begin{split}
   EY(s)&=\sum_{i=1}^n \mathcal{K}_s(s_i)Ew(s_i),\\
@@ -85,45 +94,76 @@ files should have the following format:
   \mathcal{K}_{s'}(s_i)Ew^2(s_i).
 \end{split}
 \end{align}
+Equation \eqref{eq:ey} is a very nice equation.
 
-\eqref{eq:ey} is a very nice equation.
 
+\section{Citation using \textsc{Bib}\TeX}
 
-\section{Citation using Bib\TeX}
-
-Citations are handled by Bib\TeX{} and \texttt{natbib}. Some examples
+Citations\index{cite} are handled by \textsc{Bib}\TeX\ and a style file
+similar to \texttt{natbib}. This style file is automatically loaded by
+\texttt{nrdoc}. Some examples
 are given in Table \ref{tab:cite}.
 \begin{table}[ht]
-\begin{tabular}{ l l l}
-  \hline
-  usual citations
-  &  \cite{host02} & \verb!\cite{host02}!\\
-  in ()           &  \citep{host02} & \verb!\citep{host02}!\\
-  with a see      &  \citep[see][]{host02} &\verb!\citep[see][]{host02}!\\
-  with a section/page & \citet[Section 2]{host02} & \verb!\citet{host02}!\\
-  will all authors & \citet*{host02} & \verb!\citet*{host02}!\\
-  without parentheses & \citealt{host02}&\verb!\citealt{host02}!\\
-  only the year & \citeyear{host02} & \verb!\citeyear{host02}!\\
-  only the author & \citeauthor{host02} &
-  \verb!\citeauthor{host02}!\\
-  \hline
+\begin{tabular}{lll}
+\hline
+usual citations &  
+\protect\cite{host02} & 
+\verb!\cite{host02}! \\
+in parentheses  &  
+\protect\citep{host02} & 
+\verb!\citep{host02}!\\
+with a see     &  
+\protect\citep[see][]{host02} &
+\verb!\citep[see][]{host02}!\\
+with a section/page & 
+\protect\citet[Section 2]{host02} & 
+\verb!\citet{host02}!\\
+will all authors & 
+\protect\citet*{host02} & 
+\verb!\citet*{host02}!\\
+without parentheses & 
+\protect\citealt{host02}&
+\verb!\citealt{host02}!\\
+only the year & 
+\protect\citeyear{host02} & 
+\verb!\citeyear{host02}!\\
+only the author & 
+\protect\citeauthor{host02} &
+\verb!\citeauthor{host02}! \\
+\hline
 \end{tabular}
-\caption{Examples of citations using Bib\TeX{} and
-  \texttt{natbib}. \label{tab:cite}} 
+\caption{Examples of citations using \textsc{Bib}\TeX{}.}
+\label{tab:cite} 
 \end{table}
+The \textsc{Bib}\TeX{} file (\texttt{ref.bib}) is given in 
+Appendix \ref{sec:ref.bib}. A simpler numerical\index{numeric citation label} 
+citation scheeme
+with citations appearing in the order of citations is supported as well
+using the option \textit{citenumeric}.
 
-The Bib\TeX{} file (\texttt{ref.bib}) is given in Appendix {sec:ref.bib}.
+\section{Languages}
+
+The following options are available for 
+different language support:
+\begin{description}
+\item[norsk] bokm\aa l.
+\item[nynorsk] nynorsk.
+\item[american] u.s.\ english (default)
+\item[british] u.s.\ english (default)
+\end{description}
 
 \bibliography{ref}
-\bibliographystyle{nralpha}
 
 \clearpage
 \appendix
 
 \section{The \LaTeX{} code for this document\label{sec:code}}
 \verbatiminput{nrdocManual.tex}
-\section{The Bib\TeX{} file (\texttt{ref.bib})}
+\section{The \textsc{Bib}\TeX{} file (\texttt{ref.bib})}\label{sec:ref.bib}
 \verbatiminput{ref.bib}
+
+
+
 \end{document}
 
 

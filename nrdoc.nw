@@ -18,6 +18,7 @@
 \target{NRTUG (NR \TeX\ User Group)}
 \researchfield{}
 \nrtitle{The source code of nrdoc: a \LaTeX\ class for NR documents}
+\shorttitle{The source code of nrdoc}
 \fi
 % END nrdoc special commands
 % ------------------------------------------------
@@ -92,7 +93,8 @@ pdf version with hyperlinks.
 \subsection{Sectioning}
 
 Depending on the length of a report one may wish for sections
-or chapters as the highest-level sectioning command. The default document structure is the same as
+or chapters as the highest-level sectioning command. The 
+default document structure is the same as
 for the \LaTeX\ standard article class.
 For long reports,
 use the [[long]] option to get access to [[chapter]] and [[part]]
@@ -253,6 +255,7 @@ option.
 \DeclareOption{times}{\setboolean{timesroman}{true}}
 @ %
 <<loading packages>>=
+\RequirePackage{ae}
 \ifthenelse{\boolean{timesroman}}{\RequirePackage{times}}{}
 @ %
 
@@ -270,6 +273,22 @@ option.
 @ %
 
 
+\subsection{Bibliography style}
+
+The nrdoc class can be used together with \textsc{Bib}\TeX.
+It supports numeric labels and labels formed from the name(s) of the
+author(s). The latter style is default. The numeric style is
+chosen by using the option \texttt{citenumeric}.
+
+<<helping variables>>=
+\newboolean{citenumeric}
+\setboolean{citenumeric}{false}
+
+<<options>>=
+\DeclareOption{citenumeric}{%
+\setboolean{citenumeric}{true}
+}
+@ %
 
 \section{Setting defaults}
 
@@ -316,6 +335,8 @@ We execute the following default options.
  \renewcommand{\openavailable}{{\AA}pen} 
  \renewcommand{\closedavailable}{Lukka}
 }{}
+
+
 @ %
 
 \section{Useful packages}
@@ -343,9 +364,8 @@ Norwegian characters are supported.
 \RequirePackage{fancyheadings}	% for headers
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
-\RequirePackage{ae}             % for new texttt
 \RequirePackage{rotating}       % for text rotation
-
+\RequirePackage{makeidx}        % for index
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -413,6 +433,9 @@ Norwegian characters are supported.
 \newcommand{\printyear}{\number\year}
 \newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
 
+
+\newcommand{\printshorttitle}{\@title}
+\newcommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
 
 \newcommand{\printtitle}{\@title}
 \newcommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
@@ -710,10 +733,21 @@ Norwegian characters are supported.
 \rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
-{\fancyplain{\leftmark}{\leftmark}}
+{\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
-\renewcommand{\sectionmark}[1]{\markboth{\textbf{#1}}{}}
-\AtEndDocument{\label{LastPage}}
+\renewcommand{\sectionmark}[1]{\markboth{}{}}
+
+
+\ifthenelse{\boolean{citenumeric}}{%
+            \bibliographystyle{unsrt}
+            \typeout{nrdoc uses numeric citation labels}
+}{% 
+            \typeout{nrdoc uses alphabetic citation labels}
+            \usepackage{nralphabib}
+            \bibliographystyle{nralpha}
+}
+
+\AtEndDocument{\printindex\label{LastPage}}
 @ %
 
 
