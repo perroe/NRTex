@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.14 2003-09-30 19:26:06 soleng Exp $
+# $Id: Makefile,v 1.15 2003-09-30 19:30:36 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -67,7 +67,7 @@ install: src pdf manual printmanual
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 
 clean:
-	rm -f *.html  *~ *.aux *.dvi \
+	rm -f  *~ *.aux *.dvi \
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
 	*.idx *.lof *.ilg
 
