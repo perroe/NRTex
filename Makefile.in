@@ -84,7 +84,8 @@ install: src pdf html manual printmanual rpm
 	cp nrdoc.pdf $(INSTALLPATH)/	
 	cp manual.pdf $(INSTALLPATH)/	
 	cp nrplain.bst $(INSTALLPATH)/	
-	cp nrunsrt.bst  $(INSTALLPATH)/	
+	cp nrunsrt.bst  $(INSTALLPATH)/		
+	cp nrnorsk.bst  $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
@@ -101,7 +102,7 @@ clean:
 tgz:	src
 	mkdir -p ${TGZNAME}
 	cp logos/*.pdf logos/*.eps ${MAIN}.cls $(MANUAL).pdf \
-	nrunsrt.bst nrplain.bst ${TGZNAME}
+	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
 rpm:	tgz pdf

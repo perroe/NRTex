@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.3 2004-01-15 11:45:39 soleng Exp $
+# $Id: rpmspecfile.in,v 1.4 2004-06-18 10:56:12 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -46,9 +46,12 @@ rm -rf %{buildroot}
 /usr/share/texmf/doc/latex/nrdoc/manual.pdf
 /usr/share/texmf/bibtex/bst/nrdoc/nrplain.bst
 /usr/share/texmf/bibtex/bst/nrdoc/nrunsrt.bst
+/usr/share/texmf/bibtex/bst/nrdoc/nrnorsk.bst
 
 
 %changelog
+* Fri Jun 18 2004 Harald H. Soleng <harald.soleng@nr.no>
+- Added nrnorsk bibliography style
 * Thu Jan 15 2004 Harald H. Soleng <harald.soleng@nr.no>
 - Bugfix 1.0.2 release 
 * Tue Jan 13 2004 Harald H. Soleng <harald.soleng@nr.no>
