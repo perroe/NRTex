@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.59 2004-03-09 11:30:33 soleng Exp $
+% $Id: nrdoc.nw,v 1.60 2004-03-19 14:12:38 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -61,7 +61,7 @@ source code for the class.
 \section{Version number}
 
 <<version number>>=
-\ProvidesClass{nrdoc}[2004/03/01 v1.0.3-3 NR report class]
+\ProvidesClass{nrdoc}[2004/03/19 v1.0.3-4 NR report class]
 @ %
 
 \section{Handling pdf\LaTeX}
@@ -195,7 +195,7 @@ The obtain and print this information we define the following new functions
 \providecommand{\printtitle}{\@title}
 \providecommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
 
-\providecommand{\printisbn}{\typeout{ISBN number not set}}
+\providecommand{\printisbn}{\typeout{NRdoc warning: ISBN number not set}}
 \providecommand{\isbn}[1]{%
 \renewcommand{\printisbn}{\MakeUppercase{isbn #1}}}
 \providecommand{\shortisbn}[1]{%
@@ -778,11 +778,15 @@ but tried and trusted \texttt{a4wide} package.
 
 
 <<main code>>=
+\newboolean{titlepagemade}
+
 \providecommand{\mainmatter}{\pagenumbering{arabic}}
 
-\ifthenelse{\boolean{longreport}}{
-\newenvironment{abstract}%
-{\begin{titlepagefont}
+\ifthenelse{\boolean{longreport}}{%
+\newenvironment{abstract}{%
+ \ifthenelse{\not\boolean{titlepagemade}}{%
+ \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
+\begin{titlepagefont}
 \noindent\textbf{\abstractname:}}%
 {\vfill
 \noindent\textbf{\keywordsname:} \printkeywords \vspace{1em}\par
@@ -805,8 +809,10 @@ but tried and trusted \texttt{a4wide} package.
 \end{titlepagefont}
 \clearemptydoublepage 
   }}{
-\renewenvironment{abstract}%
-{\begin{titlepagefont}
+\renewenvironment{abstract}{% 
+ \ifthenelse{\not\boolean{titlepagemade}}{%
+ \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
+\begin{titlepagefont}
 \noindent\textbf{\abstractname:}}%
 {\vfill
 \noindent\textbf{\keywordsname:} \printkeywords \vspace{1em}\par
@@ -832,6 +838,7 @@ but tried and trusted \texttt{a4wide} package.
 
 
 \renewcommand{\maketitle}[1]{%
+        \setboolean{titlepagemade}{true} 
 	\hypersetup{pdftitle={\printtitle},		    
 		    pdfauthor={Norwegian Computing Center}}
 	\addtocounter{page}{-2}
@@ -841,7 +848,8 @@ but tried and trusted \texttt{a4wide} package.
 	\nrtitlepage	
 	\addtocounter{page}{-\value{page}}
 	\addtocounter{page}{1}
-	\end{titlepagefont}\par
+	\end{titlepagefont}
+	\relax
 }
 
 \ifthenelse{\boolean{longreport}}{%
