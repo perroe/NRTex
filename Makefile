@@ -34,9 +34,10 @@ manual:
 	grep -s 'No file $(MANUAL).toc' $(MANUAL).log || \
 	grep -s 'Rerun to get cross-references right'\
 	$(MANUAL).log ); \
-	do latex '\scrollmode \input '"$(MANUAL)";\
-	dvipdfm -p a4 -o   $(MANUAL).pdf $(MANUAL).dvi; \
-	done
+	do latex '\scrollmode \input '"$(MANUAL)"; \
+	done; \
+	dvipdfm -p a4 -o   $(MANUAL).pdf $(MANUAL).dvi
+
 
 install:
 	cp nrreport.cls /nr/user/soleng/texinputs/tex/
