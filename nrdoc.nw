@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.34 2003-10-03 08:31:18 soleng Exp $
+% $Id: nrdoc.nw,v 1.35 2003-10-05 11:52:29 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -108,25 +108,25 @@ commands of the \LaTeX\ standard report class.
 \usepackage{ifthen}		% for logic in class file
 \usepackage{calc}		% for math in class file
     
-\newcommand{\notename}{Note} 
-\newcommand{\reportname}{Report}
-\newcommand{\emailname}{e-mail} 
-\newcommand{\publicationnumbername}{Publication no.} 
-\newcommand{\authorname}{Author} 
-\newcommand{\titlename}{Title}
-\newcommand{\datename}{Date}
-\newcommand{\yearname}{Year}
-\newcommand{\numbername}{no.}
-\newcommand{\keywordsname}{Keywords}
-\newcommand{\targetgroupname}{Target group}
-\newcommand{\availabilityname}{Availability}
-\newcommand{\projectname}{Project}
-\newcommand{\projectnumbername}{Project no.}
-\newcommand{\researchfieldname}{Research field}
-\newcommand{\numberofpagesname}{No.\ of pages}
-\newcommand{\openavailable}{Open} 
-\newcommand{\closedavailable}{Closed}
-\newcommand{\nrdocument}{NR Document}
+\providecommand{\notename}{Note} 
+\providecommand{\reportname}{Report}
+\providecommand{\emailname}{e-mail} 
+\providecommand{\publicationnumbername}{Publication no.} 
+\providecommand{\authorname}{Author} 
+\providecommand{\titlename}{Title}
+\providecommand{\datename}{Date}
+\providecommand{\yearname}{Year}
+\providecommand{\numbername}{no.}
+\providecommand{\keywordsname}{Keywords}
+\providecommand{\targetgroupname}{Target group}
+\providecommand{\availabilityname}{Availability}
+\providecommand{\projectname}{Project}
+\providecommand{\projectnumbername}{Project no.}
+\providecommand{\researchfieldname}{Research field}
+\providecommand{\numberofpagesname}{No.\ of pages}
+\providecommand{\openavailable}{Open} 
+\providecommand{\closedavailable}{Closed}
+\providecommand{\nrdocument}{NR Document}
 
 \renewcommand{\and}{\linebreak}
 
@@ -308,8 +308,7 @@ We execute the following default options.
  \renewcommand{\openavailable}{{\AA}pen} 
  \renewcommand{\closedavailable}{Lukket}
 }{}
-\ifthenelse{\boolean{nynorsk_selected}}%
-{%
+\ifthenelse{\boolean{nynorsk_selected}}{%
  \renewcommand{\notename}{Notat}  
  \renewcommand{\emailname}{e-post} 
  \renewcommand{\reportname}{Rapport}  
@@ -400,7 +399,7 @@ Norwegian characters are supported in input.
 \subsection{Page geometry} 
 
 <<use packages>>=  
-\newcommand{\clearemptydoublepage}{% 
+\providecommand{\clearemptydoublepage}{% 
             \newpage{\pagestyle{empty}\cleardoublepage}}
 
 \usepackage[a4paper,body={165mm,235mm},headheight=14pt,nofoot]{geometry}
@@ -416,28 +415,26 @@ Norwegian characters are supported in input.
 @ %
 \subsection{Base class}
 <<loading base class>>=
-\ifthenelse{\boolean{longreport}}{%
-  	 \LoadClass{report}
-   	}{% else
-   	\LoadClass{article}
-}
-@ %
+\ifthenelse{\boolean{longreport}}%
+{\LoadClass{report}}%
+{\LoadClass{article}}
+@ %  
 
 \section{Front page}
 
 <<preliminary commands>>=
-\newcommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
+\providecommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
 \ifthenelse{\equal{#1}{}}{}{%  
 \xspace\href{mailto:#1}{\texttt{<#1>}}}%
 }{\ignorespaces}}
 
-%\newcommand{\homepage}[1]{\ifthenelse{\boolean{titlepage}}{%
+%\providecommand{\homepage}[1]{\ifthenelse{\boolean{titlepage}}{%
 %\ifthenelse{\equal{#1}{}}{}{%  
 %\xspace\href{http://#1}{#1}}%
 %}{\ignorespaces}}
 
 
-\newcommand{\rmfrontpage}{ptm}
+\providecommand{\rmfrontpage}{ptm}
 \newenvironment{timesroman}{\fontencoding{T1}\fontfamily{ptm}\selectfont}{}
 
 \renewcommand{\ttdefault}{aett}
@@ -445,54 +442,54 @@ Norwegian characters are supported in input.
 \definecolor{nrblue}{cmyk}{1,0.72,0,0.18}
 \definecolor{nrgreen}{rgb}{0,0.65,0}
 
-\newcommand{\printyear}{\number\year}
-\newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
+\providecommand{\printyear}{\number\year}
+\providecommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
 
-\newcommand{\printshorttitle}{\@title}
-\newcommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
+\providecommand{\printshorttitle}{\@title}
+\providecommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
 
-\newcommand{\printtitle}{\@title}
-\newcommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
+\providecommand{\printtitle}{\@title}
+\providecommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
 
-\newcommand{\printisbn}{\typeout{ISBN number not set}}
-\newcommand{\isbn}[1]{%
+\providecommand{\printisbn}{\typeout{ISBN number not set}}
+\providecommand{\isbn}[1]{%
 \renewcommand{\printisbn}{\MakeUppercase{isbn #1}}}
-\newcommand{\shortisbn}[1]{%
+\providecommand{\shortisbn}[1]{%
 \renewcommand{\printisbn}{\MakeUppercase{isbn 82-536-#1}}}
 
-\newcommand{\printreportnumber}{%
+\providecommand{\printreportnumber}{%
 \typeout{NRdoc warning: Report number not set}No number}
-\newcommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
+\providecommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
 \MakeUppercase{#1}}}
 
-\newcommand{\printkeywords}{\typeout{NRdoc warning: Keywords not defined}}
-\newcommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
+\providecommand{\printkeywords}{\typeout{NRdoc warning: Keywords not defined}}
+\providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
 
-\newcommand{\printproject}{\typeout{NRdoc warning: Project not defined}}
-\newcommand{\project}[1]{\renewcommand{\printproject}{#1}}
+\providecommand{\printproject}{\typeout{NRdoc warning: Project not defined}}
+\providecommand{\project}[1]{\renewcommand{\printproject}{#1}}
 
-\newcommand{\printprojectnumber}{%
+\providecommand{\printprojectnumber}{%
 \typeout{NRdoc warning: Project number not defined}}
-\newcommand{\projectnumber}[1]{\renewcommand{\printprojectnumber}{#1}}
+\providecommand{\projectnumber}[1]{\renewcommand{\printprojectnumber}{#1}}
 
-\newcommand{\printtarget}{\typeout{NRdoc warning: Target group not defined}}
-\newcommand{\target}[1]{\renewcommand{\printtarget}{#1}}
+\providecommand{\printtarget}{\typeout{NRdoc warning: Target group not defined}}
+\providecommand{\target}[1]{\renewcommand{\printtarget}{#1}}
 
-\newcommand{\printresearchfield}{%
+\providecommand{\printresearchfield}{%
 \typeout{NRdoc warning: Reserach field not defined}}
-\newcommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
+\providecommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
 
 \newboolean{frontpagefiguredefined}
-\newcommand{\frontpagefigurefile}{}
-\newcommand{\frontpagefigure}[1]{%
+\providecommand{\frontpagefigurefile}{}
+\providecommand{\frontpagefigure}[1]{%
 \renewcommand{\frontpagefigurefile}{#1}%
 \setboolean{frontpagefiguredefined}{true}}
 
-\newcommand{\nrbarwidth}{1pt}
-\newcommand{\nrhorizontalbarwidth}{22mm}
-\newcommand{\nrhorizontalbarstartpos}{-29mm}
+\providecommand{\nrbarwidth}{1pt}
+\providecommand{\nrhorizontalbarwidth}{22mm}
+\providecommand{\nrhorizontalbarstartpos}{-29mm}
 
-\newcommand{\nrverticalbar}{%
+\providecommand{\nrverticalbar}{%
  \hspace{8mm}%
  \begin{rotate}{90}
 \ifthenelse{\boolean{bluelines}}{%
@@ -501,25 +498,25 @@ Norwegian characters are supported in input.
 \end{rotate}
 }
 
-\newcommand{\nrwhitebar}{%
+\providecommand{\nrwhitebar}{%
 \noindent\hspace{-20mm}%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
 {\color{white}\rule{2\paperwidth}{\nrhorizontalbarwidth}}}}%
 }
 
-\newcommand{\nrtopbar}{%
+\providecommand{\nrtopbar}{%
 \ifthenelse{\boolean{bluelines}}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
  \rule{2\paperwidth}{\nrbarwidth}}}}{}
 }
 
-\newcommand{\nrbotbar}{%
+\providecommand{\nrbotbar}{%
 \ifthenelse{\boolean{bluelines}}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos + \nrhorizontalbarwidth}
  [0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}{}
 }
 
-\newcommand{\nrlogobar}{%
+\providecommand{\nrlogobar}{%
 \raisebox{\nrhorizontalbarstartpos + 5mm}
 [0pt][0pt]{\hspace{-5mm}%
 \ifthenelse{\not\boolean{bluelines}}{}{%
@@ -538,14 +535,14 @@ Norwegian characters are supported in input.
  \MakeUppercase{\notename}}}}}}\makebox[0mm]{}
 }}
 
-\newcommand{\nrhorizontalbar}{%
+\providecommand{\nrhorizontalbar}{%
 \nrwhitebar%
 \nrtopbar%
 \nrbotbar%
 \nrlogobar%
 }
 
-\newcommand{\nrtitlebar}{%
+\providecommand{\nrtitlebar}{%
 \raisebox{10mm}[0pt][0pt]{%
 \makebox[80mm]{}
 \makebox[40mm]{%
@@ -556,7 +553,7 @@ Norwegian characters are supported in input.
 \end{minipage}}}%
 \par}
 
-\newcommand{\nrfigurebar}{%
+\providecommand{\nrfigurebar}{%
 \raisebox{-140mm}[0pt][0pt]{%
 \makebox[80mm]{}\makebox[40mm]{%
 \begin{minipage}[c]{120mm}
@@ -567,7 +564,7 @@ Norwegian characters are supported in input.
 \end{minipage}}}%
 \par}
 
-\newcommand{\nrauthorbar}{%
+\providecommand{\nrauthorbar}{%
 \raisebox{-200mm}[0pt][0pt]{%
 \hspace{-25mm}%
 \begin{minipage}[b]{45mm}
@@ -588,7 +585,7 @@ Norwegian characters are supported in input.
 \end{minipage}}\par%
 } 
 
-\newcommand{\nrfrontpage}{%
+\providecommand{\nrfrontpage}{%
 \ifthenelse{\boolean{draftversion}}{}{% else final version
 \thispagestyle{empty}%
 \nrtitlebar%
@@ -605,7 +602,7 @@ Norwegian characters are supported in input.
 \section{Title page}
 
 <<preliminary commands>>=
-\newcommand{\nrtitlepagetop}{%
+\providecommand{\nrtitlepagetop}{%
 \mbox{}
 
 \vspace{-20mm}
@@ -625,7 +622,7 @@ Norwegian characters are supported in input.
 \rule{\linewidth}{1pt}
 }
 
-\newcommand{\nrtitlepage}{%
+\providecommand{\nrtitlepage}{%
  \clearemptydoublepage\setboolean{titlepage}{true}
 \thispagestyle{empty} 
 
@@ -666,12 +663,7 @@ Norwegian characters are supported in input.
 
 
 <<main code>>=
-\ifthenelse{\boolean{longreport}}%
-{% \mainmatter is already defined
-}%
-{% else
-   \newcommand{\mainmatter}{\pagenumbering{arabic}}
-}
+\providecommand{\mainmatter}{\pagenumbering{arabic}}
 
 \newlength{\abstractlinesep}
 \setlength{\abstractlinesep}{-0.15em}
@@ -734,7 +726,7 @@ Norwegian characters are supported in input.
 }
 
 \ifthenelse{\boolean{longreport}}{%
-\renewcommand\tableofontents{%
+\renewcommand{\tableofontents}{%
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
@@ -744,7 +736,7 @@ Norwegian characters are supported in input.
     \@starttoc{toc}%
 \clearemptydoublepage
 }}{
-\renewcommand\tableofcontents{%
+\renewcommand{\tableofcontents}{%
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
@@ -756,7 +748,7 @@ Norwegian characters are supported in input.
 }}
 
 \ifthenelse{\boolean{longreport}}{%
-\renewcommand\listoffigures{% 
+\renewcommand{\listoffigures}{% 
    \thispagestyle{empty}
     \chapter*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -768,7 +760,7 @@ Norwegian characters are supported in input.
     \clearemptydoublepage
     }
 }{% else
-\renewcommand\listoffigures{% 
+\renewcommand{\listoffigures}{% 
     \thispagestyle{empty}
     \section*{\listfigurename
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -779,7 +771,7 @@ Norwegian characters are supported in input.
     \@starttoc{lof}% 
     \clearemptydoublepage
     }
-  }
+  }	
 
 \pagestyle{fancy}
 
@@ -827,6 +819,7 @@ Norwegian characters are supported in input.
                {\end{multicols}}
   }
 
+
 \ifthenelse{\boolean{longreport}}{%
 \renewenvironment{thebibliography}[1]
      {\chapter*{\refname
@@ -846,13 +839,13 @@ Norwegian characters are supported in input.
       \widowpenalty4000%
       \sfcode`\.\@m}
      {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}% '
+       {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist} 
 }{% 
 \renewenvironment{thebibliography}[1]
      {\section*{\refname
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}% 
-      \addcontentsline{toc}{section}{\refname}
+      \addcontentsline{toc}{section}{\refname}%
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
@@ -867,14 +860,17 @@ Norwegian characters are supported in input.
       \widowpenalty4000%
       \sfcode`\.\@m}
      {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}% '
-      \endlist} 
+       {\@latex@warning{Empty `thebibliography' environment}}% 
+      \endlist}
+}
+ 
+       
 
 \def\lastpage@putlabel{\addtocounter{page}{-1}%
    \immediate\write\@auxout{\string
    \newlabel{LastPage}{{}{\thepage}{\relax}{}{}}}%
    \addtocounter{page}{1}}
-} 
+
 
 \AtBeginDocument{} 
 
