@@ -393,3 +393,513 @@ Dette arbeidet var sponset av Skrue McDuck.
 @ %
 
 \end{document}
+
+
+% ----------------------------------------
+% Environment tightemize
+
+ \newenvironment{tightemize}%
+   {\begin{list}{$\bullet$}%
+     {\setlength{\itemsep}{0pt}%
+     \setlength{\parsep}{1pt}%
+     \setlength{\topsep}{3pt}%
+     }%
+   }%
+   {\end{list}}
+
+
+
+% ----------------------------------------
+% Environment tighterate : enumeration
+
+ \newcounter{tighterate}
+ \newenvironment{tighterate}%
+   {\begin{list}{\arabic{tighterate}. }%
+     {\usecounter{tighterate}%
+     \setlength{\itemsep}{0pt}%
+     \setlength{\parsep}{1pt}%
+     \setlength{\topsep}{3pt}%
+     }%
+   }%
+   {\end{list}}
+
+
+% ----------------------------------------
+% Environment tighterate2 : nested enumeration
+
+ \newcounter{tighterate2}
+ \newenvironment{tighterate2}%
+   {\begin{list}{\arabic{tighterate}.\arabic{tighterate2}. }%
+     {\usecounter{tighterate2}%
+     \setlength{\itemsep}{0pt}%
+     \setlength{\parsep}{1pt}%
+     \setlength{\topsep}{3pt}%
+     }%
+   }%
+   {\end{list}}
+
+
+% ----------------------------------------
+% Special commands
+
+% two identical commands for making margn marks
+\newcommand{\tobefixed}{\marginpar{\rule[-3\baselineskip]{1mm}{3\baselineskip}}}
+\newcommand{\fixme}{\marginpar{\rule[-3\baselineskip]{1mm}{3\baselineskip}}}
+
+% consistent typefaces for use on names of files and programs
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\program}[1]{{\em #1}}
+
+
+% ----------------------------------------
+% steckbrief environment
+ \newcommand{\steckbriefa}[9]%
+    {\begin{tabular}{|ll|ll|ll|}%
+      \hline
+      {\bf Package:} & #1 & {\bf Version:} & #2 & {\bf Date:} & #3 \\
+      \hline
+      {\bf Url:} & \multicolumn{3}{l|}{\url{#4}} & {\bf Type:} & #5 \\
+      \hline
+      {\bf Exports:} & \multicolumn{3}{p{70mm}|}{#7} & {\bf License:} & #6 \\      
+      \hline
+      {\bf Uses:} & \multicolumn{5}{p{70mm}|}{#8} \\      
+      \hline
+      {\bf Description:} & \multicolumn{5}{p{110mm}|}{#9}\\%
+      \hline
+     \end{tabular}%
+     \index{#1|textit}
+    }
+
+ \newcommand{\steckbrief}[9]%
+    {\noindent \index{#1|textit}\begin{tabular}{llllll}%
+      \hline
+      {\bf Package:} & #1 & {\bf Version:} & #2 & {\bf Date:} & #3 \\
+%      \hline
+      {\bf Exports:} & \multicolumn{3}{l}{#7} & {\bf Type:} & #5 \\
+%      \hline
+      {\bf Uses:} & \multicolumn{3}{p{60mm}}{#8} & {\bf License:} & #6 \\      
+%      \hline
+%      {\bf Uses:} & \multicolumn{5}{p{70mm}}{#8} \\      
+%      \hline
+      {\bf Url:} & \multicolumn{5}{p{110mm}}{\url{#4}}\\%
+%      \hline
+      {\bf Author(s):} & \multicolumn{5}{p{110mm}}{#9}\\%
+      \hline
+     \end{tabular}%
+     ~\\
+     \noindent
+    }
+
+% ----------------------------------------
+% Float environment slide
+
+\newcommand{\sectionname}{Section~}
+\makeatletter
+\newcommand{\slidename}{\fname@slide}
+\makeatother
+
+\floatstyle{boxed}
+\newfloat{slide}{tb}{sli}
+\floatname{slide}{Box}
+
+% the following seems to cause some trouble ...
+% ----------------------------------------
+\makeatletter
+\renewenvironment{theindex}{\newpage
+  \addcontentsline{toc}{section}{\protect\numberline{~} Index}%
+  \let\item\@idxitem
+  \begin{multicols}{2}[{{\Large\bfseries Index}}]
+  \par\bigskip}%
+ {\end{multicols}}%
+\makeatother
+% ----------------------------------------
+
+
+ \pagestyle{fancy}
+ %\addtolength{\topmargin}{-17mm}
+ \addtolength{\textheight}{7mm}
+ %\addtolength{\textheight}{2.7cm}
+
+ \lhead[SETUP]{}
+% \rhead[]{Developing NR mediAkit}
+ \rhead[]{\leftmark}
+ \lfoot[\bfseries\thepage]{}
+ \rfoot[]{\bfseries\thepage}
+ \chead[]{}
+  \cfoot[\tiny compiled: \today]{\tiny compiled: \today}
+%  \cfoot[\tiny compiled: \typein[date]{}]{\tiny compiled: \typein[date]{}}
+
+ \makeindex
+
+ \hyphenation{grafikk-vin-du-et grafikk-vin-du in-for-ma-sjon
+   in-for-ma-sjo-nen inn-blikk ut-vi-del-ser}
+
+ \newcommand{\bfstrek}{\noindent\rule{\textwidth}{0.6mm}}
+ \newcommand{\nparagraph}[1]{\par\vspace{3pt}\noindent{\bf #1}~}
+
+ \setlength{\headrulewidth}{0.6mm}
+ \setlength{\footrulewidth}{0.3mm}
+
+ \def\figurename{Figure}%
+
+ \newcommand{\mediakit}{{\bf mediAkit}}
+ \newcommand{\NROSSC}{{\bf NR Open Source Software Center}}
+ \setcounter{tocdepth}{2}
+
+% ===================================================================
+% DOCUMENT BEGINNING
+% ===================================================================
+ \begin{document}
+
+\selectlanguage{english}
+% \author{Wolfgang Leister}
+ \author{Wolfgang Leister \and Per Røe %\and Eirik Maus \and Bjørn Nordlund 
+ \and Jørn Inge Vestgården\and Ole Aamot}
+ \title{\mediakit\ and the \NROSSC}
+ %\date{}
+
+
+ \thispagestyle{empty}
+
+ \rule{1pt}{0pt}
+ \vspace{-40mm}
+
+ \begin{tabular}{lp{40mm}|p{135mm}@{\hspace{10mm}}}
+   \rule{0pt}{30mm}& & \begin{tabular}{r} {\LARGE\bf \mediakit\ and the}\\
+   {\LARGE\bf \NROSSC} \\
+   \end{tabular} \\
+   \rule{0pt}{15mm}& & \\
+   \hline
+ \multicolumn{3}{l}{\begin{tabular}{l@{\hspace{20mm}}l}
+                    \psfig{figure=logonor.eps,width=90mm}&{\LARGE NOTAT/NOTE}\\
+                    {\scriptsize Norwegian Computing Center/Applied Research
+ and Development} & \\
+                    \end{tabular}}\\
+ \hline
+ \rule{0pt}{15mm}& & \\
+ \rule{0pt}{120mm}& \begin{tabular}{r}
+   DART/02/02\\
+    \\
+   Wolfgang Leister\\
+   Per Røe\\
+%   Eirik Maus \\
+%   Bjørn Nordlund\\
+    Jørn Inge Vestgården\\
+    Ole Aamot\\
+    \\
+    \\
+   Oslo \\
+   Spring 2003\\
+    \\
+    \\
+    \\             
+ \end{tabular}
+ & \ \ \ \psfig{figure=playkey-CD.eps,width=90mm}\\
+% & \ \ \ \psfig{figure=tuxtv.ps,width=90mm}\\
+
+ \rule{0pt}{15mm}& & \\
+ \end{tabular}
+
+ \clearpage
+ \thispagestyle{empty}
+
+ \
+ \clearpage
+ \thispagestyle{empty}
+ ~\\
+
+ \vspace{-40mm}
+ \noindent
+ \begin{tabular}{p{100mm}ll}
+ \psfig{figure=logonor.eps,width=95mm}&\multicolumn{2}{l}{{\bf Notat /} Note} \\
+ \hline
+ &&\\
+ {\bf Tittel/}Title: & {\bf Dato/}Date: & Spring   \\
+ \mediakit\ and the \NROSSC & {\bf {\AA}r/}Year: & 2003\\
+ %& {\bf ISBN:} &xx-xxx-xxxx-x  \\
+ & {\bf Notat nr/}: &  \\
+ &Note no: & DART/02/02\\
+ &&\\
+ {\bf Forfatter/}Author: &&\\
+ Wolfgang Leister, Per Røe,&&\\
+% Bjørn Nordlund, Eirik Maus,&&\\
+  Jørn Inge Vestgården, Ole Aamot&&\\
+ &&\\
+ with contributions by: &&\\
+ Bjørn Nordlund, Eirik Maus,&&\\
+
+ \end{tabular}
+ \vspace{15mm}
+
+ %\bfstrek
+
+ \noindent{\bf Sammendrag/}Abstract:\\
+
+ \noindent Open Source software is becoming increasingly
+ interesting. While we recognise that multimedia applications are a
+ vital part of systems today, many multimedia applications are not yet
+ distributed as open source products for various reasons. Therefore,
+ NR has created an open source add-on distribution for Linux \mediakit\
+ with an emphasis on multimedia software. This software can
+ be used in a number of application areas. The goal of our development
+ is to provide an add-on to a standard distribution, so that the user
+ can easily install and use multimedia applications.
+
+ In this report we present the principles that \mediakit\ is built
+ upon. Our approach can be extended to application areas other than
+ multimedia, including that of distribution of customised
+ software packages that are developed for customers.
+
+ The report also contains several overviews on software for building a
+ distribution, and a selection of multimedia software available for
+ the Linux operating system.
+ The portal pages of \mediakit\ are available on
+ \url{http://www.oss.nr.no}.
+
+
+ %\bfstrek
+
+ \vfill
+
+ ~\\
+ {\bf Emneord/}Keywords: Multimedia, Distribution, Open Source, Linux\\
+ ~\\
+ {\bf M{\aa}lgruppe/}Target group: NR, research institutions\\
+ ~\\
+ {\bf Tilgjengelighet/}Availability: Open\\
+ ~\\
+ {\bf Prosjektdata/}Project data: Channel S, Setup\\
+ ~\\
+ {\bf Prosjektnr/}Project no: 11012\\
+ ~\\
+ {\bf Antall sider/}No of pages: \pageref{mark:lastpage} \\
+ %~\\
+ \bfstrek
+ ~\\
+ {\scriptsize Norsk Regnesentral/Norwegian Computing Center\\
+ Gaustadall{\'e}en 23, Postboks 114, N-0314 Oslo, Norway\\
+ Telefon (+47)  22 85 25 00, telefax (+47) 22 69 76 60}
+ \clearpage
+ \thispagestyle{empty}
+ \
+ \clearpage
+
+ \addtocounter{page}{-4}
+
+ %\germanTeX
+
+ \bibliographystyle{plain}
+
+ \tableofcontents
+
+ \cleardoublepage
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE PROJECT
+%
+ \part{\mediakit\ and the NR Open Source Software Center}
+ \label{part:setup}
+
+% the setup project
+ \input{setup-0}
+
+\clearpage
+% solutions to the problems
+\input{setup-2}
+
+%\clearpage
+% intro apt-rpm
+%\input{apt-get-intro}
+
+%\clearpage
+%\input{maintenance.tex}
+
+\clearpage
+% conclusions and future work
+\input{setup-3}
+
+\cleardoublepage
+ \appendix 
+\part{The software catalogue}
+\label{part:catalogue}
+
+This part of the report contains an overview over various multimedia program
+packages for Linux. The list is not exhaustive. We have tried to list
+the projects that are most useful for end users and most likely
+to be included in our distribution. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PACKAGES, DEPENDENCIES, DISTRIBUTION AND INSTALLATION
+%
+ \section{Tools for building and distribution of software}
+ \label{sec:install}
+
+This section contains a short description of relevant
+software for the various tasks that have to be solved within the
+setup project. 
+%The length and amount of details covered in the descriptions vary a
+%lot. 
+We intended to keep the descriptions short. However, in order to support
+the internal discussion regarding some problem domains and its
+solutions a more profound description was emerging for some areas.
+
+
+% \clearpage
+
+ \input{buildsystem.tex}
+
+\clearpage
+ \input{pkg-system.tex}
+
+\clearpage
+ \input{installation.tex}
+
+\clearpage
+ \input{hardware-detection.tex}
+
+\clearpage
+ \input{bugtrack.tex}
+
+\clearpage
+ \input{img-system.tex}
+
+\clearpage
+ \input{software-websolution}
+
+ \cleardoublepage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SOFTWARE
+%
+
+%\part{The software catalogue}
+%\label{part:catalogue}
+%
+%This part of the report contains an overview over various multimedia program
+%packages for Linux. The list is not exhaustive. We have tried to list
+%the projects that are most useful for end users and most likely
+%to be included in our distribution. 
+
+\input{software-1}
+
+%\clearpage
+\input{software-capture.tex}
+
+%\clearpage
+\input{software-production.tex}
+
+%\clearpage
+\input{software-coders.tex}
+
+%\clearpage
+\input{software-players.tex}
+
+%\clearpage
+ \input{software-sound.tex}
+
+%\clearpage
+ \input{software-servers.tex}
+
+%\clearpage
+ \input{software-mastering}
+
+%\clearpage
+ \input{software-digitaltv.tex}
+
+%\clearpage
+
+ \input{software-ipphone.tex}
+
+%\clearpage
+ \input{software-videoconference.tex}
+
+%\clearpage
+ \input{software-tts.tex}
+
+\clearpage
+
+%\appendix
+
+\clearpage
+\input{other-dists.tex}
+
+
+ \cleardoublepage
+
+\part{Examples}
+\label{part:examples}
+
+In the following we show some examples on how to prepare software
+packages for the \mediakit\ distributions.
+
+
+%\clearpage
+\input{pkg-example.tex}
+
+\clearpage
+\input{src-patching.tex}
+
+\clearpage
+\input{package-list}
+
+\cleardoublepage
+\part{License}
+\label{part:license}
+
+\section{Licenses for \mediakit}
+
+In the following the end user license agreement (EULA) and the License
+Boilerplate for \mediakit\ are shown.
+
+\subsection{The End User License Agreement (EULA)}
+\begin{alltt}
+\input{setup.eula.txt}
+\end{alltt}
+
+\clearpage
+\subsection{The License Boilerplate}
+\begin{alltt}
+\input{setup.boilerplate}
+\end{alltt}
+
+%\clearpage
+%\input{kernel-tuning.tex}
+
+
+% \cleardoublepage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% DIARIES
+%%
+%\part{Developers' diaries}
+%
+%This part contains diaries from those who work in the project. 
+%The part will be removed from the report prior to publishing.
+%The purpose of the diaries is to capture experience before it is lost. 
+% 
+%\input{diaries.tex}
+
+\clearpage
+ \addcontentsline{toc}{section}{\protect\numberline{~} References}
+ \bibliography{setup}
+
+ \cleardoublepage
+
+ \printindex
+
+ \label{mark:lastpage}
+
+~
+
+ \end{document}
+
+ 
+
+
+
+
