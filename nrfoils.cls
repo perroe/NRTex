@@ -6,7 +6,7 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nrfoils}[2004/08/26]
+\ProvidesClass{nrfoils}[2004/10/05]
 
 \RequirePackage{ifthen}
 \RequirePackage{babel}
@@ -78,10 +78,10 @@
 \raisebox{-15mm}[0pt][0pt]{%
 \mbox{}\hspace{-0mm}\textcolor{nrblue}{%
 \rule{1.05\paperwidth}{30mm}}}\\[-\baselineskip]%
-\raisebox{-205mm}[0pt][0pt]{%
+\raisebox{-205.5mm}[0pt][0pt]{%
 \mbox{}\hspace{-0mm}\textcolor{nrblue}{%
 \rule{1.05\paperwidth}{25mm}}}\\[-\baselineskip]%
-\raisebox{-205mm}[0pt][0pt]{%
+\raisebox{-205.5mm}[0pt][0pt]{%
 \mbox{}\hspace{7mm}\includegraphics[height=25mm]{logos/NR_wave}}\\[-\baselineskip]%
 \raisebox{-195mm}[0pt][0pt]{%
 \hspace{270mm}\textcolor{white}{\textsf{\tiny\thepage}}}%
