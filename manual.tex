@@ -1,13 +1,12 @@
 % Specify language of report
 
-\documentclass[note,british,12pt]{nrdoc}
+\documentclass[note,screen,british,12pt]{nrdoc}
 
 % -------------------------------------------------
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
 \reportnumber{sand/03/03}
 \keywords{\LaTeX, NR}
-\project{}
 \project{}
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
@@ -94,6 +93,12 @@ taken from \verb!\title!.
 
 The date is taken from \verb!\date!.
 
+For reports, you need to supply the isbn number. The isbn number consists
+of a country code, a publisher code, a publication number and a control digit.
+You can either use \texttt{isbn} to supply the full number
+or \texttt{shortisbn} to supply just the last five digits:
+\verb+\isbn{82-539-0481-9}+ or \verb+\shortisbn{0481-9}+.
+
 
 \section{Including a figure}
 
@@ -160,15 +165,17 @@ packages so that the full power of these extensions are available.
 \end{align}
 
 \section{Citation using {Bib}\TeX}
-
+ 
 Citations\index{cite}
-are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and the
-\texttt{natbib}\footnote{A simpler numerical\index{cite!numeric
+are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and 
+\texttt{natbib} \cite{natbib:7.1}. By default 
+an author--year citation scheme\footnote{A simpler numerical\index{cite!numeric
     citation label} citation scheme with citations appearing in the
   order of citations is supported as well using the option
   \textit{citenumeric}. This is intended for documents that need
-  numerical citations due to external demands.} 
-style. This style is automatically loaded by \texttt{nrdoc}. Some
+  numerical citations due to external demands.}  is used.
+The required style files are 
+automatically loaded by \texttt{nrdoc}. Some
 examples are given in Table \ref{tab:cite}.    
 \begin{table}[ht]
 \centering
@@ -213,11 +220,13 @@ The citations are listed in a {Bib}\TeX{} file with the extencions
 The following options are available for 
 different language\index{language} support:
 \begin{description}
+\item[\textit{american}] us english (default)\index{option!american} 
+\item[\textit{british}] uk english \index{option!british} 
+\item[\textit{english}] uk english \index{option!english} 
 \item[\textit{norsk}] bokm\aa l.\index{option!norsk} 
 \item[\textit{nynorsk}] nynorsk.\index{option!nynorsk} 
-\item[\textit{american}] u.s.\ english
-  (default)\index{option!american} 
-\item[\textit{british}] u.k.\ english \index{option!british} 
+\item[\textit{UKenglish}] uk english \index{option!UKenglish}
+\item[\textit{USenglish}] uk english \index{option!USenglish} 
 \end{description}
 
 \section{The draft option}\index{option!draft}

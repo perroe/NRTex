@@ -1,6 +1,6 @@
 
 
-\documentclass[british,report]{nrdoc}
+\documentclass[british]{nrdoc}
 
 
 \usepackage{myweb}
@@ -12,8 +12,7 @@
 \ifx\nrdocument\undefined\relax\else
 
 \reportnumber{Sand/02/03}
-%\isbn{isbn 82-539-0481-9}
-\shortisbn{0481-9}
+
 \keywords{\LaTeX\ class, source code documentation}
 \project{NR mal for \LaTeX}
 \projectnumber{}
@@ -442,7 +441,7 @@ Norwegian characters are supported in input.
 
 \newcommand{\printisbn}{\typeout{ISBN number not set}}
 \newcommand{\isbn}[1]{%
-\renewcommand{\printisbn}{\MakeUppercase{#1}}}
+\renewcommand{\printisbn}{\MakeUppercase{isbn #1}}}
 \newcommand{\shortisbn}[1]{%
 \renewcommand{\printisbn}{\MakeUppercase{isbn 82-536-#1}}}
 
