@@ -1,0 +1,131 @@
+% Specify language of report
+\documentclass[screen,note,british,12pt]{nrdoc}
+\usepackage{natbib}
+
+
+
+% -------------------------------------------------
+% BEGIN nrdoc special commands
+
+\reportnumber{sand/XX/03}
+\keywords{\LaTeX, NR}
+\project{}
+\projectnumber{}
+\frontpagefigure{figs/fotball}
+\target{All employees}
+\researchfield{}
+\nrtitle{nrdoc: \LaTeX{} class for notes and reports}
+% END nrdoc special commands
+% ------------------------------------------------
+
+\begin{document}
+
+
+
+\title{nrdoc: \LaTeX{} class for notes and reports}
+\author{Harald Soleng\and
+        Anders Løland}
+\date{\today}
+\maketitle
+
+% The abstract must always be present
+\begin{abstract}
+This document gives an example of the use of the \texttt{nrdoc} class. The
+purpose of this document class is to provide a unified style for NR
+notes and reports conforming with standard typographical practice in
+Norwegian and English.  
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+This document gives an example of the use of the \texttt{nrdoc} class. 
+In Appendix \ref{sec:code} the \LaTeX{} source code for this document is
+given.  
+
+\section{Two ways to use the nrdoc class}
+The \texttt{nrdoc} class can be used both by \LaTeX (using the
+\texttt{latex} command) and pdf\LaTeX (using the \texttt{pdflatex}
+command). Using \texttt{pdflatex} and including the option \textit{screen}
+gives an \textbf{electronic report with hyperlinks}.
+
+\subsection{Including a figure}
+Figures are included by \texttt{includefigure}. An example is given
+here:
+
+\begin{verbatim}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=8cm]{figs/fotball}
+    \caption{\label{fig:logo} NR logo.}
+  \end{center}
+\end{figure}
+\end{verbatim}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=8cm]{figs/fotball}
+    \caption{\label{fig:logo} NR logo.}
+  \end{center}
+\end{figure}
+Note that the extension of the figure file name should be dropped. The
+reason is that \LaTeX will find the required file itself. The figure
+files should have the following format:
+\begin{itemize}
+\item \texttt{latex}: postscript [.ps] or encapsulated postscript [.eps]
+\item \texttt{pdflatex}: .pdf or .jpeg/.jpg
+\end{itemize}
+
+
+\section{Mathematics}
+
+\begin{align}\label{eq:ey}
+\begin{split}
+  EY(s)&=\sum_{i=1}^n \mathcal{K}_s(s_i)Ew(s_i),\\
+  \gamma(s,s')&=\sum_{i=1}^n \mathcal{K}_s(s_i)
+  \mathcal{K}_{s'}(s_i)Ew^2(s_i).
+\end{split}
+\end{align}
+
+\eqref{eq:ey} is a very nice equation.
+
+
+\section{Citation using Bib\TeX}
+
+Citations are handled by Bib\TeX{} and \texttt{natbib}. Some examples
+are given in Table \ref{tab:cite}.
+\begin{table}[ht]
+\begin{tabular}{ l l l}
+  \hline
+  usual citations
+  &  \cite{host02} & \verb!\cite{host02}!\\
+  in ()           &  \citep{host02} & \verb!\citep{host02}!\\
+  with a see      &  \citep[see][]{host02} &\verb!\citep[see][]{host02}!\\
+  with a section/page & \citet[Section 2]{host02} & \verb!\citet{host02}!\\
+  will all authors & \citet*{host02} & \verb!\citet*{host02}!\\
+  without parentheses & \citealt{host02}&\verb!\citealt{host02}!\\
+  only the year & \citeyear{host02} & \verb!\citeyear{host02}!\\
+  only the author & \citeauthor{host02} &
+  \verb!\citeauthor{host02}!\\
+  \hline
+\end{tabular}
+\caption{Examples of citations using Bib\TeX{} and
+  \texttt{natbib}. \label{tab:cite}} 
+\end{table}
+
+The Bib\TeX{} file (\texttt{ref.bib}) is given in Appendix {sec:ref.bib}.
+
+\bibliography{ref}
+\bibliographystyle{nralpha}
+
+\clearpage
+\appendix
+
+\section{The \LaTeX{} code for this document\label{sec:code}}
+\verbatiminput{nrdocManual.tex}
+\section{The Bib\TeX{} file (\texttt{ref.bib})}
+\verbatiminput{ref.bib}
+\end{document}
+
+
+
+
