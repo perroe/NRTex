@@ -1,3 +1,5 @@
+# $Id: Makefile,v 1.12 2003-09-30 18:54:08 soleng Exp $
+
 MAIN  = nrdoc
 MANUAL = manual
 PRINT  = printmanual

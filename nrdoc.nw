@@ -1,7 +1,5 @@
-
-
+% $Id: nrdoc.nw,v 1.24 2003-09-30 18:54:09 soleng Exp $
 \documentclass[british,screen]{nrdoc}
-
 
 \usepackage{myweb}
 
@@ -15,7 +13,7 @@
 
 \keywords{\LaTeX\ class, source code documentation} 
 \project{NR mal for \LaTeX} 
-\projectnumber{ } 
+\projectnumber{} 
 \frontpagefigure{figs/texfriendly} 
 \target{NRTUG (NR \TeX\ User Group)} 
 \researchfield{} 
@@ -27,18 +25,13 @@
  
 \begin{document} 
 
-%\layout 
-
 \title{The source code of nrdoc:\\ a \LaTeX\ class for NR documents} 
-
 
 \author{Harald H. Soleng \and Anders L\o land } 
 
-
-\date{September 2003} 
+\date{October 2003} 
 
 \maketitle 
-
 
 \begin{abstract}
 This document contains and documents the full source 
@@ -395,7 +388,7 @@ Norwegian characters are supported in input.
 	      linkcolor=black,citecolor=black,% 
               pagecolor=black,urlcolor=black]{hyperref} 
 \else
-  \usepackage[dvipdfm,debug=true,colorlinks=true,plainpages=false,% 
+  \usepackage[dvipdfm,colorlinks=true,plainpages=false,% 
               linkcolor=black,citecolor=black,% 
               pagecolor=black,urlcolor=black]{hyperref} 
 \fi 
