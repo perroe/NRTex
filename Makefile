@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.28 2004-01-13 09:18:48 soleng Exp $
+# $Id: Makefile,v 1.29 2004-01-13 09:37:23 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -22,8 +22,7 @@ all:	src pdf
 src:
 	noweb $(MAIN).nw
 
-dvi: 	src
-	latex '\scrollmode \input '"$(MAIN)";\
+dvi: 	src bib
 	latex '\scrollmode \input '"$(MAIN)";\
 	while ( \
 	grep -s 'No file $(MAIN).toc' $(MAIN).log || \
