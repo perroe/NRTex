@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.47 2004-01-08 09:48:17 anderslo Exp $
+% $Id: nrdoc.nw,v 1.48 2004-01-13 09:08:35 anderslo Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -641,7 +641,7 @@ chosen by using the option \texttt{citenumeric}.
 
 We execute the following default options.
 <<execute options>>=
-\ExecuteOptions{11pt,note,twoside}
+\ExecuteOptions{11pt,note}
 \ProcessOptions*
 @ %
 
@@ -738,6 +738,7 @@ but tried and trusted \texttt{a4wide} package.
 \ifthenelse{\boolean{screen}}{%
 \setlength{\evensidemargin}{\oddsidemargin}}{}
 @ %
+
 
 \subsection{Language support}
 <<loading packages>>=
@@ -849,21 +850,38 @@ but tried and trusted \texttt{a4wide} package.
 
 \pagestyle{fancyplain}
 
+\ifthenelse{\boolean{@twoside}}
+{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 
-\rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
+\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
 \fancypagestyle{fancyplain}{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
-\rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
+\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
+{\fancyplain{\bf\thepage}{\bf\thepage}}
+\lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
+{\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
+}}
+{%
+\cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
+
+\rhead[\fancyplain{\bf\thepage}{\bf\thepage}]
+{\fancyplain{\bf\thepage}{\bf\thepage}}
+\lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
+{\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
+
+\fancypagestyle{fancyplain}{%
+\cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
+\rhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 }
-
+}
 
 % Fancy heading for first chapter page also
 \fancypagestyle{plain}{%
