@@ -49,6 +49,7 @@ Norwegian and English.
 
 \tableofcontents
 
+\mainmatter
 
 \section{Introduction}
 
@@ -649,6 +650,14 @@ Norwegian characters are supported.
 
 
 <<main code>>=
+
+\ifthenelse{\boolean{longreport}}%
+{% 
+	
+}%
+{% else
+	\newcommand{\mainmatter}{\pagenumbering{arabic}}
+}
 
 \newlength{\abstractlinesep}
 \setlength{\abstractlinesep}{-0.15em}
