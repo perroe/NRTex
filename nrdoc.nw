@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.58 2004-03-05 09:24:58 soleng Exp $
+% $Id: nrdoc.nw,v 1.59 2004-03-09 11:30:33 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -61,7 +61,7 @@ source code for the class.
 \section{Version number}
 
 <<version number>>=
-\ProvidesClass{nrdoc}[2004/03/01 v1.0.3-2 NR report class]
+\ProvidesClass{nrdoc}[2004/03/01 v1.0.3-3 NR report class]
 @ %
 
 \section{Handling pdf\LaTeX}
@@ -685,7 +685,7 @@ Norwegian characters are supported in input.
 \RequirePackage{xspace}         % for space control
 
 
-\ifpdf\RequirePackage[pdftex]{thumbpdf} \fi      % for thumbnails
+\ifpdf\RequirePackage{thumbpdf} \fi      % for thumbnails
 
 
 \RequirePackage{afterpage}      % for float control
