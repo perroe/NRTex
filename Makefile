@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.27 2003-10-21 10:15:54 jornv Exp $
+# $Id: Makefile,v 1.28 2004-01-13 09:18:48 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -6,7 +6,7 @@ PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
-VERSION = 0.6.0
+VERSION = 1.0.1
 TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
@@ -16,10 +16,11 @@ RPMFILE = i386/nrtex-${VERSION}-1.i386.rpm
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
-src:
-	noweb $(MAIN).nw
 
 all:	src pdf 
+
+src:
+	noweb $(MAIN).nw
 
 dvi: 	src
 	latex '\scrollmode \input '"$(MAIN)";\
@@ -95,7 +96,7 @@ tgz:	src
 	nrunsrt.bst nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
-rpm:	tgz
+rpm:	tgz pdf
 	-rm -rf BUILD/*
 	mkdir -p BUILD
 	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec

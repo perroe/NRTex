@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.48 2004-01-13 09:08:35 anderslo Exp $
+% $Id: nrdoc.nw,v 1.49 2004-01-13 09:18:48 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -8,8 +8,8 @@
 % BEGIN nrdoc special commands 
 \ifx\nrdocument\undefined\relax\else 
 
-\reportnumber{Sand/02/03} 
-\publicationyear{2003}
+\reportnumber{Sand} 
+%\publicationyear{2003}
 \keywords{\LaTeX\ class, source code documentation} 
 \project{NR mal for \LaTeX} 
 \projectnumber{} 
@@ -32,7 +32,7 @@
         Anders L\o land \email{anders.loland@nr.no}
 } 
 
-\date{December 2003} 
+\date{\today} 
 
 \maketitle 
 
