@@ -1,4 +1,6 @@
 \documentclass[english]{nrdoc}
+%\documentclass{nrdoc}
+
 \reportnumber{Sand/02/XX}
 \usepackage{noweb}
 
@@ -8,7 +10,7 @@
 
 \begin{document}
 
-\frontpagefigure{\scalebox{7}{NR-\LaTeX}}
+\frontpagefigure{figs/texfriendly}
 \title{NRdoc: a \LaTeX\ class for NR documents}
 \author{Harald H. Soleng}
 \maketitle
@@ -63,8 +65,12 @@ use the [[long]] option to get access to [[chapter]] and [[part]]
 commands of the \LaTeX\ standard report class.
 <<helping variables>>=
 \usepackage{ifthen}		% for logic
+\usepackage{calc}		% for math
 \newboolean{longreport}
 \setboolean{longreport}{false}
+\newcommand{\notename}{Notat} 
+\newcommand{\reportname}{Rapport} 
+
 <<options>>=
 \DeclareOption{long}{\setboolean{longreport}{true}}
 @ %
@@ -94,11 +100,15 @@ A [[draft]] option exists. It turns off figure inclusion
 and marks lines with overfull horizontal boxes.
 
 <<options>>=
-\ifthenelse{\boolean{longreport}}{
-  \DeclareOption{draft}{\PassOptionsToClass{draft}{report}}
-	}{% else
-  \DeclareOption{draft}{\PassOptionsToClass{draft}{article}}}
+\DeclareOption{draft}{%
+\setboolean{draftversion}{true}
 \PassOptionsToPackage{draft}{graphicx}
+\ifthenelse{\boolean{longreport}}{  
+  \PassOptionsToClass{draft}{report}}{% else
+  \PassOptionsToClass{draft}{article}}
+}
+
+
 @ %
 
 \subsection{Document type options}
@@ -107,10 +117,13 @@ The current version of the
 the \texttt{note} and the \texttt{report}. 
 
 <<helping variables>>=
+\newboolean{draftversion}
+\setboolean{draftversion}{false}
 \newboolean{note}
 \setboolean{note}{false}
 \newboolean{report}
 \setboolean{report}{false}
+
 @ %
 <<options>>=
 \DeclareOption{note}{\setboolean{note}{true}}
@@ -151,6 +164,11 @@ the \texttt{note} and the \texttt{report}.
 			\setboolean{nynorsk_selected}{true}	
 			\setboolean{firstindent}{true}
 			\setboolean{language_selected}{true}}
+
+\ifthenelse{\boolean{english_selected}}{%
+ \renewcommand{\notename}{Note} 
+ \renewcommand{\reportname}{Report} 
+}{}
 
 %\DeclareOption{dvipdfm}{\setboolean{dvipdfm}{true}}
 %\DeclareOption{screen}{\setboolean{screen}{true}}
@@ -212,7 +230,7 @@ Norwegian characters are supported.
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
 \RequirePackage{ae}             % for new texttt
-
+\RequirePackage{rotating}       % for text rotation
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -249,37 +267,115 @@ Norwegian characters are supported.
 \section{Front page}
 
 <<preliminary commands>>=
+\definecolor{nrblue}{cmyk}{1,0.72,0,0.18}
+
 \newcommand{\printreportnumber}{%
 \typeout{Report number not set}No number}
 \newcommand{\reportnumber}[1]{%
 \renewcommand{\printreportnumber}{#1}}
 
-\renewcommand{\maketitle}[1]{%
-	\hypersetup{pdftitle={\@title},
-		    pdfauthor={\@author}}%
-	\thispagestyle{empty}		
-	
-}
+
 \setboolean{frontpagefiguredefined}{false}
 \newcommand{\frontpagefigurefile}{}
 \newcommand{\frontpagefigure}[1]{%
- \renewcommand{\frontpagefigurefile}{#1}%
- \setboolean{frontpagefiguredefined}{true}}
+\renewcommand{\frontpagefigurefile}{#1}%
+\setboolean{frontpagefiguredefined}{true}}
+
+\newcommand{\nrbarwidth}{1pt}
+\newcommand{\nrhorizontalbarwidth}{22mm}
+\newcommand{\nrhorizontalbarstartpos}{-42mm}
+
+\newcommand{\nrverticalbar}{%
+ \hspace{8mm}%
+ \begin{rotate}{90}
+\makebox[0pt]{\raisebox{-20mm}[0pt][0pt]{%
+{\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}%
+\end{rotate}
+}
+
+
+\newcommand{\nrwhitebar}{%
+\noindent\hspace{-20mm}%
+\makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
+{\color{white}\rule{2\paperwidth}{\nrhorizontalbarwidth}}}}%
+}
+\newcommand{\nrtopbar}{%
+\makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
+\rule{2\paperwidth}{\nrbarwidth}}}}
+
+\newcommand{\nrbotbar}{%
+\makebox[0pt]{\raisebox{\nrhorizontalbarstartpos + \nrhorizontalbarwidth}
+[0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}
+
+\newcommand{\nrlogobar}{%
+\raisebox{\nrhorizontalbarstartpos + 5mm}
+[0pt][0pt]{\hspace{-5mm} %
+\ifthenelse{\boolean{english_selected}}{%
+\includegraphics[height=15mm]{/nr/group/sand/logo/logoeng}}{%
+\includegraphics[height=15mm]{/nr/group/sand/logo/logonor}}}%
+\hfill%
+\raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
+\scalebox{1}[1.1]{%
+\textbf{\Huge{\ifthenelse{\boolean{note}}{\MakeUppercase{\notename}}{%
+ \MakeUppercase{\reportname}}}}}}\makebox[0mm]{}
+}
+
+\newcommand{\nrhorizontalbar}{%
+\nrwhitebar%
+\nrtopbar%
+\nrbotbar%
+\nrlogobar%
+}
+
+
+\newcommand{\nrtitlebar}{%
+\raisebox{10mm}[0pt][0pt]{%
+\makebox[40mm]{}
+\begin{minipage}[c]{120mm}
+\begin{center}
+\Huge\textbf{\@title}
+\end{center}
+\end{minipage}}\par}
+
+\newcommand{\nrfigurebar}{%
+\raisebox{-140mm}[0pt][0pt]{%
+\makebox[40mm]{}
+\begin{minipage}[c]{120mm}
+\begin{center}
+\ifthenelse{\boolean{frontpagefiguredefined}}{%
+   \includegraphics[width=120mm]{\frontpagefigurefile}}{} 
+\end{center}
+\end{minipage}}\par}
+
+
+\newcommand{\frontpage}{%
+\ifthenelse{\boolean{draftversion}}{}{% else final version
+ \thispagestyle{empty}
+\nrtitlebar
+\nrfigurebar
+\color{nrblue}
+\nrverticalbar
+\nrhorizontalbar
+\color{black}
+
+
+
+ \clearpage}
+}
+
+
 <<main code>>=
-
-
-
+\renewcommand{\maketitle}[1]{%
+	\hypersetup{pdftitle={\@title},
+		    pdfauthor={\@author}}%
+	\frontpage		
+	
+	%\titlepage
+    
+}
 @ %
 
-<<umain code>>=
 
-
-
-
-
-
-								       
-@ %
 <<umain code>>=
    
 \def\@maketitle{%
