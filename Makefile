@@ -2,7 +2,7 @@ MAIN  = nrdoc
 MANUAL = manual
 PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
-WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift/info
+WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
@@ -58,10 +58,10 @@ printmanual: src
 
 install: pdf manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
-	cp nrdoc.pdf $(INSTALLPATH)/
-	cp nrdoc.html $(WEBPATH)/latex-maler.html
-	cp $(MANUAL).pdf $(INSTALLPATH)/
-	cp $(PRINT).pdf $(INSTALLPATH)/
+	cp nrdoc.pdf $(WEBPATH)/latex-maler/
+	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
+	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/
+	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 
 clean:
 	rm -f *.html  *~ *.aux *.dvi \
