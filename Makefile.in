@@ -46,7 +46,7 @@ manual:
 
 
 printmanual: 
-	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,twoside,british,12pt\]\{nrdoc\}/\\documentclass\[note,twoside,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
+	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,british,12pt\]\{nrdoc\}/\\documentclass\[note,twoside,british,12pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
 	latex '\scrollmode \input '"$(PRINT)";\
 	makeindex $(PRINT); \
 	bibtex $(PRINT); \
@@ -88,8 +88,10 @@ clean:
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
 	*.idx *.lof *.ilg
 
-tgz:	
+tgz:	manual
 	mkdir -p ${TGZNAME}
+	mkdir -p ${TGZNAME}/elements
+	mkdir -p ${TGZNAME}/logos
 	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png  ${TGZNAME}/logos; \
 	cp elements/*.eps elements/*.pdf ${TGZNAME}/elements; \
 	cp ${MAIN}.cls ${MAIN}old.cls nrfoils.cls background.sty \
@@ -97,7 +99,7 @@ tgz:
 	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
-rpm:	tgz manual
+rpm:	tgz 
 	-rm -rf BUILD/*
 	mkdir -p BUILD
 	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec
