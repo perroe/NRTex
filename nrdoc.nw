@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.51 2004-01-13 13:10:44 soleng Exp $
+% $Id: nrdoc.nw,v 1.52 2004-01-14 14:24:01 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -737,6 +737,7 @@ but tried and trusted \texttt{a4wide} package.
 
 
 \setlength{\headheight}{14pt}
+\usepackage[a4paper]{geometry}
 \usepackage{a4wide}   
 
 
