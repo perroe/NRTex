@@ -24,7 +24,7 @@ RPMFILE = i386/nrtex-${VERSION}-${PATCH}.i386.rpm
 
 .SILENT: config
 
-all:	pdf 
+all:	manual
 
 config:
 	configure
@@ -63,7 +63,7 @@ printmanual:
 html:	
 	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
-install: pdf html manual printmanual rpm
+install: html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrfoils.cls $(INSTALLPATH)/
 	cp background.sty $(INSTALLPATH)/
@@ -84,15 +84,15 @@ clean:
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
 	*.idx *.lof *.ilg
 
-tgz:	src
+tgz:	
 	mkdir -p ${TGZNAME}
-	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png \
-	cp elements/*.eps elements/*.pdf \
-	${MAIN}.cls nrfoils.cls background.sty $(MANUAL).pdf \
+	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png  ${TGZNAME}/logos; \
+	cp elements/*.eps elements/*.pdf ${TGZNAME}/elements; \
+	cp ${MAIN}.cls nrfoils.cls background.sty $(MANUAL).pdf \
 	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
-rpm:	tgz pdf
+rpm:	tgz manual
 	-rm -rf BUILD/*
 	mkdir -p BUILD
 	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec
