@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.40 2003-10-17 11:53:51 anderslo Exp $
+% $Id: nrdoc.nw,v 1.41 2003-10-17 14:03:12 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -381,7 +381,8 @@ Norwegian characters are supported in input.
 \RequirePackage{paralist}	% for list environments
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
-\RequirePackage{thumbpdf} 
+\RequirePackage{thumbpdf}       % for thumbnails
+\RequirePackage{afterpage}      % for float control
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -423,9 +424,9 @@ Norwegian characters are supported in input.
 
 <<use packages>>=  
 \providecommand{\clearemptydoublepage}{% 
-            \newpage{\pagestyle{empty}\cleardoublepage}}
+                \newpage{\pagestyle{empty}\cleardoublepage}}
 
-\usepackage[a4paper,body={165mm,235mm},headheight=14pt,nofoot]{geometry}
+\usepackage[a4paper,body={165mm,215mm},headheight=14pt,nofoot]{geometry}
 \ifthenelse{\boolean{screen}}{%
 \setlength{\evensidemargin}{\oddsidemargin}}{}
 @ %
@@ -665,7 +666,7 @@ Norwegian characters are supported in input.
 
 \noindent
 \textbf{\authorname:} 
-\begin{minipage}[t]{100mm}\raggedright\@author \end{minipage}
+\begin{minipage}[t]{80mm}\raggedright\@author \end{minipage}
 
 \end{minipage}%
 \begin{minipage}[t]{0.3\linewidth}
@@ -720,12 +721,15 @@ Norwegian characters are supported in input.
 	\begin{timesroman}
 	\nrfrontpage		
 	\pagenumbering{roman}
-	\nrtitlepage	\addtocounter{page}{-\value{page}}
+	\nrtitlepage	
+	\addtocounter{page}{-\value{page}}
+	\addtocounter{page}{1}
 	\end{timesroman}    
 }
 
 \ifthenelse{\boolean{longreport}}{%
 \renewcommand{\tableofcontents}{%
+\clearemptydoublepage
     \thispagestyle{empty}
     \chapter*{\contentsname
         \@mkboth{%
@@ -736,6 +740,7 @@ Norwegian characters are supported in input.
 \clearemptydoublepage
 }}{
 \renewcommand{\tableofcontents}{%
+\clearemptydoublepage
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
@@ -771,13 +776,24 @@ Norwegian characters are supported in input.
     }
   }	
 
-\pagestyle{fancy}
+\pagestyle{fancyplain}
+\pagestyle{\iffloatpage{fancy}{fancy}}
+\pagestyle{\iftopfloat{fancy}{fancy}}
+\pagestyle{\ifbotfloat{fancy}{fancy}}
 
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 \rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
+
+\fancypagestyle{fancyplain}{%
+\cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
+\rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
+{\fancyplain{\bf\thepage}{\bf\thepage}}
+\lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
+{\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
+}
 
 % Fancy heading for first chapter page also
 \fancypagestyle{plain}{%
@@ -875,8 +891,7 @@ Norwegian characters are supported in input.
 
 \ifthenelse{\boolean{longreport}}{%
    
-\renewcommand\chapter{\ifthenelse{\boolean{screen}}{}{\clearemptydoublepage}%
-			\if@openright\cleardoublepage\else\clearpage\fi
+\renewcommand\chapter{\ifthenelse{\boolean{screen}}{}{\afterpage{\clearpage}\clearemptydoublepage}%
 	   	    \global\@topnum\z@
                     \@afterindentfalse
                     \secdef\@chapter\@schapter}
