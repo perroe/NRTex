@@ -255,7 +255,6 @@ option.
 \DeclareOption{times}{\setboolean{timesroman}{true}}
 @ %
 <<loading packages>>=
-%\RequirePackage{ae}
 \ifthenelse{\boolean{timesroman}}{\RequirePackage{times}}{}
 @ %
 
@@ -289,7 +288,9 @@ chosen by using the option \texttt{citenumeric}.
 \setboolean{citenumeric}{true}
 }
 @ %
-
+<<use packages>>=
+\usepackage{natbib}         % for bibliography
+@ %
 \section{Setting defaults}
 
 We execute the following default options.
@@ -360,6 +361,7 @@ Norwegian characters are supported.
 
 \subsection{Utilities}
 <<loading packages>>=
+
 \RequirePackage{paralist}	% for list environments
 \RequirePackage{fancyheadings}	% for headers
 \RequirePackage{verbatim}	% extra verbatims
@@ -367,6 +369,7 @@ Norwegian characters are supported.
 \RequirePackage{rotating}       % for text rotation
 \RequirePackage{makeidx}        % for index
 \RequirePackage{multicol}       % for multiple columns
+
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -695,9 +698,11 @@ Norwegian characters are supported.
 	\hypersetup{pdftitle={\printtitle},		    
 		    pdfauthor={Norwegian Computing Center}}}{}
 
+
+	
 	\begin{timesroman}
 	\nrfrontpage		
-	
+	\pagenumbering{roman}\addtocounter{page}{-\value{page}}
 	\nrtitlepage
 	\end{timesroman}
     
@@ -741,13 +746,14 @@ Norwegian characters are supported.
 
 
 \ifthenelse{\boolean{citenumeric}}{%
-            \bibliographystyle{unsrt}
+            \bibliographystyle{unsrtnat}
             \typeout{nrdoc uses numeric citation labels}
 }{% 
             \typeout{nrdoc uses alphabetic citation labels}
-            \usepackage{nralphabib}
-            \bibliographystyle{nralpha}
+           
+            \bibliographystyle{plainnat}
 }
+
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
                 \section*{\indexname}%
@@ -763,6 +769,7 @@ Norwegian characters are supported.
                {\end{multicols}}
 
 \AtEndDocument{\printindex\label{LastPage}}
+
 @ %
 
 
