@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.49 2004-01-13 09:18:48 soleng Exp $
+% $Id: nrdoc.nw,v 1.50 2004-01-13 09:21:10 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -854,14 +854,18 @@ but tried and trusted \texttt{a4wide} package.
 {%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 
-\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
+\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{%
+\printisbn}{\printreportnumber}}{%
+\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
 \fancypagestyle{fancyplain}{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
-\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}{\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
+\rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{%
+\printisbn}{\printreportnumber}}{%
+\bf\ifthenelse{\boolean{report}}{\printisbn}{\printreportnumber}}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
