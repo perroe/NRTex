@@ -7,6 +7,7 @@
 \ifx\nrdocument\undefined\relax\else
 \reportnumber{sand/03/03}
 \keywords{\LaTeX, NR}
+\projectnumber{}
 \project{}
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
@@ -57,11 +58,14 @@ The \texttt{nrdoc} class can be used both by \LaTeX\ \index{latex@\LaTeX}
   with hyperlinks}.\index{hyperlinks} An example of the hyperlinks is
 given here: If this is an electronic report, Equations \eqref{eq:ey}
 can be found by clicking the equation number. The option
-\textit{screen} gives the lines on the front page and hyperlinks, so
-this option should not be used for a paper report. However, if you
+\textit{screen} gives the lines and the logo
+on the front page and coloured hyperlinks, so
+this option should not be used for a paper document. However, if you
 want to print the report and want the lines and the NR logo on the
-front page, but not the hyperlinks, use the option
-\texttt{nolinks}\index{nolinks} together with the \texttt{screen} option.
+front page, but not the coloured 
+hyperlinks, use the option  \textit{bluelines} 
+\index{bluelines}\index{option!bluelines}.
+
 By default the page layout is two-sided\footnote{On older \LaTeX\
 installations, the default is one-sided. If you want to be sure to 
 get two-sided output, specify the additional option
@@ -133,11 +137,11 @@ A typical preamble\index{preamble} then looks as follows:
 \target{All employees}
 \researchfield{}
 
-\makeindex
 \end{verbatim}
 At the beginning of the document, we specify the title,
 author(s) and abstract:
 \begin{verbatim}
+\makeindex
 \begin{document}
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald Soleng\and Anders Løland}

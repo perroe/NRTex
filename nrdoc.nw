@@ -6,47 +6,47 @@
 \usepackage{myweb}
 
 
-%\usepackage{layout}
-% -------------------------------------------------
-% BEGIN nrdoc special commands
-\ifx\nrdocument\undefined\relax\else
+%\usepackage{layout} 
+% ------------------------------------------------- 
+% BEGIN nrdoc special commands 
+\ifx\nrdocument\undefined\relax\else 
 
-\reportnumber{Sand/02/03}
+\reportnumber{Sand/02/03} 
 
-\keywords{\LaTeX\ class, source code documentation}
-\project{NR mal for \LaTeX}
-\projectnumber{}
-\frontpagefigure{figs/texfriendly}
-\target{NRTUG (NR \TeX\ User Group)}
-\researchfield{}
-\nrtitle{The source code of nrdoc: a \LaTeX\ class for NR documents}
-\shorttitle{The source code of nrdoc}
-\fi
-% END nrdoc special commands
-% ------------------------------------------------
+\keywords{\LaTeX\ class, source code documentation} 
+\project{NR mal for \LaTeX} 
+\projectnumber{ } 
+\frontpagefigure{figs/texfriendly} 
+\target{NRTUG (NR \TeX\ User Group)} 
+\researchfield{} 
+\nrtitle{The source code of nrdoc: a \LaTeX\ class for NR documents} 
+\shorttitle{The source code of nrdoc} 
+\fi 
+% END nrdoc special commands 
+% ------------------------------------------------ 
+ 
+\begin{document} 
 
-\begin{document}
+%\layout 
 
-%\layout
-
-\title{The source code of nrdoc:\\ a \LaTeX\ class for NR documents}
-
-
-\author{Harald H. Soleng \and Anders L\o land }
+\title{The source code of nrdoc:\\ a \LaTeX\ class for NR documents} 
 
 
-\date{September 2003}
+\author{Harald H. Soleng \and Anders L\o land } 
 
-\maketitle
+
+\date{September 2003} 
+
+\maketitle 
 
 
 \begin{abstract}
-This document contains and documents the full source
-code of the \texttt{nrdoc} class. The purpose of this
-document class is to provide a unified style for NR notes and
-reports confomring with standard typographical practice in
-Norwegian and English.
-\end{abstract}
+This document contains and documents the full source 
+code of the \texttt{nrdoc} class. The purpose of this 
+document class is to provide a unified style for NR notes and 
+reports confomring with standard typographical practice in 
+Norwegian and English. 
+\end{abstract} 
 
 
 \tableofcontents
@@ -83,11 +83,11 @@ pdf version with hyperlinks.
 \subsection{Identification}
 <<class identification>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/09/08 v0.2 NR report class]
+\ProvidesClass{nrdoc}[2003/09/30 v0.2 NR report class]
 % This class file was automatically generated from the file 
 % nrreport.nw using noweb. Please don't edit this file 
-% directly.
-%
+%  directly.  
+% 
 @ % '
 
 \section{Options}
@@ -115,6 +115,7 @@ commands of the \LaTeX\ standard report class.
 \usepackage{calc}		% for math in class file
 
 \newboolean{longreport}        
+
 
 \newcommand{\notename}{Note} 
 \newcommand{\reportname}{Report} 
@@ -182,13 +183,15 @@ the \texttt{note} and the \texttt{report}.
 \newboolean{report}        
 \newboolean{screen}        
 \newboolean{closedavailability} 
+\newboolean{bluelines} 
 @ %
 <<options>>=
 \DeclareOption{long}{\setboolean{longreport}{true}}
 \DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
-\DeclareOption{screen}{\setboolean{screen}{true}}
+\DeclareOption{screen}{\setboolean{screen}{true}\setboolean{bluelines}{true}}
 \DeclareOption{closed}{\setboolean{closedavailability}{true}}
+\DeclareOption{bluelines}{\setboolean{bluelines}{true}}
 @ %
 
 \subsection{Language options}
@@ -231,9 +234,8 @@ the \texttt{note} and the \texttt{report}.
 			\setboolean{language_selected}{true}}
 @ %
 <<loading packages>>=
-\ifthenelse{\boolean{firstindent}}{%
- \RequirePackage{indentfirst}
-}{}
+\ifthenelse{\boolean{firstindent}}{% 
+ \RequirePackage{indentfirst}}{}
 @ %
 \subsection{Font options}
 
@@ -356,14 +358,13 @@ Norwegian characters are supported in input.
 
 \subsection{Utilities}
 <<loading packages>>=
-\RequirePackage{paralist}	% for list environments
 \RequirePackage{fancyheadings}	% for headers
-\RequirePackage{verbatim}	% extra verbatims
-\RequirePackage{xspace}         % for space control
 \RequirePackage{rotating}       % for text rotation
 \RequirePackage{makeidx}        % for index
 \RequirePackage{multicol}       % for multiple columns
-
+\RequirePackage{paralist}	% for list environments
+\RequirePackage{verbatim}	% extra verbatims
+\RequirePackage{xspace}         % for space control
 @ %
 
 \subsection{Colours and graphics inclusion}
@@ -379,28 +380,37 @@ Norwegian characters are supported in input.
 \ifthenelse{\boolean{screen}}{
 % use hypertex tools 
 \ifpdf
-  \usepackage[pdftex,colorlinks=true,plainpages=false,backref=page]{hyperref}
+  \usepackage[pdftex,colorlinks=true,%
+	      plainpages=false,citecolor=nrgreen,%
+	      backref=page]{hyperref}
 \else
-  \usepackage[dvipdfm,colorlinks=true,plainpages=false,backref=page]{hyperref}
+  \usepackage[dvipdfm,colorlinks=true,%
+	      plainpages=false,citecolor=nrgreen,%
+	      backref=page]{hyperref}
 \fi
   }{%
-\usepackage[draft=true]{hyperref}}
-	
-@ 
+% Set all hypertex links black %
+\ifpdf 
+  \usepackage[pdftex,colorlinks=true,plainpages=false,% 
+	      linkcolor=black,citecolor=black,% 
+              pagecolor=black,urlcolor=black]{hyperref} 
+\else
+  \usepackage[dvipdfm,debug=true,colorlinks=true,plainpages=false,% 
+              linkcolor=black,citecolor=black,% 
+              pagecolor=black,urlcolor=black]{hyperref} 
+\fi 
+} 
+@  
 
-\subsection{Page geometry}
-<<use packages>>= 
-\newcommand{\clearemptydoublepage}{%
-   \newpage{\pagestyle{empty}\cleardoublepage}}
+\subsection{Page geometry} 
 
-\ifthenelse{\boolean{screen}}{
- \usepackage[a4paper,body={165mm,235mm},headheight=14pt,nofoot]{geometry}
- \setlength{\evensidemargin}{\oddsidemargin}
-}
-{ 
- \usepackage[a4paper,body={165mm,235mm},headheight=14pt,nofoot]{geometry}
-}
+<<use packages>>=  
+\newcommand{\clearemptydoublepage}{% 
+            \newpage{\pagestyle{empty}\cleardoublepage}}
 
+\usepackage[a4paper,body={165mm,235mm},headheight=14pt,nofoot]{geometry}
+\ifthenelse{\boolean{screen}}{%
+\setlength{\evensidemargin}{\oddsidemargin}}{}
 @ %
 
 \subsection{Language support}
@@ -428,6 +438,7 @@ Norwegian characters are supported in input.
 \renewcommand{\ttdefault}{aett}
 
 \definecolor{nrblue}{cmyk}{1,0.72,0,0.18}
+\definecolor{nrgreen}{rgb}{0,0.65,0}
 
 \newcommand{\printyear}{\number\year}
 \newcommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
@@ -480,9 +491,9 @@ Norwegian characters are supported in input.
 \newcommand{\nrverticalbar}{%
  \hspace{8mm}%
  \begin{rotate}{90}
-\ifthenelse{\not \boolean{screen}}{}{%
+\ifthenelse{\boolean{bluelines}}{%
 \makebox[0pt]{\raisebox{-20mm}[0pt][0pt]{%
-{\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}}%
+{\color{nrblue}{\rule{2\paperheight}{\nrbarwidth}}}}}}{}%
 \end{rotate}
 }
 
@@ -493,19 +504,21 @@ Norwegian characters are supported in input.
 }
 
 \newcommand{\nrtopbar}{%
-\ifthenelse{\not\boolean{screen}}{}{%
+\ifthenelse{\boolean{bluelines}}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos}[0pt][0pt]{%
- \rule{2\paperwidth}{\nrbarwidth}}}}}
+ \rule{2\paperwidth}{\nrbarwidth}}}}{}
+}
 
 \newcommand{\nrbotbar}{%
-\ifthenelse{\not\boolean{screen}}{}{%
+\ifthenelse{\boolean{bluelines}}{%
 \makebox[0pt]{\raisebox{\nrhorizontalbarstartpos + \nrhorizontalbarwidth}
- [0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}}
+ [0pt][0pt]{\rule{2\paperwidth}{\nrbarwidth}}}}{}
+}
 
 \newcommand{\nrlogobar}{%
 \raisebox{\nrhorizontalbarstartpos + 5mm}
 [0pt][0pt]{\hspace{-5mm}%
-\ifthenelse{\not\boolean{screen}}{}{%
+\ifthenelse{\not\boolean{bluelines}}{}{%
 \ifthenelse{\boolean{language_selected}}{%
 \ifthenelse{\boolean{english_selected}}{%
 \includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}}{%
@@ -515,7 +528,7 @@ Norwegian characters are supported in input.
 }}}%
 \hfill%
 \raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
-\ifthenelse{\not\boolean{screen}}{}{%
+\ifthenelse{\not\boolean{bluelines}}{}{%
 \scalebox{1}[1.1]{%
 \textbf{\Huge{\ifthenelse{\boolean{report}}{\MakeUppercase{\reportname}}{%
  \MakeUppercase{\notename}}}}}}\makebox[0mm]{}
@@ -646,6 +659,8 @@ Norwegian characters are supported in input.
 
 
 <<main code>>=
+
+
 \ifthenelse{\boolean{longreport}}%
 {% \mainmatter is already defined
 }%
@@ -668,7 +683,7 @@ Norwegian characters are supported in input.
 \noindent\textbf{\projectname:} \printproject \vspace{1em}\par
 \noindent\textbf{\projectnumbername:} \printprojectnumber \vspace{1em}\par
 \noindent\textbf{\researchfieldname:} \printresearchfield \vspace{1em}\par
-\noindent\textbf{\numberofpagesname:} \pageref{LastPage} \vspace{2em}\par
+\noindent\textbf{\numberofpagesname:} \pageref*{LastPage} \vspace{2em}\par
 \noindent\rule{\linewidth}{1pt} 
  {\footnotesize
  \ifthenelse{\boolean{language_selected}}%
@@ -822,9 +837,9 @@ Norwegian characters are supported in input.
       \widowpenalty4000%
       \sfcode`\.\@m}
      {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
-}{%
+       {\@latex@warning{Empty `thebibliography' environment}}% '
+      \endlist} 
+}{% 
 \renewenvironment{thebibliography}[1]
      {\section*{\refname
         \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}}% 
@@ -843,15 +858,27 @@ Norwegian characters are supported in input.
       \widowpenalty4000%
       \sfcode`\.\@m}
      {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
-}
+       {\@latex@warning{Empty `thebibliography' environment}}% '
+      \endlist} 
 
 
-\AtBeginDocument{}
+\def\lastpage@putlabel{\addtocounter{page}{-1}%
+   \immediate\write\@auxout{\string
+   \newlabel{LastPage}{{}{\thepage}{\relax}{}{}}}%
+   \addtocounter{page}{1}}
 
-\AtEndDocument{\printindex\label{LastPage}}
+} 
 
+
+
+\AtBeginDocument{\label{OK}} 
+
+
+
+\AtEndDocument{%
+   \printindex%
+   \clearpage\lastpage@putlabel%
+} 
 @ %
 
 \appendix
