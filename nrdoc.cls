@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/03/02 v2.0.5 NR report class]
+\ProvidesClass{nrdoc}[2005/03/31 v2.0.6 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -471,7 +471,9 @@ the documentclass command!\MessageBreak}}{}
 
 % Fix layout of list environments with utilities from the paralist
 % package.
-\setdefaultitem{\textperiodcentered}{--}{\textasteriskcentered}{\footnotesize\textbullet}
+\setdefaultitem{\textperiodcentered}{--}
+               {\textasteriskcentered}%{\footnotesize\textbullet}
+               {\textbullet}
 \setdefaultenum{1.}{a.}{1)}{a)}
 \setdefaultleftmargin{2em}{2em}{2em}{2em}{1em}{1em}
 

@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.11 2005-02-28 13:01:49 soleng Exp $
+# $Id: rpmspecfile.in,v 1.12 2005-04-04 06:55:21 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -56,6 +56,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 31 2005 Harald H. Soleng <harald.soleng@nr.no>
+- Increased bullet caliber 
 * Mon Feb 28 2005 Harald H. Soleng <harald.soleng@nr.no>
 - Added dvips option. Version 2.0.3
 * Mon Feb 28 2005 Harald H. Soleng <harald.soleng@nr.no>
