@@ -5,7 +5,7 @@
 
 % Verbatim is already loaded by nrdoc. It is only
 % included to make LaTeX2html work better.
-\usepackage{verbatim} 	
+\usepackage{verbatim}   
 
 
 
@@ -76,7 +76,8 @@ By default the page layout is two-sided\footnote{On older \LaTeX\
 installations, the default is one-sided. If you want to be sure to 
 get two-sided output, specify the additional option
 \textit{twoside}\index{option!twoside} in the \texttt{documentclass}
-command.}. 
+command.}.
+
 
 \subsection{Note and report}
 The default option \textit{note}\index{option!note} gives a NR
@@ -152,7 +153,7 @@ author(s) and abstract:
 \begin{document}
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald Soleng \email{harald.soleng@nr.no} \and 
-	Anders Løland \email{anders.loland@nr.no}}
+        Anders Løland \email{anders.loland@nr.no}}
 \date{\today}
 
 \maketitle
@@ -189,7 +190,7 @@ given here (and in Figure \ref{fig:logo}):
   \end{center}
 \end{figure}
 \end{verbatim}
-\begin{figure}[ht]
+\begin{figure}[h]
   \begin{center}
     \includegraphics[width=8cm,angle=45]{figs/fotball}
     \caption{\label{fig:logo} Rolling NR logo.}
@@ -325,7 +326,7 @@ The following packages are loaded by default:
 \item[\textit{amsmath}] For advanced math. \index{package!amsmath} 
 \item[\textit{paralist}] For list
   environments. \index{package!paralist} 
-\item[\textit{fancyheadings}] For
+\item[\textit{fancyhdr}] For
   headers. \index{package!fancyheadings} 
 \item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
 Also contains a useful \texttt{comment} environment.
@@ -350,7 +351,10 @@ consult the book by \cite{latexcompanion}.
 
 \section{Setting up Unix variables}
 For the system to find the \texttt{nrdoc} class, the variable
-\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} needs to be set. 
+\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} needs to be set. This
+variable should have been set for you, but if you get the message 
+\texttt{TEXINPUTS: Undefined variable.} after typing \texttt{echo
+\$TEXINPUTS} in Unix/Linux, you need to set the variable:
 If you use \texttt{tcsh} (that is
 you have a \texttt{.cshrc} file), the  \texttt{.cshrc} file should
 include this line:
