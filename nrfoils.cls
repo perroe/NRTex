@@ -6,7 +6,7 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nrfoils}[2004/08/25]
+\ProvidesClass{nrfoils}[2004/08/26]
 
 \RequirePackage{ifthen}
 \RequirePackage{babel}
@@ -82,7 +82,7 @@
 \mbox{}\hspace{-0mm}\textcolor{nrblue}{%
 \rule{1.05\paperwidth}{25mm}}}\\[-\baselineskip]%
 \raisebox{-205mm}[0pt][0pt]{%
-\mbox{}\hspace{7mm}\includegraphics[height=25mm]{nrlogo/NR_wave}}\\[-\baselineskip]%
+\mbox{}\hspace{7mm}\includegraphics[height=25mm]{logos/NR_wave}}\\[-\baselineskip]%
 \raisebox{-195mm}[0pt][0pt]{%
 \hspace{270mm}\textcolor{white}{\textsf{\tiny\thepage}}}%
 \end{minipage}
@@ -138,10 +138,10 @@
   \fi
   \null\vskip\abovetitleskip
   \mbox{}\hspace{210mm}\makebox[0pt]{\raisebox{-165mm}[0pt][0pt]{%	
-	\includegraphics[width=0.4\paperwidth]{nrlogo/NR_ball_rgb}}}\\
+	\includegraphics[width=0.4\paperwidth]{logos/NR_ball_rgb}}}\\
 	\raisebox{40mm}[0pt][0pt]{%
 	\mbox{}\hspace{-15mm}%
-	\includegraphics[height=25mm]{nrlogo/NR_wave}}%
+	\includegraphics[height=25mm]{logos/NR_wave}}%
 	\hspace{90mm}%
 	\raisebox{45mm}[0pt][0pt]{\small\texttt{www.nr.no}}%
 
