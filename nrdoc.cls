@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/02/28 v2.0.3 NR report class]
+\ProvidesClass{nrdoc}[2005/03/01 v2.0.4 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -48,6 +48,7 @@
 \newboolean{citenumeric}
 \newboolean{hidden}
 \newboolean{dvips}
+\newboolean{nodesign}
 
 
 \newcounter{numberofauthors}
@@ -85,6 +86,13 @@
 
 
 \providecommand{\aboutauthors}[1]{\renewcommand{\aboutauthorstext}{#1}}
+\providecommand{\designelement}[1]{%
+  \ifthenelse{\boolean{nodesign}}{%
+	\includegraphics[draft]{#1}
+  }{%
+	\includegraphics{#1}	
+  }
+}
 
 \providecommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
     \ifthenelse{\equal{#1}{}}{}{%
@@ -177,6 +185,8 @@
 
 
 \DeclareOption{dvips}{\setboolean{dvips}{true}}
+
+\DeclareOption{nodesign}{\setboolean{nodesign}{true}}
 
 \DeclareOption{screen}{\setboolean{screen}{true}%
   \PassOptionsToClass{oneside}{book}%
@@ -487,15 +497,15 @@ the documentclass command!\MessageBreak}}{}
     \ifthenelse{\boolean{report}}{%
       \ifthenelse{\boolean{norsk_selected} \or
         \boolean{nynorsk_selected}}{%
-        \includegraphics{elements/rapport-s1}
+	\designelement{elements/rapport-s1}
       }{%
-        \includegraphics{elements/report-s1}
+        \designelement{elements/report-s1}
       }}{%
       \ifthenelse{\boolean{norsk_selected} \or
         \boolean{nynorsk_selected}}{%
-        \includegraphics{elements/notat-s1}
+        \designelement{elements/notat-s1}
       }{%
-        \includegraphics{elements/note-s1}
+        \designelement{elements/note-s1}
       }}
   \end{textblock}
 }
@@ -629,13 +639,13 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \providecommand{\nraboutpage}{%
   \thispagestyle{empty}
   \noindent
-  \includegraphics{elements/NR-logo_utvidet_60-5mm_cmyk}
+  \designelement{elements/NR-logo_utvidet_60-5mm_cmyk}
   \par\vspace{4\baselineskip}
   \printaboutpagetext
   \par\vfill\noindent
   \begin{textblock}{151}(30,267)
     \noindent
-    \includegraphics{elements/NR-address}
+    \designelement{elements/NR-address}
   \end{textblock}
   \clearpage
 }
@@ -861,7 +871,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \newsavebox{\footerlogo}
-\savebox{\footerlogo}{\raisebox{-0.5ex}{\includegraphics{elements/NR-logo_footer}}}
+\savebox{\footerlogo}{\raisebox{-0.5ex}{\designelement{elements/NR-logo_footer}}}
 \ifthenelse{\boolean{@twoside}}
 {%
   \fancyhead{}
