@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.28 2003-10-01 10:08:35 soleng Exp $
+% $Id: nrdoc.nw,v 1.29 2003-10-01 12:37:18 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -74,7 +74,7 @@ pdf version with hyperlinks.
 \subsection{Identification}
 <<class identification>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/09/30 v0.2 NR report class]
+\ProvidesClass{nrdoc}[2003/10/01 v0.3 NR report class]
 % This class file was automatically generated from the file 
 % nrreport.nw using noweb. Please don't edit this file 
 %  directly.  
@@ -506,10 +506,10 @@ Norwegian characters are supported in input.
 \ifthenelse{\not\boolean{bluelines}}{}{%
 \ifthenelse{\boolean{language_selected}}{%
 \ifthenelse{\boolean{english_selected}}{%
-\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}}{%
-\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logonor}}
+\includegraphics[height=15mm]{logos/logoeng}}{%
+\includegraphics[height=15mm]{logos/logonor}}
 }{% 
-\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}
+\includegraphics[height=15mm]{logos/logoeng}
 }}}%
 \hfill%
 \raisebox{\nrhorizontalbarstartpos + 8mm}[0pt][0pt]{%
@@ -594,12 +594,12 @@ Norwegian characters are supported in input.
 \noindent
  \ifthenelse{\boolean{language_selected}}%
 {\ifthenelse{\boolean{english_selected}}%
- {\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}%
+ {\includegraphics[height=15mm]{logos/logoeng}%
  }%
- {\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logonor}
+ {\includegraphics[height=15mm]{logos/logonor}
  }%
 }%
-{\includegraphics[height=15mm]{/nr/group/maler/nrdoc/logos/logoeng}
+{\includegraphics[height=15mm]{logos/logoeng}
 } \hfill\textbf{NR \ifthenelse{\boolean{report}}{\reportname}{\notename} }
 
 \noindent
