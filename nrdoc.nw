@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.37 2003-10-16 12:55:43 anderslo Exp $
+% $Id: nrdoc.nw,v 1.38 2003-10-16 13:23:23 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -322,7 +322,7 @@ We execute the following default options.
 	0314 Oslo\\[\abstractlinesep]
         Telefon: 22 85 25 00, 
 	telefaks: 22 69 76 60, 
-        \url{http://ww.nr.no}}
+        \url{http://www.nr.no}}
 }{}
 \ifthenelse{\boolean{nynorsk_selected}}{%
  \renewcommand{\notename}{Notat}  
@@ -349,7 +349,7 @@ We execute the following default options.
 	0314 Oslo\\[\abstractlinesep]
         Telefon: 22 85 25 00, 
 	telefaks: 22 69 76 60, 
-        \url{http://ww.nr.no}}
+        \url{http://www.nr.no}}
 }{}
 @ %
 
@@ -871,7 +871,33 @@ Norwegian characters are supported in input.
       \endlist}
 }
  
-       
+
+\ifthenelse{\boolean{longreport}}{%
+   
+\renewcommand\chapter{\ifthenelse{\boolean{screen}}{}{\clearemptydoublepage}%
+			\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{plain}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+                         \refstepcounter{chapter}%
+                         \typeout{\@chapapp\space\thechapter.}%
+                         \addcontentsline{toc}{chapter}%
+                                   {\protect\numberline{\thechapter}#1}%
+                    \else
+                      \addcontentsline{toc}{chapter}{#1}%
+                    \fi
+                    \chaptermark{#1}%
+                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
+                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
+                    \if@twocolumn
+                      \@topnewpage[\@makechapterhead{#2}]%
+                    \else
+                      \@makechapterhead{#2}%
+                      \@afterheading
+                    \fi}    
+}{}
 
 \def\lastpage@putlabel{\addtocounter{page}{-1}%
    \immediate\write\@auxout{\string
