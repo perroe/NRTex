@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.45 2004-01-02 11:08:28 soleng Exp $
+% $Id: nrdoc.nw,v 1.46 2004-01-06 08:39:44 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -992,6 +992,9 @@ but tried and trusted \texttt{a4wide} package.
    \addtocounter{page}{1}}
 
 
+\providecommand{\floor}[1]{\lfloor #1 \rfloor}
+\providecommand{\ceil}[1]{\lceil #1 \rceil}
+
 
 \AtBeginDocument{} 
 
@@ -1014,7 +1017,7 @@ A work-around is to reload these packages using usepackage.
 
 <<nrdoc.cls>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/12/31 v1.0 NR report class]
+\ProvidesClass{nrdoc}[2004/01/31 v1.0.1 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
