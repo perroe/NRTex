@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/03/01 v2.0.4 NR report class]
+\ProvidesClass{nrdoc}[2005/03/02 v2.0.5 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -46,6 +46,7 @@
 \newboolean{nynorsk_selected}
 \newboolean{english_selected}
 \newboolean{citenumeric}
+\newboolean{citealphanumeric}
 \newboolean{hidden}
 \newboolean{dvips}
 \newboolean{nodesign}
@@ -246,6 +247,10 @@ the documentclass command!\MessageBreak}}{}
 
 \DeclareOption{citenumeric}{%
   \setboolean{citenumeric}{true}}
+\DeclareOption{citealphanumeric}{%
+  \setboolean{citenumeric}{true}
+  \setboolean{citealphanumeric}{true}
+}
 
 \DeclareOption*{\PackageWarning{nrdoc}{Option `\CurrentOption' ignored.}}
 
@@ -348,8 +353,9 @@ the documentclass command!\MessageBreak}}{}
 % gives a leading of approx. 14pt for 10 pt text.
 \renewcommand{\baselinestretch}{1.167}
 
-\ifthenelse{\boolean{citenumeric}}{%
- \RequirePackage[numbers,sort&compress]{natbib}}{%
+\ifthenelse{\boolean{citenumeric}}{%  
+ \RequirePackage[numbers,sort&compress]{natbib}   
+}{%
  \RequirePackage[sort,round]{natbib}
 }
 
@@ -921,7 +927,17 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifthenelse{\boolean{citenumeric}}{%
-  \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
+  \ifthenelse{\boolean{citealphanumeric}}{%
+    \ifthenelse{\boolean{norsk_selected}%
+                \or%
+                \boolean{nynorsk_selected}}{%    
+       \bibliographystyle{nrnorsk}
+     }{%	
+       \bibliographystyle{plainnat}
+     }
+  }{%
+       \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
+  }
   \typeout{nrdoc uses numeric citation labels}
 }{%
   \ifthenelse{\boolean{norsk_selected}%

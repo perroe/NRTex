@@ -1,7 +1,7 @@
 % $Id$
 % Specify language of the report
 
-\documentclass[note,screen,british,12pt]{nrdoc}
+\documentclass[note,screen,citealphanumeric,british,12pt]{nrdoc}
 
 
 % Verbatim is already loaded by nrdoc. It is only
@@ -248,9 +248,7 @@ options.\index{option!10pt}\index{option!11pt}\index{option!12pt}
 
 The standard font is type 1 versions of computer modern. The exception is
 the typewriter font which has been replaced with almost European fonts.
-There is also the option \textit{times} \index{option!times} giving
-built-in times-roman fonts.  These fonts are used on the cover and the
-title page. 
+
 
 \section{Mathematics}\index{mathematics}
 
@@ -271,10 +269,11 @@ are handled by {Bib}\TeX\
 \index{bibtex@BiB\TeX}\index{cite!BiB\TeX@bibtex} and 
 \texttt{natbib} \citep{natbib:7.1}. By default 
 an author--year citation 
-scheme\footnote{A simpler numerical\index{cite!numeric
-citation label} citation scheme with citations appearing in the
-order of citations is supported as well using the option
-\textit{citenumeric}. This is intended for documents that need
+scheme\footnote{With the options \texttt{citealphanumeric}\index{cite!numeric citation label}\index{option!citealphanumeric}
+or \texttt{citenumeric}\index{option!citenumeric}
+a scheme with numerical citation keys and 
+citations appearing in alphabethic order or in the order of citations
+is supported as well. This is intended for documents that need
 numerical citations due to external demands.}  is used.
 The required style files are 
 automatically loaded by \texttt{nrdoc} and support both norsk
