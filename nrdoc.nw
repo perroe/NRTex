@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.53 2004-01-15 11:45:39 soleng Exp $
+% $Id: nrdoc.nw,v 1.54 2004-02-13 12:02:55 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -61,7 +61,7 @@ source code for the class.
 \section{Version number}
 
 <<version number>>=
-\ProvidesClass{nrdoc}[2004/01/15 v1.0.2 NR report class]
+\ProvidesClass{nrdoc}[2004/02/13 v1.0.3 NR report class]
 @ %
 
 \section{Handling pdf\LaTeX}
@@ -97,8 +97,10 @@ First we define commands used on the cover and the title page.
 \providecommand{\availabilityname}	{Availability}
 \providecommand{\closedavailable}	{Closed}
 \providecommand{\datename}		{Date}
+\providecommand{\examplename}		{Example} 
 \providecommand{\emailname}		{e-mail} 
 \providecommand{\keywordsname}		{Keywords}
+\providecommand{\listexamplename}	{List of Examples}
 \providecommand{\numbername}		{no.}
 \providecommand{\numberofpagesname}	{No.\ of pages}
 \providecommand{\notename} 		{Note} 
@@ -136,8 +138,10 @@ where for the last command we need the new length
 	\renewcommand{\availabilityname}	{Tilgjengelighet} 
 	\renewcommand{\closedavailable}		{Lukket} 
 	\renewcommand{\datename}		{Dato}
+	\renewcommand{\examplename}             {Eksempel}
 	\renewcommand{\emailname}		{e-post}  
 	\renewcommand{\keywordsname}		{Emneord}
+	\renewcommand{\listexamplename}		{Eksempler}
 	\renewcommand{\numbername}		{nr.}
 	\renewcommand{\numberofpagesname}	{Antall sider}
 	\renewcommand{\notename}		{Notat} 
@@ -160,7 +164,8 @@ where for the last command we need the new length
 	}
 
 %  New Norwegian	
-\ifthenelse{\boolean{nynorsk_selected}}{%
+\ifthenelse{\boolean{nynorsk_selected}}{%	
+        \renewcommand{\listexamplename}		{Eksempel} 
 	\renewcommand{\authorname}		{Forfattar} 
 	\renewcommand{\availabilityname}	{Tilgjengeleg}
 	\renewcommand{\numberofpagesname}	{Tal p\aa\ sider} 
@@ -766,7 +771,7 @@ but tried and trusted \texttt{a4wide} package.
 \subsection{Base class}
 <<loading the base class>>=
 \ifthenelse{\boolean{longreport}}%
-{\LoadClass{report}[2000/05/19]}%
+{\LoadClass{book}[2000/05/19]}%
 {\LoadClass{article}[2000/05/19]}
 @ %  
 
@@ -775,6 +780,31 @@ but tried and trusted \texttt{a4wide} package.
 <<main code>>=
 \providecommand{\mainmatter}{\pagenumbering{arabic}}
 
+\ifthenelse{\boolean{longreport}}{
+\newenvironment{abstract}%
+{\begin{titlepagefont}
+\noindent\textbf{\abstractname:}}%
+{\vfill
+\noindent\textbf{\keywordsname:} \printkeywords \vspace{1em}\par
+\noindent\textbf{\targetgroupname:} \printtarget \vspace{1em}\par
+\noindent\textbf{\availabilityname:} 
+\ifthenelse{\boolean{closedavailability}}{%
+            \closedavailable}{\openavailable} %
+\vspace{1em}\par
+\noindent\textbf{\projectname:} \printproject \vspace{1em}\par
+\noindent\textbf{\projectnumbername:} \printprojectnumber \vspace{1em}\par
+\noindent\textbf{\researchfieldname:} \printresearchfield \vspace{1em}\par
+\noindent\textbf{\numberofpagesname:} \pageref*{LastPage} \vspace{2em}\par
+\noindent\rule{\linewidth}{1pt} 
+ {\footnotesize\printnraddress
+ \par\noindent		
+  Copyright \copyright\ \printyear\
+  by Norwegian Computing Center, Oslo, Norway\\
+  All rights reserved. Printed in Norway.
+    }
+\end{titlepagefont}
+\clearemptydoublepage 
+  }}{
 \renewenvironment{abstract}%
 {\begin{titlepagefont}
 \noindent\textbf{\abstractname:}}%
@@ -795,12 +825,11 @@ but tried and trusted \texttt{a4wide} package.
   Copyright \copyright\ \printyear\
   by Norwegian Computing Center, Oslo, Norway\\
   All rights reserved. Printed in Norway.
- }
+    }
 \end{titlepagefont}
 \clearemptydoublepage 
+  }}
 
-
-}
 
 \renewcommand{\maketitle}[1]{%
 	\hypersetup{pdftitle={\printtitle},		    
@@ -864,8 +893,80 @@ but tried and trusted \texttt{a4wide} package.
     }
   }	
 
+\ifthenelse{\boolean{longreport}}{%
+\renewcommand{\listoftables}{% 
+   \thispagestyle{empty}
+    \chapter*{\listtablename
+      \@mkboth{\MakeUppercase\listtablename}%
+              {\MakeUppercase\listtablename}}%
+      
+      \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[0]{\listtablename}{toc}}
+    \@starttoc{lot}% 
+    \clearemptydoublepage
+    }
+}{% else
+\renewcommand{\listoftables}{% 
+    \thispagestyle{empty}
+    \section*{\listtablename
+      \@mkboth{\MakeUppercase\listtablename}%
+              {\MakeUppercase\listtablename}}% 
+         \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[1]{\listtablename}{toc}} 
+    \@starttoc{lot}% 
+    \clearemptydoublepage
+    }
+  }	
+\ifthenelse{\boolean{longreport}}{%
+\newcommand{\listofexamples}{% 
+   \thispagestyle{empty}
+    \chapter*{\listexamplename
+      \@mkboth{\MakeUppercase\listexamplename}%
+              {\MakeUppercase\listexamplename}}%
+      
+      \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[0]{\listexamplename}{toc}}
+    \@starttoc{loe}% 
+    \clearemptydoublepage
+    }
+}{% else
+\newcommand{\listofexamples}{% 
+    \thispagestyle{empty}
+    \section*{\listexamplename
+      \@mkboth{\MakeUppercase\listexamplename}%
+              {\MakeUppercase\listexamplename}}% 
+         \addtocontents{toc}{\protect\hypertarget{toc}{}%	
+        \protect\pdfbookmark[1]{\listexamplename}{toc}} 
+    \@starttoc{loe}% 
+    \clearemptydoublepage
+    }
+  }	
 
-\pagestyle{fancyplain}
+\ifthenelse{\boolean{longreport}}{
+  \newcounter{example}[chapter]
+  \def\theexample{\thechapter.\@arabic\c@example}
+}{
+  \newcounter{example}[section]
+  \def\theexample{\thesection.\@arabic\c@example}
+}
+
+
+
+\let\l@example\l@figure
+
+\providecommand\ext@example{loe}
+\providecommand\fnum@example{\examplename~\theexample}
+%
+\def\toclevel@example{0}
+\def\ftype@example{2}
+
+\newenvironment{example}{
+\def\@captype{example} 
+}{}
+
+
+
+\pagestyle{fancy}
 
 \ifthenelse{\boolean{@twoside}}
 {%
@@ -878,7 +979,7 @@ but tried and trusted \texttt{a4wide} package.
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
-\fancypagestyle{fancyplain}{%
+\fancypagestyle{fancy}{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 \rhead[\fancyplain{\bf\ifthenelse{\boolean{report}}{%
 \printisbn}{\printreportnumber}}{%
@@ -895,7 +996,7 @@ but tried and trusted \texttt{a4wide} package.
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
 
-\fancypagestyle{fancyplain}{%
+\fancypagestyle{fancy}{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 \rhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
@@ -905,13 +1006,14 @@ but tried and trusted \texttt{a4wide} package.
 }
 
 % Fancy heading for first chapter page also
+\ifthenelse{\boolean{longreport}}{}{%
 \fancypagestyle{plain}{%
 \cfoot[]{}\rfoot[]{}\lfoot[]{}\chead[]{}
 \rhead[\fancyplain{\bf\printreportnumber}{\bf\printreportnumber}]
 {\fancyplain{\bf\thepage}{\bf\thepage}}
 \lhead[\fancyplain{\bf\thepage}{\bf\thepage}]
 {\fancyplain{\bf\printshorttitle}{\bf\printshorttitle}}
-}
+}}
 
 \renewcommand{\sectionmark}[1]{\markboth{}{}}
 
@@ -1004,31 +1106,17 @@ but tried and trusted \texttt{a4wide} package.
 }
  
 
+
 \ifthenelse{\boolean{longreport}}{%
-   
-\renewcommand\chapter{\ifthenelse{\boolean{screen}}{}{%
-\afterpage{\clearpage}\clearemptydoublepage}%
-	   	    \global\@topnum\z@
+\renewcommand\chapter{
+                    \clearemptydoublepage		      
+                    \thispagestyle{empty}%
+                    \global\@topnum\z@
                     \@afterindentfalse
-                    \secdef\@chapter\@schapter}
-\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
-                         \refstepcounter{chapter}%
-                         \typeout{\@chapapp\space\thechapter.}%
-                         \addcontentsline{toc}{chapter}%
-                                   {\protect\numberline{\thechapter}#1}%
-                    \else
-                      \addcontentsline{toc}{chapter}{#1}%
-                    \fi
-                    \chaptermark{#1}%
-                    \addtocontents{lof}{\protect\addvspace{10\p@}}%
-                    \addtocontents{lot}{\protect\addvspace{10\p@}}%
-                    \if@twocolumn
-                      \@topnewpage[\@makechapterhead{#2}]%
-                    \else
-                      \@makechapterhead{#2}%
-                      \@afterheading
-                    \fi}    
-}{}
+		      \secdef\@chapter\@schapter}}
+
+
+
 
 \def\lastpage@putlabel{\addtocounter{page}{-1}%
    \immediate\write\@auxout{\string
