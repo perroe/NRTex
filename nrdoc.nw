@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.43 2003-10-20 12:58:59 soleng Exp $
+% $Id: nrdoc.nw,v 1.44 2003-10-20 13:16:58 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -382,8 +382,8 @@ Norwegian characters are supported in input.
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
 
-\ifpdf\RequirePackage[pdftex]{thumbpdf}       % for thumbnails
-\else \RequirePackage[dvips]{thumbpdf} \fi
+\ifpdf\RequirePackage[pdftex]{thumbpdf} \fi      % for thumbnails
+
 
 \RequirePackage{afterpage}      % for float control
 @ %
@@ -811,12 +811,12 @@ Norwegian characters are supported in input.
 
 
 \ifthenelse{\boolean{citenumeric}}{%
-            \bibliographystyle{nrunsrt}
+            \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
             \typeout{nrdoc uses numeric citation labels}
 }{% 
             \typeout{nrdoc uses alphabethic citation labels}
 	    
-            \bibliographystyle{nrplain}
+            \bibliographystyle{plainnat} %\bibliographystyle{nrplain}
 }
  
 \ifthenelse{\boolean{longreport}}{%

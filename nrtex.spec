@@ -1,9 +1,9 @@
-# $Id: nrtex.spec,v 1.6 2003-10-20 07:24:51 soleng Exp $
+# $Id: nrtex.spec,v 1.7 2003-10-20 13:16:59 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
-Version: 0.1.0
+Version: 0.6.0
 Release: 1
 Copyright: Norwegian Computing Center
 Group: Applications/Publishing
@@ -23,13 +23,14 @@ be able to produce NR reports or notes using latex.
 # TODO now suppose already built
 
 %install
-
+mkdir -p -m755  %{buildroot}/usr/share/texmf/bibtex/bst/nrdoc/
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/ 
 mkdir -p -m755  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
 install -m644 manual.pdf  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 install -m644 *.eps *.pdf  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
 install -m644 nrdoc.cls  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/
+install -m644 *.bst %{buildroot}/usr/share/texmf/bibtex/bst/nrdoc/
 
 %clean
 rm -rf %{buildroot}

@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.25 2003-10-20 12:58:58 soleng Exp $
+# $Id: Makefile,v 1.26 2003-10-20 13:16:58 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -6,7 +6,7 @@ PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
-VERSION = 0.1.0
+VERSION = 0.6.0
 TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
