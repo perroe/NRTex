@@ -4,12 +4,14 @@ $patchFile = "release";
 
 open VERSION, $versionFile || die "Can't open file \"$versionFile\": $!\n";
 while (<VERSION>) {
+  chop $_;
   $version = $_;
 }
 close VERSION;
 
 open PATCH, $patchFile || die "Can't open file \"$patchFile\": $!\n";
-while (<PATCH>) {
+while (<PATCH>) { 
+  chop $_;
   $patch = $_;
 }
 close PATCH;
@@ -30,6 +32,24 @@ while (<INPUT>) {
 }
 close OUTPUT;
 print "Updated version number in $output.\n";
+print "Updated patch number in $output.\n";
+close INPUT;
+
+$input  = "nrdoc.html.in";
+$output = "nrdoc.html";
+
+open INPUT, "<".$input || die "Can't open input file \"$input\": $!\n";
+open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
+
+
+while (<INPUT>) {
+  s/\<\<version_number\>\>/$version/;  
+  s/\<\<patch_number\>\>/$patch/;
+  print OUTPUT;
+}
+close OUTPUT;
+print "Updated version number in $output.\n";
+print "Updated patch number in $output.\n";
 close INPUT;
 
 

@@ -11,10 +11,8 @@ PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
-VERSION = 1.0.2
-
-PATCH   = 3
-
+VERSION = 1.0.3
+PATCH   = 1
 TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
