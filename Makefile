@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.23 2003-10-20 06:40:40 jornv Exp $
+# $Id: Makefile,v 1.24 2003-10-20 07:24:51 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -7,12 +7,12 @@ INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
 VERSION = 0.1.0
-TGZNAME=nrtex-${VERSION}
+TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
              --define "_rpmdir $$PWD" \
              --define "_srcrpmdir $$PWD"
-
+RPMFILE = i386/nrtex-${VERSION}-1.i386.rpm
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
@@ -70,7 +70,7 @@ printmanual: src
 html:	src
 	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
-install: src pdf html manual printmanual
+install: src pdf html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrdoc.pdf $(INSTALLPATH)/	
 	cp manual.pdf $(INSTALLPATH)/	
@@ -80,6 +80,7 @@ install: src pdf html manual printmanual
 	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
 	cp -r $(MANUAL).web/*  $(WEBPATH)/latex-maler/$(MANUAL).web/	
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
+	cp $(RPMFILE) $(WEBPATH)/latex-maler/
 
 clean:
 	rm -f  *~ *.aux *.dvi \
@@ -88,7 +89,7 @@ clean:
 
 tgz:	src
 	mkdir -p ${TGZNAME}
-	cp logos/*.pdf logos/*.eps ${MAIN}.cls \
+	cp logos/*.pdf logos/*.eps ${MAIN}.cls $(MANUAL).pdf \
 	${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
@@ -96,3 +97,4 @@ rpm:	tgz
 	mkdir -p BUILD
 	rm -f BUILD/*
 	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec
+
