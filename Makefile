@@ -1,10 +1,11 @@
-# $Id: Makefile,v 1.19 2003-10-02 10:33:47 soleng Exp $
+# $Id: Makefile,v 1.20 2003-10-14 11:42:43 jornv Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
 PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
+VERSION = 0.1.0
 
 
 .SUFFIXES: .nw .tex .dvi .pdf
@@ -79,3 +80,12 @@ clean:
 	*.log *.pdf *.bbl *.out *.blg *.brf *.ind *.ps *.toc \
 	*.idx *.lof *.ilg
 
+targz:  src
+	-mkdir nrtex-${VERSION}
+	-cp figs/*.eps figs/*.pdf ${MAIN}.cls \
+		nrtex.spec nrtex-${VERSION}
+	-tar cvf  nrtex-${VERSION}.tar nrtex-${VERSION}
+	-gzip nrtex-${VERSION}.tar
+	-rm -r  nrtex-${VERSION}
+rpm:	targz
+	rpmbuild -v -tb nrtex-${VERSION}.tar.gz
