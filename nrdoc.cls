@@ -1,5 +1,5 @@
 %%
-%% This is file nrdoc2.cls
+%% This is file nrdoc.cls
 %%
 %% Based on nrdoc.cls by
 %% Harald H. Soleng <harald.soleng@nr.no>
@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/02/15 v2.0 NR report class]
+\ProvidesClass{nrdoc}[2005/02/17 v2.0.1 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -19,6 +19,7 @@
 
 \RequirePackage{ifthen}             % for logic in class file
 \RequirePackage{calc}               % for math in class file
+\RequirePackage{textcase}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new variables
@@ -45,12 +46,17 @@
 \newboolean{nynorsk_selected}
 \newboolean{english_selected}
 \newboolean{citenumeric}
+\newboolean{hidden}
+
+
+\newcounter{numberofauthors}
+\setcounter{numberofauthors}{1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new functions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\providecommand{\authorname}            {Author}
+\providecommand{\authorname}            {Author\ifthenelse{\value{numberofauthors}>1}{s}{}}
 \providecommand{\availabilityname}      {Availability}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
@@ -74,7 +80,7 @@
 \providecommand{\yearname}              {Year}
 \providecommand{\isbnname}              {ISBN}
 \providecommand{\nrname}                {Norwegian Computing Center}
-\providecommand{\aboutauthorsheading}   {Authors}
+\providecommand{\aboutauthorsheading}   {The author\ifthenelse{\value{numberofauthors}>1}{s}{}}
 
 
 \providecommand{\aboutauthors}[1]{\renewcommand{\aboutauthorstext}{#1}}
@@ -82,7 +88,16 @@
 \providecommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
     \ifthenelse{\equal{#1}{}}{}{%
       \xspace\href{mailto:#1}{\texttt{<#1>}}}%
-  }{\ignorespaces}}
+  }{\ignorespaces}%
+\renewcommand{\and}{%
+	\ifthenelse{\boolean{hidden}}
+	{%
+	\addtocounter{numberofauthors}{1}}
+	}
+	{
+	\newline%
+	}
+}
 
 \providecommand{\printyear}{\number\year}
 \providecommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
@@ -134,7 +149,7 @@
 \providecommand{\frontpagefigurecommand}[1]{%
 \renewcommand{\frontpagefigurecommands}{#1}}
 
-\renewcommand{\and}{\linebreak}
+\renewcommand{\and}{\ifthenelse{\boolean{hidden}}{\addtocounter{numberofauthors}{1}\typeout{Adding an author \thenumberofauthors}}{\linebreak}}
 
 \newboolean{titlepage}
 
@@ -158,7 +173,29 @@
 }
 \DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
+
+
 \DeclareOption{screen}{\setboolean{screen}{true}}
+
+\DeclareOption{oneside}{%
+  \PassOptionsToClass{oneside}{book}%
+  \PassOptionsToClass{oneside}{article}
+}%
+
+\DeclareOption{twoside}{%	
+  \PassOptionsToClass{twoside}{book}%
+  \PassOptionsToClass{twoside}{article}%
+  \ClassError{nrdoc}{%
+The options `twoside' and `screen' are incompatible}{%
+Oh dear! Have you ever tried twosided printing on a %
+computer screen?\MessageBreak 
+It could damage your eyes. I rather advise you to
+remove either\MessageBreak the `screen' or the `twoside' option in %
+the documentclass command!\MessageBreak}
+}%
+
+
+
 \DeclareOption{closed}{\setboolean{closedavailability}{true}}
 \DeclareOption{indentpar}{\setboolean{indentpar}{true}}
 % The bluelines option is obsolete (kept for backwards compatability)
@@ -187,23 +224,24 @@
 % The times option is obsolete (kept for backwards compatability)
 \DeclareOption{times}{\typeout{NRdoc warning: Option times is obsolete.}}
 
-\DeclareOption{twoside}{%
-  \PassOptionsToClass{twoside}{book}%
-  \PassOptionsToClass{twoside}{article}}%
 
-\DeclareOption{oneside}{%
-  \PassOptionsToClass{oneside}{book}%
-  \PassOptionsToClass{oneside}{article}}%
+
+
 \DeclareOption{citenumeric}{%
   \setboolean{citenumeric}{true}}
 
+\DeclareOption*{\PackageWarning{nrdoc}{Option `\CurrentOption' ignored.}}
+
 \ExecuteOptions{10pt,note}
-\ProcessOptions*
+
+
+\ProcessOptions\relax
+
 
 %  Norwegian translation of cover and title side expressions
 \ifthenelse{\boolean{norsk_selected} \or
             \boolean{nynorsk_selected}}{%
-        \renewcommand{\authorname}              {Forfatter}
+        \renewcommand{\authorname}              {Forfatter\ifthenelse{\value{numberofauthors}>1}{e}{}}
         \renewcommand{\availabilityname}        {Tilgjengelighet}
         \renewcommand{\closedavailable}         {Lukket}
         \renewcommand{\datename}                {Dato}
@@ -225,16 +263,16 @@
         \renewcommand{\titlename}               {Tittel}
         \renewcommand{\yearname}                {{\AA}r}
         \renewcommand{\nrname}                  {Norsk Regnesentral}
-        \renewcommand{\aboutauthorsheading}     {Forfatterne}
+	\renewcommand{\aboutauthorsheading}     {Forfatter\ifthenelse{\value{numberofauthors}>1}{ne}{en}}
 
 %  Nynorsk
 \ifthenelse{\boolean{nynorsk_selected}}{%
         \renewcommand{\listexamplename}         {Eksempel}
-        \renewcommand{\authorname}              {Forfattar}
+        \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
         \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
         \renewcommand{\closedavailable}         {Lukka}
-        \renewcommand{\aboutauthorsheading}     {Forfattarane}
+        \renewcommand{\aboutauthorsheading}     {Forfattar\ifthenelse{\value{numberofauthors}>1}{ane}{en}}
         }{}
 }{}
 
@@ -264,9 +302,14 @@
   \RequirePackage{babel}
 }{}
 
-\ifthenelse{\boolean{longreport}}%
-{\LoadClass{book}[2000/05/19]}%
-{\LoadClass{article}[2000/05/19]}
+
+
+
+
+  \ifthenelse{\boolean{longreport}}%
+  {\LoadClass{book}[2000/05/19]}%
+  {\LoadClass{article}[2000/05/19]}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -296,7 +339,8 @@
 \definecolor{nrblue}{cmyk}{1,0.66,0,0}
 
 \ifthenelse{\boolean{screen}}{
-% use hypertex tools
+% use hypertex tools	
+\@twosidefalse
 \ifpdf
   \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,%
                   plainpages=false,citecolor=nrblue,%
@@ -404,12 +448,16 @@
   \noindent\color[gray]{0.55}\rule{\textwidth}{0.5pt}\vspace{0.5\baselineskip}\normalcolor}
 
 % Fix cleardoublepage
-\let\origdoublepage\cleardoublepage
+% This had unwanted side-effects
+%\let\origdoublepage\cleardoublepage
+%\providecommand{\clearemptydoublepage}{%
+%  \clearpage
+%  {\pagestyle{empty}\origdoublepage}%
+%}
+%\let\cleardoublepage\clearemptydoublepage
+
 \providecommand{\clearemptydoublepage}{%
-  \clearpage
-  {\pagestyle{empty}\origdoublepage}%
-}
-\let\cleardoublepage\clearemptydoublepage
+\newpage{\pagestyle{empty}\cleardoublepage}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Front page definition
@@ -486,6 +534,10 @@
   \ifthenelse{\boolean{draftversion}}{}{% else final version
     \thispagestyle{empty}%
     \noindent
+    \setboolean{hidden}{true}%\typeout{Making front page!}
+	% Write authors outside page.
+    \makebox[0pt]{\mbox{}\hspace{100cm}\textcolor{white}{\@author}}
+    \setboolean{hidden}{false}
     \frontpageprinttitle
     \frontpageprintmatter
     \frontpageprintfigure
@@ -635,7 +687,8 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \titleitem{\projectname}         {\printproject}
       \titleitem{\projectnumbername}   {\printprojectnumber}
       \titleitem{\researchfieldname}   {\printresearchfield}
-      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}
+      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}  
+
       \titleitem{\copyright\ Copyright}{\nrname}
     \end{titlelist}
   }}{%
@@ -652,7 +705,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \titleitem{\projectname}         {\printproject}
       \titleitem{\projectnumbername}   {\printprojectnumber}
       \titleitem{\researchfieldname}   {\printresearchfield}
-      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}
+      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}	
       \titleitem{\copyright\ Copyright}{\nrname}
     \end{titlelist}
   }}
@@ -678,34 +731,41 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \section*{\contentsname}}
   \addtocontents{toc}{\protect\hypertarget{toc}{}%
     \protect\pdfbookmark[1]{\contentsname}{toc}}
-  \@starttoc{toc}%
+  \@starttoc{toc}% 
+  \clearemptydoublepage
 }
 
 \renewcommand{\listoffigures}{%
+  \clearemptydoublepage
   \ifthenelse{\boolean{longreport}}{%
     \chapter*{\listfigurename}}{%
     \section*{\listfigurename}}
   \addtocontents{lof}{\protect\hypertarget{lof}{}%
     \protect\pdfbookmark[1]{\listfigurename}{lof}}
   \@starttoc{lof}%
+  \clearemptydoublepage
 }
 
-\renewcommand{\listoftables}{%
+\renewcommand{\listoftables}{% 
+  \clearemptydoublepage
   \ifthenelse{\boolean{longreport}}{%
     \chapter*{\listtablename}}{%
     \section*{\listtablename}}
   \addtocontents{lot}{\protect\hypertarget{lot}{}%
     \protect\pdfbookmark[1]{\listtablename}{lot}}
   \@starttoc{lot}%
+  \clearemptydoublepage
 }
 
-\newcommand{\listofexamples}{%
+\newcommand{\listofexamples}{% 
+  \clearemptydoublepage
   \ifthenelse{\boolean{longreport}}{%
     \chapter*{\listexamplename}}{%
     \section*{\listexamplename}}
   \addtocontents{loe}{\protect\hypertarget{loe}{}%
     \protect\pdfbookmark[1]{\listexamplename}{loe}}
   \@starttoc{loe}%
+  \clearemptydoublepage
 }
 
 % Example environment

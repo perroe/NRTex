@@ -65,6 +65,10 @@ html:
 
 install: html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
+	cp elements/*.eps $(INSTALLPATH)/elements	
+	cp elements/*.pdf $(INSTALLPATH)/elements	
+	cp logos/*.eps $(INSTALLPATH)/logos	
+	cp logos/*.pdf $(INSTALLPATH)/logos
 	cp nrdocold.cls $(INSTALLPATH)/	
 	cp nrfoils.cls $(INSTALLPATH)/
 	cp background.sty $(INSTALLPATH)/
