@@ -1,0 +1,42 @@
+#!/usr/bin/perl
+$versionFile = "version";
+open VERSION, $versionFile || die "Can't open file \"$versionFile\": $!\n";
+while (<VERSION>) {
+  $version = $_;
+}
+close VERSION;
+
+
+print "\nConfiguring nrdoc version $version\n";
+
+$input  = "Makefile.in";
+$output = "Makefile";
+
+open INPUT, "<".$input || die "Can't open input file \"$input\": $!\n";
+open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
+
+
+while (<INPUT>) {
+  s/\<\<version_number\>\>/$version/;
+  print OUTPUT;
+}
+close OUTPUT;
+print "Updated version number in $output.\n";
+close INPUT;
+
+
+$input = "rpmspecfile.in";
+$output = "nrtex.spec";
+
+
+open INPUT, "<".$input || die "Can't open input file \"$input\": $!\n";
+open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
+
+
+while (<INPUT>) {
+  s/\<\<version_number\>\>/$version/;
+  print OUTPUT;
+}
+close OUTPUT;
+print "Updated version number in $output.\n";
+close INPUT;

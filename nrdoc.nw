@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.50 2004-01-13 09:21:10 soleng Exp $
+% $Id: nrdoc.nw,v 1.51 2004-01-13 13:10:44 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -58,6 +58,11 @@ The following \LaTeX2e\ class answers this problem.
 This document is generated from the noweb file containing the
 source code for the class. 
 
+\section{Version number}
+
+<<version number>>=
+\ProvidesClass{nrdoc}[2004/01/31 v1.0.2 NR report class]
+@ %
 
 \section{Handling pdf\LaTeX}
 
@@ -795,7 +800,7 @@ but tried and trusted \texttt{a4wide} package.
 	\nrtitlepage	
 	\addtocounter{page}{-\value{page}}
 	\addtocounter{page}{1}
-	\end{titlepagefont}    
+	\end{titlepagefont}\par
 }
 
 \ifthenelse{\boolean{longreport}}{%
@@ -1043,8 +1048,11 @@ A work-around is to reload these packages using usepackage.
 \section{Collecting the bits together}
 
 <<nrdoc.cls>>=
+
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2004/01/31 v1.0.1 NR report class]
+
+<<version number>>
+\ProvidesClass{nrdoc}[2004/01/31 v1.0.2 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming

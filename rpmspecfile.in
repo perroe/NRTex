@@ -1,9 +1,9 @@
-# $Id: nrtex.spec,v 1.11 2004-01-13 09:18:14 soleng Exp $
+# $Id: rpmspecfile.in,v 1.1 2004-01-13 13:10:45 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
-Version: 1.0.1 
+Version: <<version_number>>
 Release: 1
 Copyright: Norwegian Computing Center
 Group: Applications/Publishing
@@ -49,5 +49,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jan 13 2004 Harald H. Soleng <harald.soleng@nr.no>
+- Bugfix 1.0.1 release 
+* Fri Jan 02 2004 Harald H. Soleng <harald.soleng@nr.no>
+- Initial 1.0.0 release 
 * Wed Oct 15 2003 Harald H. Soleng <harald.soleng@nr.no>
-- Initial Release 
+- Initial Beta release 
