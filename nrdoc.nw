@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.32 2003-10-02 12:12:06 soleng Exp $
+% $Id: nrdoc.nw,v 1.33 2003-10-03 07:40:48 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -75,7 +75,7 @@ pdf version with hyperlinks.
 \subsection{Identification}
 <<class identification>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/10/02 v0.4 NR report class]
+\ProvidesClass{nrdoc}[2003/10/03 v0.5 NR report class]
 % This class file was automatically generated from the file 
 % nrreport.nw using noweb. Please don't edit this file 
 %  directly.  
@@ -684,18 +684,24 @@ Norwegian characters are supported in input.
  	{ Norsk Regnesentral\\[\abstractlinesep]
 	  Gaustadall{\'e}en 23, Postboks 114 Blindern, 
 	  0314 Oslo, Norway\\[\abstractlinesep]
-	  Telefon: 22 85 25 00, telefaks: 22 69 76 60, \url{www.nr.no}
+			   Telefon: 22 85 25 00, 
+			   telefaks: 22 69 76 60, 
+			   \url{http://ww.nr.no}
  	}
    	{ Norwegian Computing Center\\[\abstractlinesep]
 	  Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
 	  NO-0314 Oslo, Norway\\[\abstractlinesep]
-	  Telephone: +47 2285 2500, telefax: +47 2269 7660, \url{www.nr.no}
+	  Telephone: +47 2285 2500, 
+	  telefax: +47 2269 7660, 
+	  \url{http://www.nr.no}
    	}
   }
   { Norwegian Computing Center\\[\abstractlinesep]
     Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
     NO-0314 Oslo, Norway\\[\abstractlinesep]
-    Telephone: +47 2285 2500, telefax: +47 2269 7660, \url{www.nr.no}
+    Telephone: +47 2285 2500, 
+    telefax: +47 2269 7660, 
+    \url{http://www.nr.no}
   }\par\noindent		
   Copyright \copyright\ \printyear\ 
   by Norwegian Computing Center, Oslo, Norway\\ 
