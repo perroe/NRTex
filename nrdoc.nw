@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.56 2004-02-23 09:59:46 anderslo Exp $
+% $Id: nrdoc.nw,v 1.57 2004-03-02 08:28:33 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -61,7 +61,7 @@ source code for the class.
 \section{Version number}
 
 <<version number>>=
-\ProvidesClass{nrdoc}[2004/02/13 v1.0.3 NR report class]
+\ProvidesClass{nrdoc}[2004/03/01 v1.0.3-2 NR report class]
 @ %
 
 \section{Handling pdf\LaTeX}
