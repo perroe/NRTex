@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.35 2003-10-05 11:52:29 soleng Exp $
+% $Id: nrdoc.nw,v 1.36 2003-10-05 19:05:32 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -77,7 +77,7 @@ pdf version with hyperlinks.
 \subsection{Identification}
 <<class identification>>=
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
-\ProvidesClass{nrdoc}[2003/10/03 v0.5.1 NR report class]
+\ProvidesClass{nrdoc}[2003/10/05 v0.5.2 NR report class]
 % This class file was automatically generated from the file 
 % nrreport.nw using noweb. Please don't edit this file 
 %  directly.  
@@ -107,7 +107,10 @@ commands of the \LaTeX\ standard report class.
 
 \usepackage{ifthen}		% for logic in class file
 \usepackage{calc}		% for math in class file
-    
+
+\newlength{\abstractlinesep}
+\setlength{\abstractlinesep}{-0.15em}  
+
 \providecommand{\notename}{Note} 
 \providecommand{\reportname}{Report}
 \providecommand{\emailname}{e-mail} 
@@ -127,6 +130,14 @@ commands of the \LaTeX\ standard report class.
 \providecommand{\openavailable}{Open} 
 \providecommand{\closedavailable}{Closed}
 \providecommand{\nrdocument}{NR Document}
+\providecommand{\printnraddress}{%
+ 	Norwegian Computing Center\\[\abstractlinesep]
+	Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
+	NO-0314 Oslo, Norway\\[\abstractlinesep]
+	Telephone: +47 2285 2500, 
+	telefax: +47 2269 7660, 
+	\url{http://www.nr.no}
+}
 
 \renewcommand{\and}{\linebreak}
 
@@ -270,8 +281,7 @@ chosen by using the option \texttt{citenumeric}.
 \newboolean{citenumeric}
 <<options>>=
 \DeclareOption{citenumeric}{%
-\setboolean{citenumeric}{true}
-}
+\setboolean{citenumeric}{true}}
 @ %
 <<use packages>>=
 \ifthenelse{\boolean{citenumeric}}{%
@@ -287,8 +297,7 @@ We execute the following default options.
 \ExecuteOptions{11pt,note,twoside}
 \ProcessOptions*
 
-\ifthenelse{\boolean{norsk_selected}}%
-{%
+\ifthenelse{\boolean{norsk_selected}}{%
  \renewcommand{\notename}{Notat} 
  \renewcommand{\emailname}{e-post} 
  \renewcommand{\reportname}{Rapport} 
@@ -307,6 +316,13 @@ We execute the following default options.
  \renewcommand{\numberofpagesname}{Antall sider}
  \renewcommand{\openavailable}{{\AA}pen} 
  \renewcommand{\closedavailable}{Lukket}
+ \renewcommand{\printnraddress}{%
+	Norsk Regnesentral\\[\abstractlinesep]
+	Gaustadall{\'e}en 23, Postboks 114 Blindern, 
+	0314 Oslo\\[\abstractlinesep]
+        Telefon: 22 85 25 00, 
+	telefaks: 22 69 76 60, 
+        \url{http://ww.nr.no}}
 }{}
 \ifthenelse{\boolean{nynorsk_selected}}{%
  \renewcommand{\notename}{Notat}  
@@ -326,7 +342,14 @@ We execute the following default options.
  \renewcommand{\researchfieldname}{Satsningsomr\aa de}
  \renewcommand{\numberofpagesname}{Tal p\aa\ sider}
  \renewcommand{\openavailable}{{\AA}pen} 
- \renewcommand{\closedavailable}{Lukka}
+ \renewcommand{\closedavailable}{Lukka} 
+  \renewcommand{\printnraddress}{%
+	Norsk Regnesentral\\[\abstractlinesep]
+	Gaustadall{\'e}en 23, Postboks 114 Blindern, 
+	0314 Oslo\\[\abstractlinesep]
+        Telefon: 22 85 25 00, 
+	telefaks: 22 69 76 60, 
+        \url{http://ww.nr.no}}
 }{}
 @ %
 
@@ -602,6 +625,7 @@ Norwegian characters are supported in input.
 \section{Title page}
 
 <<preliminary commands>>=
+
 \providecommand{\nrtitlepagetop}{%
 \mbox{}
 
@@ -665,9 +689,6 @@ Norwegian characters are supported in input.
 <<main code>>=
 \providecommand{\mainmatter}{\pagenumbering{arabic}}
 
-\newlength{\abstractlinesep}
-\setlength{\abstractlinesep}{-0.15em}
-
 \renewenvironment{abstract}%
 {\begin{timesroman}
 \noindent\textbf{\abstractname:}}%
@@ -682,31 +703,8 @@ Norwegian characters are supported in input.
 \noindent\textbf{\researchfieldname:} \printresearchfield \vspace{1em}\par
 \noindent\textbf{\numberofpagesname:} \pageref*{LastPage} \vspace{2em}\par
 \noindent\rule{\linewidth}{1pt} 
- {\footnotesize
- \ifthenelse{\boolean{language_selected}}%
-  { \ifthenelse{\boolean{norsk_selected}\or\boolean{nynorsk_selected}}
- 	{ Norsk Regnesentral\\[\abstractlinesep]
-	  Gaustadall{\'e}en 23, Postboks 114 Blindern, 
-	  0314 Oslo, Norway\\[\abstractlinesep]
-			   Telefon: 22 85 25 00, 
-			   telefaks: 22 69 76 60, 
-			   \url{http://ww.nr.no}
- 	}
-   	{ Norwegian Computing Center\\[\abstractlinesep]
-	  Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
-	  NO-0314 Oslo, Norway\\[\abstractlinesep]
-	  Telephone: +47 2285 2500, 
-	  telefax: +47 2269 7660, 
-	  \url{http://www.nr.no}
-   	}
-  }
-  { Norwegian Computing Center\\[\abstractlinesep]
-    Gaustadall{\'e}en 23, P.O. Box 114 Blindern, 
-    NO-0314 Oslo, Norway\\[\abstractlinesep]
-    Telephone: +47 2285 2500, 
-    telefax: +47 2269 7660, 
-    \url{http://www.nr.no}
-  }\par\noindent		
+ {\footnotesize\printnraddress
+ \par\noindent		
   Copyright \copyright\ \printyear\ 
   by Norwegian Computing Center, Oslo, Norway\\ 
   All rights reserved. Printed in Norway.
@@ -726,7 +724,7 @@ Norwegian characters are supported in input.
 }
 
 \ifthenelse{\boolean{longreport}}{%
-\renewcommand{\tableofontents}{%
+\renewcommand{\tableofcontents}{%
     \thispagestyle{empty}
     \section*{\contentsname
         \@mkboth{%
