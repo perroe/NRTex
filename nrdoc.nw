@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.24 2003-09-30 18:54:09 soleng Exp $
+% $Id: nrdoc.nw,v 1.25 2003-09-30 19:01:08 soleng Exp $
 \documentclass[british,screen]{nrdoc}
 
 \usepackage{myweb}
@@ -788,7 +788,7 @@ Norwegian characters are supported in input.
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
                 \chapter*{\indexname}%
-	
+		\thispagestyle{empty}
                  \addcontentsline{toc}{chapter}{\indexname}
 		 
                 \@mkboth{\MakeUppercase\indexname}%
@@ -800,7 +800,8 @@ Norwegian characters are supported in input.
 }{% else
 \renewenvironment{theindex}{%                
                  \clearemptydoublepage
-                \section*{\indexname}%
+                \section*{\indexname}%	
+	        \thispagestyle{empty}
                  \addcontentsline{toc}{section}{\indexname}
 		 
                 \@mkboth{\MakeUppercase\indexname}%
