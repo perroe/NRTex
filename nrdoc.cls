@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/02/28 v2.0.2 NR report class]
+\ProvidesClass{nrdoc}[2005/02/28 v2.0.3 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
