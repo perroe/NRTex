@@ -93,11 +93,18 @@ taken from \verb!\title!.
 
 The date is taken from \verb!\date!.
 
-For reports, you need to supply the isbn number. The isbn number consists
-of a country code, a publisher code, a publication number and a control digit.
-You can either use \texttt{isbn} to supply the full number
-or \texttt{shortisbn} to supply just the last five digits:
-\verb+\isbn{82-539-0481-9}+ or \verb+\shortisbn{0481-9}+.
+For reports, you need to supply the isbn number. 
+The isbn number consists
+of a country code, a publisher code, 
+a publication number and a control digit.
+You can either use \texttt{isbn} to supply 
+the full number or \texttt{shortisbn} 
+to supply just the last five digits:
+\begin{verbatim}
+\isbn{82-539-0481-9}
+\shortisbn{0481-9}
+\ennd{verbatim}
+
 
 
 \section{Including a figure}
@@ -169,11 +176,12 @@ packages so that the full power of these extensions are available.
 Citations\index{cite}
 are handled by {Bib}\TeX\ \index{cite!BiB\TeX} and 
 \texttt{natbib} \cite{natbib:7.1}. By default 
-an author--year citation scheme\footnote{A simpler numerical\index{cite!numeric
-    citation label} citation scheme with citations appearing in the
-  order of citations is supported as well using the option
-  \textit{citenumeric}. This is intended for documents that need
-  numerical citations due to external demands.}  is used.
+an author--year citation 
+scheme\footnote{A simpler numerical\index{cite!numeric
+citation label} citation scheme with citations appearing in the
+order of citations is supported as well using the option
+\textit{citenumeric}. This is intended for documents that need
+numerical citations due to external demands.}  is used.
 The required style files are 
 automatically loaded by \texttt{nrdoc}. Some
 examples are given in Table \ref{tab:cite}.    

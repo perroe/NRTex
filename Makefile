@@ -6,7 +6,7 @@ MANUAL = manual
 src:
 	noweb $(MAIN).nw
 
-all:	src pdf install
+all:	src pdf 
 
 dvi: 	src
 	latex '\scrollmode \input '"$(MAIN)";\
@@ -25,7 +25,7 @@ bib:
 pdf:    dvi
 	dvipdfm -p a4 -o   $(MAIN).pdf $(MAIN).dvi
 
-manual:
+manual: all
 	latex '\scrollmode \input '"$(MANUAL)";\
 	makeindex $(MANUAL); \
 	bibtex $(MANUAL); \
