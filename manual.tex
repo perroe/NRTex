@@ -262,6 +262,15 @@ The following packages are loaded by default:
 \clearpage
 \appendix
 
+\section{Setting up Unix variables}
+For the system to find the \texttt{nrdoc} class, the variable
+\texttt{TEXINPUTS} needs to be set. If you use \texttt{tcsh} (that is
+you have a \texttt{.cshrc} file), the  \texttt{.cshrc} file should
+include this line:
+\begin{verbatim}
+setenv TEXINPUTS .:/nr/group/maler/latex:
+\end{verbatim}
+
 \section{The \LaTeX{} code for this document\label{sec:code}}
 \verbatiminput{manual.tex}
 \section{The {Bib}\TeX{} file (ref.bib)}\label{sec:ref.bib}
