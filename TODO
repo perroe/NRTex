@@ -5,3 +5,5 @@ Ting å gjøre:
 \documentclass[note,bluelines,closed,oneside,british,12pt]{nrdoc}
 
 og oneside gir twoside.
+
+- Rapportnummer ved rapport skrives i høyre felt i header. Det er bedre å skrive isbnnummer e.l.
