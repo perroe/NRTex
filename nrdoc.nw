@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.31 2003-10-02 11:08:27 soleng Exp $
+% $Id: nrdoc.nw,v 1.32 2003-10-02 12:12:06 soleng Exp $
 
 \documentclass[british,screen]{nrdoc}
 
@@ -357,6 +357,7 @@ Norwegian characters are supported in input.
 \RequirePackage{paralist}	% for list environments
 \RequirePackage{verbatim}	% extra verbatims
 \RequirePackage{xspace}         % for space control
+\RequirePackage{thumbpdf} 
 @ %
 
 \subsection{Colours and graphics inclusion}
