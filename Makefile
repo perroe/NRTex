@@ -1,10 +1,11 @@
-# $Id: Makefile,v 1.17 2003-10-01 10:48:56 soleng Exp $
+# $Id: Makefile,v 1.18 2003-10-01 14:05:21 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
 PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
+
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
@@ -60,10 +61,12 @@ printmanual: src
 
 
 html:	src
-	latex2html -dir manual.web manual
+	latex2html -dir manual.web -local_icons manual
 
 install: src pdf html manual printmanual
 	cp nrdoc.cls $(INSTALLPATH)/	
+	cp nrdoc.pdf $(INSTALLPATH)/	
+	cp manual.pdf $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
