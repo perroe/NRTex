@@ -81,6 +81,8 @@ html:	src
 
 install: src pdf html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
+	cp nrfoils.cls $(INSTALLPATH)/
+	cp logos/* $(INSTALLPATH)/logos/	
 	cp nrdoc.pdf $(INSTALLPATH)/	
 	cp manual.pdf $(INSTALLPATH)/	
 	cp nrplain.bst $(INSTALLPATH)/	
@@ -101,7 +103,8 @@ clean:
 
 tgz:	src
 	mkdir -p ${TGZNAME}
-	cp logos/*.pdf logos/*.eps ${MAIN}.cls $(MANUAL).pdf \
+	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png \
+	${MAIN}.cls nrfoils.cls $(MANUAL).pdf \
 	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
