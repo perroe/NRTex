@@ -1,4 +1,4 @@
-MAIN  = nrreport
+MAIN  = nrdoc
 TEX   = $(MAIN).tex
 
 .SUFFIXES: .nw .tex .dvi .pdf

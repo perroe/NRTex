@@ -1,0 +1,371 @@
+\documentclass[dvipdfm, english]{nrdoc}
+\reportnumber{Sand/02/XX}
+\usepackage{noweb}
+
+
+
+
+
+\begin{document}
+%\layout
+\frontpagefigure{\scalebox{7}{NR-\LaTeX}}
+\title{NRdoc: a \LaTeX\ class for NR documents}
+\author{Harald H. Soleng}
+\maketitle
+
+\section{Introduction}
+
+Several people have requested a \LaTeX\ class for NR
+reports. Until now no such class file has existed,
+and as a result the NR reports have varied in appearance and style.
+
+The following \LaTeX2e\ class answers this problem.
+This document is generated from the noweb file containing the
+source code for the class. Users of \LaTeX\ not interested
+in the implementional details could
+proceed to Section~\ref{Sect:Usage}.
+
+
+\section{Specification}
+
+The class should support a paper version and an electronic 
+pdf version with hyperlinks.
+
+<<nrdoc.cls>>=
+<<class identification>>
+<<helping variables>>
+<<options>>
+<<loading packages>>
+<<main code>>
+@ %
+
+\subsection{Identification}
+<<class identification>>=
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesClass{nrdoc}[2003/09/08 v0.2 NR report class]
+% This class file was automatically generated from the file 
+% nrreport.nw using noweb. Please don't edit this file 
+% directly.
+%
+@ % '
+
+\section{Options}
+
+\subsection{Sectioning}
+
+Depending on the length of a report one may wish for sections
+or chapters as the highest-level sectioning command. The default document structure is the same as
+for the \LaTeX\ standard article class.
+For long reports,
+use the [[long]] option to get access to [[chapter]] and [[part]]
+commands of the \LaTeX\ standard report class.
+<<helping variables>>=
+\usepackage{ifthen}		% for logic
+\newboolean{longreport}
+\setboolean{longreport}{false}
+<<options>>=
+\DeclareOption{long}{\setboolean{longreport}{true}}
+@ %
+
+
+\subsection{Font sizes}
+
+The usual options for font size 10pt, 11pt, and 
+12pt font size are supported.
+<<options>>=
+\ifthenelse{\boolean{longreport}}{
+	\DeclareOption{10pt}{\PassOptionsToClass{10pt}{report}}
+	\DeclareOption{11pt}{\PassOptionsToClass{11pt}{report}}
+	\DeclareOption{12pt}{\PassOptionsToClass{12pt}{report}}
+
+	}{% else	
+	\DeclareOption{10pt}{\PassOptionsToClass{10pt}{article}}
+	\DeclareOption{11pt}{\PassOptionsToClass{11pt}{article}}
+	\DeclareOption{12pt}{\PassOptionsToClass{12pt}{article}}
+}
+@ %
+Font size 11pt is default.
+
+\subsection{Draft option}
+
+A [[draft]] option exists. It turns off figure inclusion
+and marks lines with overfull horizontal boxes.
+
+<<options>>=
+\ifthenelse{\boolean{longreport}}{
+  \DeclareOption{draft}{\PassOptionsToClass{draft}{report}}
+	}{% else
+  \DeclareOption{draft}{\PassOptionsToClass{draft}{article}}}
+\PassOptionsToPackage{draft}{graphicx}
+@ %
+
+\subsection{Document type options}
+The current version of the
+\text{nrdoc} class supports two documents types,
+the \texttt{note} and the \texttt{report}. 
+
+<<helping variables>>=
+\newboolean{note}
+\setboolean{note}{false}
+\newboolean{report}
+\setboolean{report}{false}
+@ %
+<<options>>=
+\DeclareOption{note}{\setboolean{note}{true}}
+\DeclareOption{report}{\setboolean{report}{true}}
+@ %
+
+\subsection{Language options}
+
+<<helping variables>>=
+\newboolean{language_selected}
+\setboolean{language_selected}{false}
+\newboolean{norsk_selected}
+\setboolean{norsk_selected}{false}
+\newboolean{nynorsk_selected}
+\setboolean{nynorsk_selected}{false}
+\newboolean{english_selected}
+\setboolean{english_selected}{false}
+\newboolean{firstindent}
+@ %
+<<options>>=
+\DeclareOption{american}{\PassOptionsToPackage{american}{babel}
+			\setboolean{language_selected}{true}
+			\setboolean{english_selected}{true}
+			\setboolean{firstindent}{false}}
+\DeclareOption{british}{\PassOptionsToPackage{british}{babel}
+			\setboolean{language_selected}{true}
+			\setboolean{english_selected}{true}
+			\setboolean{firstindent}{false}}
+\DeclareOption{english}{\PassOptionsToPackage{english}{babel}
+			\setboolean{language_selected}{true}
+			\setboolean{english_selected}{true}	
+			\setboolean{firstindent}{false}}
+\DeclareOption{norsk}{\PassOptionsToPackage{norsk}{babel}
+			\setboolean{norsk_selected}{true}	
+			\setboolean{firstindent}{true}
+			\setboolean{language_selected}{true}}
+\DeclareOption{nynorsk}{\PassOptionsToPackage{nynorsk}{babel}
+			\setboolean{nynorsk_selected}{true}	
+			\setboolean{firstindent}{true}
+			\setboolean{language_selected}{true}}
+
+%\DeclareOption{dvipdfm}{\setboolean{dvipdfm}{true}}
+%\DeclareOption{screen}{\setboolean{screen}{true}}
+
+@ %
+<<loading packages>>=
+
+\ifthenelse{\boolean{firstindent}}{%
+ \RequirePackage{indentfirst}
+}{}
+@ %
+\subsection{Font options}
+
+The default font of \texttt{nrdoc} is computer modern.
+For those who want to use times-roman fonts, we offer the times
+option. 
+<<helping variables>>=
+\newboolean{timesromand}
+\setboolean{timesroman}{false}
+@ %
+<<options>>=
+\DeclareOption{times}{\setboolean{timesroman}{true}}
+@ %
+<<loading packages>>=
+\ifthenelse{\boolean{timesroman}}{\RequirePackage{times}}{}
+@ %
+
+\section{Setting defaults}
+
+We execute the following default options.
+<<options>>=
+\ExecuteOptions{11pt,norsk,note}
+\ProcessOptions*
+
+@ %
+
+\section{Useful packages}
+
+A number of useful packages are preloaded by default.
+
+
+\subsection{Font encoding}
+Let us use the latin1 input encoding so that
+Norwegian characters are supported.
+<<loading packages>>=
+\RequirePackage[latin1]{inputenc}  
+@ %
+
+
+\subsection{AMS }
+<<loading packages>>=
+\RequirePackage{amsmath}	% for advanced math
+@ %
+
+
+\subsection{Utilities}
+<<loading packages>>=
+\RequirePackage{paralist}	% for list environments
+\RequirePackage{verbatim}	% extra verbatims
+\RequirePackage{xspace}         % for space control
+\RequirePackage{ae}             % for new texttt
+@ %
+
+\subsection{Colours and graphics inclusion}
+<<loading packages>>=
+\RequirePackage{color}          % for colour
+\RequirePackage{graphicx}	% for graphics inclusion
+@ %
+
+
+
+\subsection{Language support}
+<<loading packages>>=
+\ifthenelse{\boolean{language_selected}}{%
+	\RequirePackage{babel}
+	}{} 
+@ %
+\subsection{Base class}
+<<loading packages>>=
+\ifthenelse{\boolean{longreport}}{%
+  	 \LoadClass{report}
+   	}{% else
+   	\LoadClass{article}
+}
+@ %
+
+\section{Front page}
+
+<<main code>>=
+\newcommand{\printreportnumber}{%
+\typeout{Report number not set}No number}
+\newcommand{\reportnumber}[1]{%
+\renewcommand{\printreportnumber}{#1}}
+
+
+\setboolean{frontpagefiguredefined}{false}
+\newcommand{\frontpagefigurefile}{}
+\newcommand{\frontpagefigure}[1]{%
+ \renewcommand{\frontpagefigurefile}{#1}%
+ \setboolean{frontpagefiguredefined}{true}}
+
+\usepackage{a4wide}
+								       
+@ %
+<<main code>>=
+\ifthenelse{\boolean{dvipdfm}}{
+   \usepackage[dvipdfm]{hyperref}}{
+   \usepackage{hyperref}}      
+\def\@maketitle{%
+ \hypersetup{pdftitle={\@title},
+	     pdfauthor={\@author}}%
+  \thispagestyle{empty}
+  \null
+  \vspace{-28mm}
+
+  \noindent
+  \mbox{}\hspace{40mm}\makebox[108.824mm]{%
+   \begin{minipage}{110mm}\centering
+  {\huge\bfseries \@title \par}%
+  \end{minipage}}
+
+  \vfill
+    
+  \noindent
+  \mbox{}\hspace{40mm}\makebox[108.824mm]{%
+  \begin{minipage}{110mm}\centering
+   \ifthenelse{\boolean{frontpagefiguredefined}}{%
+   \frontpagefigurefile}{} 
+  \end{minipage}}
+  \vfill
+
+   \noindent
+     \raisebox{20mm}[0pt][0pt]{%
+  \mbox{}\hspace{-20mm}\begin{minipage}{45mm}\raggedleft
+  \MakeUppercase{\printreportnumber}\\[1em]
+ 
+  \begin{tabular}[t]{r@{}}%
+        \large\@author%
+  \end{tabular}%
+
+  \large\today\\[3em]
+ 
+  {\small \copyright\ Norsk Regnesentral}
+  \end{minipage}} 
+  
+  
+  \newpage\thispagestyle{empty}%
+  \mbox{}\newpage\setcounter{page}{1}
+
+  \null
+  \vskip 2em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%
+        \@author
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\ifthenelse{\boolean{screen}}{\hypersetup{colorlinks=true}}{%
+ \hypersetup{pdfborder={0 0 0}}}
+@ %
+
+\section{Usage} \label{Sect:Usage}
+
+A NR report source file using the [[nrreport]] class  
+should have the following layout:
+
+
+\begin{verbatim}
+% Specify language of report
+\documentclass[norsk]{nrreport}
+
+\begin{document}
+\reportnumber{ADM/02/1021}
+\title{Nytt fra Andeby}
+\author{Ole Duck\\
+        Dole Duck\\
+	Doffen Duck}
+
+% Optional front page figure
+\frontpagefigure{%
+\includegraphics[width=100mm]{epsfigure_file}}
+
+\maketitle
+
+\section{Andedammen gjenåpnet}
+
+Det er med stor glede vi kan fortelle at Andedammen på
+nytt er åpnet. 
+
+\section{Reklame}
+
+Dette arbeidet var sponset av Skrue McDuck.
+
+\end{document}
+\end{verbatim}
+
+
+\appendix
+
+\section{Auxillary variables}
+
+<<helping variables>>=
+\newcommand{\clearemptydoublepage}{%
+\newpage{\pagestyle{empty}\cleardoublepage}}
+
+
+\newboolean{frontpagefiguredefined}
+\newboolean{dvipdfm}
+\newboolean{screen}
+@ %
+
+\end{document}
