@@ -1,4 +1,4 @@
-% $Id: nrdoc.nw,v 1.52 2004-01-14 14:24:01 soleng Exp $
+% $Id: nrdoc.nw,v 1.53 2004-01-15 11:45:39 soleng Exp $
 
 \documentclass[british,screen,citenumeric,10pt]{nrdoc}
 
@@ -61,7 +61,7 @@ source code for the class.
 \section{Version number}
 
 <<version number>>=
-\ProvidesClass{nrdoc}[2004/01/31 v1.0.2 NR report class]
+\ProvidesClass{nrdoc}[2004/01/15 v1.0.2 NR report class]
 @ %
 
 \section{Handling pdf\LaTeX}
@@ -739,6 +739,17 @@ but tried and trusted \texttt{a4wide} package.
 \setlength{\headheight}{14pt}
 \usepackage[a4paper]{geometry}
 \usepackage{a4wide}   
+
+
+\ifcase \@ptsize
+    \textheight 56\baselineskip  % original 53 
+\or
+    \textheight 48\baselineskip  % original 46
+\or
+    \textheight 44\baselineskip  % original 42
+\fi
+
+\advance\textheight by \topskip
 
 
 \ifthenelse{\boolean{screen}}{%

@@ -13,12 +13,14 @@ INSTALLPATH = /nr/group/maler/nrdoc
 WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
 VERSION = 1.0.2
 
+PATCH   = 3
+
 TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
              --define "_rpmdir $$PWD" \
              --define "_srcrpmdir $$PWD"
-RPMFILE = i386/nrtex-${VERSION}-1.i386.rpm
+RPMFILE = i386/nrtex-${VERSION}-${PATCH}.i386.rpm
 
 .SUFFIXES: .nw .tex .dvi .pdf
 
