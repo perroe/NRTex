@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.24 2003-10-20 07:24:51 soleng Exp $
+# $Id: Makefile,v 1.25 2003-10-20 12:58:58 soleng Exp $
 
 MAIN  = nrdoc
 MANUAL = manual
@@ -74,6 +74,8 @@ install: src pdf html manual printmanual rpm
 	cp nrdoc.cls $(INSTALLPATH)/	
 	cp nrdoc.pdf $(INSTALLPATH)/	
 	cp manual.pdf $(INSTALLPATH)/	
+	cp nrplain.bst $(INSTALLPATH)/	
+	cp nrunsrt.bst  $(INSTALLPATH)/	
 	cp nrdoc.pdf $(WEBPATH)/latex-maler/
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
@@ -90,7 +92,7 @@ clean:
 tgz:	src
 	mkdir -p ${TGZNAME}
 	cp logos/*.pdf logos/*.eps ${MAIN}.cls $(MANUAL).pdf \
-	${TGZNAME}
+	nrunsrt.bst nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 
 rpm:	tgz
