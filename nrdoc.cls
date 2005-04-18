@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/03/31 v2.0.6 NR report class]
+\ProvidesClass{nrdoc}[2005/04/18 v2.1.0 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -39,8 +39,9 @@
 \newboolean{report}
 \newboolean{screen}
 \newboolean{closedavailability}
-\newboolean{indentpar}
-
+\newboolean{noindentpar}
+\setboolean{noindentpar}{false}
+\newboolean{firstindent}
 \newboolean{language_selected}
 \newboolean{norsk_selected}
 \newboolean{nynorsk_selected}
@@ -215,29 +216,36 @@ the documentclass command!\MessageBreak}}{}
 
 
 \DeclareOption{closed}{\setboolean{closedavailability}{true}}
-\DeclareOption{indentpar}{\setboolean{indentpar}{true}}
+\DeclareOption{noindentpar}{\setboolean{noindentpar}{true}}
 % The bluelines option is obsolete (kept for backwards compatability)
 \DeclareOption{bluelines}{\typeout{NRdoc warining: Option bluelines is obsolete.}}
 \DeclareOption{american}{\PassOptionsToPackage{american}{babel}
-                         \setboolean{language_selected}{true}
+                         \setboolean{language_selected}{true}	
+	                 \setboolean{firstindent}{false}
                          \setboolean{english_selected}{true}}
 \DeclareOption{british}{\PassOptionsToPackage{british}{babel}
-                        \setboolean{language_selected}{true}
+                        \setboolean{language_selected}{true}	
+                        \setboolean{firstindent}{false}
                         \setboolean{english_selected}{true}}
 \DeclareOption{english}{\PassOptionsToPackage{english}{babel}
-                        \setboolean{language_selected}{true}
+                        \setboolean{language_selected}{true}	
+                         \setboolean{firstindent}{false}
                         \setboolean{english_selected}{true}}
 \DeclareOption{UKenglish}{\PassOptionsToPackage{UKenglish}{babel}
                           \setboolean{language_selected}{true}
+ 	                  \setboolean{firstindent}{false}
                           \setboolean{english_selected}{true}}
 \DeclareOption{USenglish}{\PassOptionsToPackage{USenglish}{babel}
-                          \setboolean{language_selected}{true}
+                          \setboolean{language_selected}{true}	
+                          \setboolean{firstindent}{false}
                           \setboolean{english_selected}{true}}
 \DeclareOption{norsk}{\PassOptionsToPackage{norsk}{babel}
-                      \setboolean{norsk_selected}{true}
+                      \setboolean{norsk_selected}{true}	
+	              \setboolean{firstindent}{true}
                       \setboolean{language_selected}{true}}
 \DeclareOption{nynorsk}{\PassOptionsToPackage{nynorsk}{babel}
-                        \setboolean{nynorsk_selected}{true}
+                        \setboolean{nynorsk_selected}{true}	
+                        \setboolean{firstindent}{true}
                         \setboolean{language_selected}{true}}
 % The times option is obsolete (kept for backwards compatability)
 \DeclareOption{times}{\typeout{NRdoc warning: Option times is obsolete.}}
@@ -339,6 +347,9 @@ the documentclass command!\MessageBreak}}{}
 %   Loading other packages after the base class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\ifthenelse{\boolean{firstindent}}{% 
+ \RequirePackage{indentfirst}}{}
+
 % Set Palatino as the text font. Mathpazo loads Palatino-like fonts
 % for math mode.
 %
@@ -347,7 +358,9 @@ the documentclass command!\MessageBreak}}{}
 \renewcommand{\rmdefault}{ppl}
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\ttdefault}{aett}
-\RequirePackage{mathpazo}
+
+% Removes the much hated Palatino math font
+%\RequirePackage{mathpazo}
 
 % The leading should be increased slightly for Palatino. This setting
 % gives a leading of approx. 14pt for 10 pt text.
@@ -397,15 +410,21 @@ the documentclass command!\MessageBreak}}{}
 \fi
 }
 
+
+
 % Load parskip to get ``block'' paragraphs and set parskip. Note that
 % this may have adverse effects since \parskip is used in many places.
 % The package corrects the behaviour in the toc and in lists. Spacing
 % around sections is corrected through titlesec. Further corrections
 % may be needed.
-\ifthenelse{\boolean{indentpar}}{}{%
+\ifthenelse{\boolean{noindentpar}}{%
+  \typeout{No indents in paragraphs}
   \RequirePackage{parskip}[2001/04/09]
   \parskip=0.5\baselineskip
   \advance\parskip by 0pt plus 2pt
+}{%
+  \typeout{Using paragraph indentation}
+  
 }
 
 % Load geometry and set page layout
@@ -686,7 +705,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \thispagestyle{plain}
   \setboolean{titlepage}{true}
   \renewcommand{\and}{,\ }
-  \parindent=\z@
+  %\parindent\z@
   \begin{titlelist}
     \titleitem{\textbf{\large\titlename}}{\textbf{\large\printtitle}}
     \titleitem{\textbf{\authorname}}     {\textbf{\@author}}
@@ -711,7 +730,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
     \noindent\textbf{\sffamily\large\abstractname}\\*}
   {\vfill
-    \parindent=\z@
+    %\parindent\z@
     \begin{titlelist}
       \titleitem{\keywordsname}        {\printkeywords}
       \titleitem{\targetgroupname}     {\printtarget}
@@ -729,7 +748,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \typeout{NRdoc warning: abstract must be put after "\protect\titlepage" command.}}{}
     \noindent\textbf{\sffamily\large\abstractname}\\*}
   {\vfill\noindent
-    \parindent=\z@
+    %\parindent\z@
     \begin{titlelist}
       \titleitem{\keywordsname}        {\printkeywords}
       \titleitem{\targetgroupname}     {\printtarget}
@@ -982,7 +1001,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \section*{\indexname}%
     \addcontentsline{toc}{section}{\indexname}}
   \begin{multicols}{2}
-  \thispagestyle{fancy}\parindent\z@
+  \thispagestyle{fancy}%\parindent\z@
   \parskip\z@ \@plus .3\p@\relax
   \let\item\@idxitem}
   {\end{multicols}}
