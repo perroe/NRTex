@@ -7,11 +7,11 @@
 %%
 %% by Lars Brusletto Sveen <lars@munch-design.no>
 %%
-%% Edited by H. H. Soleng, February 2005
+%% Edited by H. H. Soleng, February-May 2005
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/04/18 v2.1.0 NR report class]
+\ProvidesClass{nrdoc}[2005/05/02 v2.1.1 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -35,6 +35,7 @@
 \fi
 
 \newboolean{longreport}
+\newboolean{onesided} 
 \newboolean{draftversion}
 \newboolean{report}
 \newboolean{screen}
@@ -191,16 +192,21 @@
 \DeclareOption{nodesign}{\setboolean{nodesign}{true}}
 
 \DeclareOption{screen}{\setboolean{screen}{true}%
+  \setboolean{onesided}{true}%    
+  \typeout{NRdoc: Setting onesided true}%
   \PassOptionsToClass{oneside}{book}%
   \PassOptionsToClass{oneside}{article}
 }
 
 \DeclareOption{oneside}{%
+  \setboolean{onesided}{true}%
+  \typeout{NRdoc: Setting onesided true}%
   \PassOptionsToClass{oneside}{book}%
   \PassOptionsToClass{oneside}{article}
 }%
 
-\DeclareOption{twoside}{%	
+\DeclareOption{twoside}{% 
+  \setboolean{onesided}{false}%	
   \PassOptionsToClass{twoside}{book}%
   \PassOptionsToClass{twoside}{article}%
   \ifthenelse{\boolean{screen}}{%
@@ -262,7 +268,7 @@ the documentclass command!\MessageBreak}}{}
 
 \DeclareOption*{\PackageWarning{nrdoc}{Option `\CurrentOption' ignored.}}
 
-\ExecuteOptions{10pt,note,twoside}
+\ExecuteOptions{10pt,note,twoside} 
 
 
 \ProcessOptions\relax
@@ -424,13 +430,21 @@ the documentclass command!\MessageBreak}}{}
   \advance\parskip by 0pt plus 2pt
 }{%
   \typeout{Using paragraph indentation}
-  
+    
 }
 
 % Load geometry and set page layout
 \RequirePackage{geometry}[2002/07/08]
+
+
+\ifthenelse{\boolean{onesided}}{%
+\typeout{Selecting onesided page geometry}
+\geometry{a4paper, left=30mm, right=30mm, top=20mm, bottom=35mm,
+  footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{%
+\typeout{Selecting twosided page geometry}
 \geometry{a4paper, left=30mm, right=30mm, top=20mm, bottom=35mm,
   footskip=20mm, footnotesep=\baselineskip, nohead}
+}
 
 % Load the titlesec package to control the formatting of titles
 \RequirePackage[sf,bf,raggedright,noindentafter]{titlesec}[2002/04/07]
