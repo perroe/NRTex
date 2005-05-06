@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/05/02 v2.1.1 NR report class]
+\ProvidesClass{nrdoc}[2005/05/06 v2.1.2 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -39,6 +39,7 @@
 \newboolean{draftversion}
 \newboolean{report}
 \newboolean{screen}
+\newboolean{showlabels}
 \newboolean{closedavailability}
 \newboolean{noindentpar}
 \setboolean{noindentpar}{false}
@@ -179,10 +180,14 @@
 
 \DeclareOption{draft}{%
 \setboolean{draftversion}{true}%
+\setboolean{showlabels}{true}%
 \PassOptionsToPackage{draft}{graphicx}%
 \PassOptionsToClass{draft}{book}%
 \PassOptionsToClass{draft}{article}%
 }
+
+\DeclareOption{showlabels}{\setboolean{showlabels}{true}}
+
 \DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
 
@@ -352,6 +357,9 @@ the documentclass command!\MessageBreak}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Loading other packages after the base class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse{\boolean{showlabels}}{%
+ \RequirePackage{showlabels}}
 
 \ifthenelse{\boolean{firstindent}}{% 
  \RequirePackage{indentfirst}}{}
@@ -773,7 +781,20 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \titleitem{\numberofpagesname}   {\pageref*{LastPage}}	
       \titleitem{\copyright\ Copyright}{\nrname}
     \end{titlelist}
-  }}
+  }
+  \renewcommand\appendix{\par
+  \clearpage%
+  \setcounter{section}{0}%
+  \setcounter{subsection}{0}%
+  \gdef\thesection{\@Alph\c@section}%
+  \setcounter{table}{0}% 
+  \renewcommand{\thetable}{\thesection.\arabic{table}}%
+  \setcounter{equation}{0}%
+  \renewcommand{\theequation}{\thesection.\arabic{equation}}%
+  \setcounter{figure}{0}%
+  \renewcommand{\thefigure}{\thesection.\arabic{figure}}%
+  }%
+}
 
 \renewcommand{\maketitle}[1]{%
   \setboolean{titlepagemade}{true}
