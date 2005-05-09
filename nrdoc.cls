@@ -411,7 +411,7 @@ the documentclass command!\MessageBreak}}{}
 \ifpdf
   \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,plainpages=false,%
                   linkcolor=black,citecolor=black,%
-                  pagecolor=black,urlcolor=black]{hyperref}
+                  pagecolor=black,urlcolor=black,bookmarks]{hyperref}
 \else 
   \ifthenelse{\boolean{dvips}}{
   \RequirePackage[dvips,colorlinks=true,pdfpagelabels,plainpages=false,%

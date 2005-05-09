@@ -391,6 +391,15 @@ Also contains a useful \texttt{comment} environment.
 For more information about most of these packages,
 consult the book by \cite{latexcompanion}.
 
+\section{Shortcomings}
+
+Pdf bookmarks does not work correctly for chapters and sections in appendices.
+Some postprocessing of the bookmark file (file extension .out) 
+may be needed to translate \LaTeX\ codes, since bookmarks must 
+be written in PDFEncoding. To aid this process, the .out file 
+is not rewritten by LATEX if it is edited to contain 
+a line \let\WriteBookmarks\relax.
+
 \bibliography{ref}
 
 \clearpage
