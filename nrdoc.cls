@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/05/06 v2.1.2 NR report class]
+\ProvidesClass{nrdoc}[2005/05/10 v2.1.3 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -229,7 +229,7 @@ the documentclass command!\MessageBreak}}{}
 \DeclareOption{closed}{\setboolean{closedavailability}{true}}
 \DeclareOption{noindentpar}{\setboolean{noindentpar}{true}}
 % The bluelines option is obsolete (kept for backwards compatability)
-\DeclareOption{bluelines}{\typeout{NRdoc warining: Option bluelines is obsolete.}}
+\DeclareOption{bluelines}{\typeout{NRdoc warning: Option bluelines is obsolete.}}
 \DeclareOption{american}{\PassOptionsToPackage{american}{babel}
                          \setboolean{language_selected}{true}	
 	                 \setboolean{firstindent}{false}
@@ -303,6 +303,8 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\targetgroupname}         {M\aa lgruppe}
         \renewcommand{\titlename}               {Tittel}
         \renewcommand{\yearname}                {{\AA}r}
+	\ifthenelse{\boolean{longreport}}{
+	\providecommand{\abstractname}		{Sammendrag}}{}
         \renewcommand{\nrname}                  {Norsk Regnesentral}
 	\renewcommand{\aboutauthorsheading}     {Forfatter\ifthenelse{\value{numberofauthors}>1}{ne}{en}}
 
@@ -312,10 +314,13 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
         \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
-        \renewcommand{\closedavailable}         {Lukka}
+        \renewcommand{\closedavailable}         {Lukka}	
+	\ifthenelse{\boolean{longreport}}{
+	\providecommand{\abstractname}		{Samandrag}}{}
         \renewcommand{\aboutauthorsheading}     {Forfattar\ifthenelse{\value{numberofauthors}>1}{ane}{en}}
         }{}
-}{}
+}{\ifthenelse{\boolean{longreport}}{
+	\providecommand{\abstractname}		{Abstract}}{}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Loading other packages and the base class
