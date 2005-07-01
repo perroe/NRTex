@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/05/10 v2.1.3 NR report class]
+\ProvidesClass{nrdoc}[2005/07/01 v2.1.7 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -33,6 +33,9 @@
     \pdftrue
     \pdfcompresslevel=9
 \fi
+
+%\newboolean{pdfdataset}
+%\setboolean{pdfdataset}{false}
 
 \newboolean{longreport}
 \newboolean{onesided} 
@@ -57,6 +60,8 @@
 
 \newcounter{numberofauthors}
 \setcounter{numberofauthors}{1}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new functions
@@ -98,19 +103,22 @@
   }
 }
 
-\providecommand{\email}[1]{\ifthenelse{\boolean{titlepage}}{%
+\providecommand{\email}[1]{%
+  \ifthenelse{\boolean{titlepage}}{%
     \ifthenelse{\equal{#1}{}}{}{%
       \xspace\href{mailto:#1}{\texttt{<#1>}}}%
-  }{\ignorespaces}%
-\renewcommand{\and}{%
-	\ifthenelse{\boolean{hidden}}
-	{%
-	\addtocounter{numberofauthors}{1}}
-	}
-	{
-	\newline%
-	}
+  }%
+  {\ignorespaces}%
+  \renewcommand{\and}{%
+     \ifthenelse{\boolean{hidden}}%
+        {\addtocounter{numberofauthors}{1}}
+  }	
+  \newline%	
 }
+
+
+
+
 
 \providecommand{\printyear}{\number\year}
 \providecommand{\publicationyear}[1]{\renewcommand{\printyear}{#1}}
@@ -136,6 +144,12 @@
                 \typeout{NRdoc warning: Keywords not defined}}
 \providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
 
+\providecommand{\printsubject}{}
+\providecommand{\subject}[1]{\renewcommand{\printsubject}{#1}}
+
+\providecommand{\printauthorforpdf}{Norsk Regnesentral}
+\providecommand{\authorpdf}[1]{\renewcommand{\printauthorforpdf}{#1}}
+
 \providecommand{\printproject}{%
                 \typeout{NRdoc warning: Project not defined}}
 \providecommand{\project}[1]{\renewcommand{\printproject}{#1}}
@@ -154,8 +168,10 @@
 
 \newboolean{frontpagefiguredefined}
 \providecommand{\frontpagefigurefile}{}
-\providecommand{\frontpagefigure}[1]{%
-\renewcommand{\frontpagefigurefile}{#1}%
+\providecommand{\frontpagefigurecpright}{}
+\providecommand{\frontpagefigure}[2][{}]{%
+\renewcommand{\frontpagefigurefile}{#2}%
+\renewcommand{\frontpagefigurecpright}{#1}%
 \setboolean{frontpagefiguredefined}{true}}
 
 \providecommand{\frontpagefigurecommands}{}
@@ -338,6 +354,8 @@ the documentclass command!\MessageBreak}}{}
 \RequirePackage{xspace}         % for space control
 \RequirePackage{textcomp}       % for special characters
 \RequirePackage{array}          % for tabular functionality
+\RequirePackage{float}          % for float control
+\RequirePackage[plain]{algorithm}	% algorithm
 
 \ifpdf\RequirePackage{thumbpdf} \fi      % for thumbnails
 
@@ -354,8 +372,10 @@ the documentclass command!\MessageBreak}}{}
 
 
   \ifthenelse{\boolean{longreport}}%
-  {\LoadClass{book}[2000/05/19]}%
-  {\LoadClass{article}[2000/05/19]}
+  {\providecommand{\theHalgorithm}{\thechapter.\arabic{algorithm}}%
+   \LoadClass{book}[2000/05/19]}%
+  {\providecommand{\theHalgorithm}{\arabic{algorithm}}%
+   \LoadClass{article}[2000/05/19]}
 
 
 
@@ -603,8 +623,9 @@ the documentclass command!\MessageBreak}}{}
   \begin{textblock}{147}(58,114)
     \noindent
     \ifthenelse{\boolean{frontpagefiguredefined}}{%
-      \includegraphics[width=120mm]{\frontpagefigurefile}}{
-      \frontpagefigurecommands}
+      \includegraphics[width=120mm]{\frontpagefigurefile}%
+      \ifthenelse{\equal{\frontpagefigurecpright}{}}{}{\newline \small \copyright\ \frontpagefigurecpright}}%
+     {\frontpagefigurecommands}
   \end{textblock}
 }
 
@@ -613,7 +634,7 @@ the documentclass command!\MessageBreak}}{}
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
-	% Write authors outside page.
+	% Write authors outside page.    
     \makebox[0pt]{\mbox{}\hspace{100cm}\textcolor{white}{\@author}}
     \setboolean{hidden}{false}
     \frontpageprinttitle
@@ -767,7 +788,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \titleitem{\researchfieldname}   {\printresearchfield}
       \titleitem{\numberofpagesname}   {\pageref*{LastPage}}  
 
-      \titleitem{\copyright\ Copyright}{\nrname}
+      \titleitem{Copyright \copyright\ \printyear}{\nrname}
     \end{titlelist}
   }}{%
   \renewenvironment{abstract}{%
@@ -801,15 +822,23 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   }%
 }
 
-\renewcommand{\maketitle}[1]{%
+\renewcommand{\maketitle}{%
   \setboolean{titlepagemade}{true}
-  \hypersetup{pdftitle={\printtitle}, pdfauthor={Norwegian Computing Center}}
+  \hypersetup{pdftitle={\printtitle},
+	      pdfkeywords={\printkeywords},
+              pdfsubject={\printsubject},
+	      pdfauthor={\printauthorforpdf}
+	}% 
+  %\setboolean{pdfdataset}{true}
   \pagenumbering{arabic}
-  \nrfrontpage
+  \nrfrontpage%  
   \nraboutpage
-  \nrtitlepage
-  \relax
+  \nrtitlepage  
+  \relax  
 }
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Toc, lof etc.
