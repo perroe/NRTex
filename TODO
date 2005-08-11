@@ -3,6 +3,8 @@
 
 Task					Fixed		Releases
 
+make Date on the front page be equal 
+to Date + Year on page 3
 allow that aboutauthors is not 
 specified
 bug when longreport is and language 
