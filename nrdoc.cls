@@ -37,6 +37,9 @@
 %\newboolean{pdfdataset}
 %\setboolean{pdfdataset}{false}
 
+\newboolean{aboutauthors}\setboolean{aboutauthors}{false}
+
+
 \newboolean{longreport}
 \newboolean{onesided} 
 \newboolean{draftversion}
@@ -94,7 +97,8 @@
 \providecommand{\aboutauthorsheading}   {The author\ifthenelse{\value{numberofauthors}>1}{s}{}}
 
 
-\providecommand{\aboutauthors}[1]{\renewcommand{\aboutauthorstext}{#1}}
+\providecommand{\aboutauthors}[1]{\setboolean{aboutauthors}{true}\renewcommand{\aboutauthorstext}{#1}}
+
 \providecommand{\designelement}[1]{%
   \ifthenelse{\boolean{nodesign}}{%
 	\includegraphics[draft]{#1}
@@ -706,7 +710,8 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \providecommand{\aboutothers}{}
 
 \providecommand{\printaboutpagetext}{%
-  \aboutpageentry{\aboutauthorsheading}{\aboutauthorstext}\par\bigskip
+  \ifthenelse{\boolean{aboutauthors}}{%
+  \aboutpageentry{\aboutauthorsheading}{\aboutauthorstext}\par\bigskip}{}
   \aboutpageentry{\nrname}{\aboutnrtext}\par\bigskip
   \aboutothers
 }
@@ -758,7 +763,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \titleitem{\textbf{\large\titlename}}{\textbf{\large\printtitle}}
     \titleitem{\textbf{\authorname}}     {\textbf{\@author}}
     \titleitem{\datename}                {\@date}
-    \titleitem{\yearname}                {\printyear}
+%    \titleitem{\yearname}                {\printyear}
     \ifthenelse{\boolean{report}}{\titleitem{\isbnname}{\printisbn}}{}
     \titleitem{\publicationnumbername}   {\printreportnumber}
   \end{titlelist}
