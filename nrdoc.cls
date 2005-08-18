@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/08/18 v2.1.8 NR report class]
+\ProvidesClass{nrdoc}[2005/08/18 v2.2.0 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -354,7 +354,7 @@ the documentclass command!\MessageBreak}}{}
 \RequirePackage{makeidx}        % for index
 \RequirePackage{multicol}       % for multiple columns
 \RequirePackage{paralist}       % for list environments
-\RequirePackage{verbatim}       % extra verbatims
+\RequirePackage{moreverb}       % extra verbatims
 \RequirePackage{xspace}         % for space control
 \RequirePackage{textcomp}       % for special characters
 \RequirePackage{array}          % for tabular functionality
@@ -816,14 +816,18 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \renewcommand\appendix{\par
   \clearpage%
   \setcounter{section}{0}%
-  \setcounter{subsection}{0}%
+  \setcounter{subsection}{0}%  
   \gdef\thesection{\@Alph\c@section}%
+  \gdef\theHsection{\@Alph\c@section}%
   \setcounter{table}{0}% 
-  \renewcommand{\thetable}{\thesection.\arabic{table}}%
+  \renewcommand{\thetable}{\thesection.\arabic{table}}%  
+  \gdef\theHtable{\theHsection.\arabic{table}}%
   \setcounter{equation}{0}%
   \renewcommand{\theequation}{\thesection.\arabic{equation}}%
+  \gdef\theHequation{\theHsection.\arabic{equation}}%
   \setcounter{figure}{0}%
   \renewcommand{\thefigure}{\thesection.\arabic{figure}}%
+  \gdef\theHfigure{\theHsection.\arabic{figure}}%
   }%
 }
 
