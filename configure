@@ -6,6 +6,7 @@ open VERSION, $versionFile || die "Can't open file \"$versionFile\": $!\n";
 while (<VERSION>) {
   chop $_;
   $version = $_;
+  $version =~ s/\s*//g;
 }
 close VERSION;
 
