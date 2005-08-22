@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/08/18 v2.2.0 NR report class]
+\ProvidesClass{nrdoc}[2005/08/22 v2.2.2 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -1106,6 +1106,23 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 
 \providecommand{\floor}[1]{\lfloor #1 \rfloor}
 \providecommand{\ceil}[1]{\lceil #1 \rceil}
+
+\ifpdf
+\DeclareGraphicsExtensions{%
+.jpg,.JPG,.jpeg,.JPEG,.png,.PNG,.tif,.TIF,.tiff,.pdf,.PDF}
+\DeclareGraphicsRule{.JPG}{jpg}{.JPG}{}
+\DeclareGraphicsRule{.JPEG}{jpg}{.JPEG}{}
+\DeclareGraphicsRule{.jpeg}{jpg}{.jpeg}{}
+\DeclareGraphicsRule{.PNG}{png}{.PNG}{}
+\DeclareGraphicsRule{.TIF}{tif}{.TIF}{}
+\DeclareGraphicsRule{.tiff}{tif}{.tiff}{}
+\DeclareGraphicsRule{.PDF}{pdf}{.PDF}{}
+\else 
+\DeclareGraphicsExtensions{.eps,.EPS,.ps,.PS}
+\DeclareGraphicsRule{.EPS}{eps}{.EPS}{}
+\DeclareGraphicsRule{.PS}{ps}{.PS}{}
+\fi
+
 
 \AtBeginDocument{}
 
