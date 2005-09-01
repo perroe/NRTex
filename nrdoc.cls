@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/08/22 v2.2.2 NR report class]
+\ProvidesClass{nrdoc}[2005/08/25 v2.2.3 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -1073,9 +1073,11 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 
 \renewenvironment{theindex}{%
   \clearemptydoublepage
-  \ifthenelse{\boolean{longreport}}{%
+  \ifthenelse{\boolean{longreport}}{% 
+    \phantomsection
     \chapter*{\indexname}%
     \addcontentsline{toc}{chapter}{\indexname}}{%
+    \phantomsection
     \section*{\indexname}%
     \addcontentsline{toc}{section}{\indexname}}
   \begin{multicols}{2}
