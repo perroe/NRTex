@@ -108,10 +108,19 @@
 
 
 %% choose some colored item labels
+
+\ifthenelse{\boolean{white}}{%
+\renewcommand{\labelitemi}{\textcolor{black}{$\bullet$}}
+\renewcommand{\labelitemii}{\textcolor{black}{$\star$}}
+\renewcommand{\labelitemiii}{\textcolor{black}{$\ast$}}
+\renewcommand{\labelitemiv}{\textcolor{black}{$\circ$}}}
+
+}{%
 \renewcommand{\labelitemi}{\textcolor{red}{$\bullet$}}
 \renewcommand{\labelitemii}{\textcolor{yellow}{$\star$}}
 \renewcommand{\labelitemiii}{\textcolor{magenta}{$\ast$}}
 \renewcommand{\labelitemiv}{\textcolor{cyan}{$\circ$}}}
+}
 
 
 \def\maketitle{\par
