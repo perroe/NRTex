@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/08/25 v2.2.3 NR report class]
+\ProvidesClass{nrdoc}[2005/09/08 v2.2.4 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -59,6 +59,9 @@
 \newboolean{hidden}
 \newboolean{dvips}
 \newboolean{nodesign}
+\newboolean{noindex}
+
+\setboolean{noindex}{false}
 
 
 \newcounter{numberofauthors}
@@ -189,6 +192,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Handling options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareOption{noindex}{\setboolean{noindex}{true}}
 
 \DeclareOption{long}{\setboolean{longreport}{true}}
 \DeclareOption{10pt}{%
@@ -1129,6 +1134,10 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \AtBeginDocument{}
 
 \AtEndDocument{%
-  \printindex%
+  \ifthenelse{\boolean{noindex}}%
+	{%
+  	}{%
+  	\printindex%
+  	}
   \clearpage\lastpage@putlabel%
 }

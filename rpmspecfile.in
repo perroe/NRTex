@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.18 2005-09-07 12:56:00 soleng Exp $
+# $Id: rpmspecfile.in,v 1.19 2005-09-08 08:19:32 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -56,6 +56,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep 08 2005 Harald H. Soleng <harald.soleng@nr.no>
+- Added noindex option to make the package work with doxygen. Version 2.2.4
 * Tue Sep 07 2005 Harald H. Soleng <harald.soleng@nr.no>
 - Changed colors in presentation item dots. Version 2.2.3-1
 * Thu Aug 25 2005 Harald H. Soleng <harald.soleng@nr.no>
