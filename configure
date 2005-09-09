@@ -1,6 +1,16 @@
-#!/usr/bin/perl
-$versionFile = "version";
-$patchFile = "release";
+#!/usr/bin/perl -w
+
+use strict;
+use POSIX;
+
+
+my $versionFile = "version";
+my $patchFile = "release";
+my $version;
+my $patch;
+my $date = ctime(time);
+chop($date);
+
 
 open VERSION, $versionFile || die "Can't open file \"$versionFile\": $!\n";
 while (<VERSION>) {
@@ -19,16 +29,17 @@ close PATCH;
 
 print "\nConfiguring nrdoc version $version\n";
 
-$input  = "Makefile.in";
-$output = "Makefile";
+my $input  = "Makefile.in";
+my $output = "Makefile";
 
 open INPUT, "<".$input || die "Can't open input file \"$input\": $!\n";
 open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
 
 
 while (<INPUT>) {
-  s/\<\<version_number\>\>/$version/; 
-  s/\<\<patch_number\>\>/$patch/;
+  s/\<\<version_number\>\>/$version/gi; 
+  s/\<\<patch_number\>\>/$patch/gi;  
+  s/\<\<date\>\>/$date/gi;
   print OUTPUT;
 }
 close OUTPUT;
@@ -45,7 +56,8 @@ open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
 
 while (<INPUT>) {
   s/\<\<version_number\>\>/$version/;  
-  s/\<\<patch_number\>\>/$patch/;
+  s/\<\<patch_number\>\>/$patch/;  
+  s/\<\<date\>\>/$date/gi;
   print OUTPUT;
 }
 close OUTPUT;
@@ -64,7 +76,8 @@ open OUTPUT, ">".$output || die "Can't open output file \"$output\": $!\n";
 
 while (<INPUT>) {
   s/\<\<version_number\>\>/$version/;
-  s/\<\<patch_number\>\>/$patch/;
+  s/\<\<patch_number\>\>/$patch/; 
+  s/\<\<date\>\>/$date/gi;
   print OUTPUT;
 }
 close OUTPUT;

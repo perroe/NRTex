@@ -8,6 +8,8 @@
   <body bgcolor="#ffffff" text="#000000">
     
     <h2>LaTeX maler for NR rapporter, notater og presentasjoner: v.&nbsp;<<version_number>></h2>
+
+    <h3>Revidert: <<date>></h3>
      <p>
       En LaTeX mal for NR rapporter ligger under
       <tt>/nr/group/maler/nrdoc/</tt>. Malen kan også brukes sammen

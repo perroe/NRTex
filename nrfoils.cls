@@ -6,7 +6,7 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nrfoils}[2004/10/05]
+\ProvidesClass{nrfoils}[2005/09/09]
 
 \RequirePackage{ifthen}
 \RequirePackage{babel}
@@ -21,6 +21,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{helvet}
 \RequirePackage{paralist}
+\RequirePackage{amsmath}
 \RequirePackage[latin1]{inputenc} 
 
 
@@ -113,7 +114,7 @@
 \renewcommand{\labelitemi}{\textcolor{black}{$\bullet$}}
 \renewcommand{\labelitemii}{\textcolor{black}{$\star$}}
 \renewcommand{\labelitemiii}{\textcolor{black}{$\ast$}}
-\renewcommand{\labelitemiv}{\textcolor{black}{$\circ$}}}
+\renewcommand{\labelitemiv}{\textcolor{black}{$\circ$}}
 
 }{%
 \renewcommand{\labelitemi}{\textcolor{red}{$\bullet$}}
