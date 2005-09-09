@@ -104,9 +104,9 @@
 
 \providecommand{\designelement}[1]{%
   \ifthenelse{\boolean{nodesign}}{%
-	\includegraphics[draft]{#1}
+    \includegraphics[draft]{#1}
   }{%
-	\includegraphics{#1}	
+    \includegraphics{#1}        
   }
 }
 
@@ -119,8 +119,8 @@
   \renewcommand{\and}{%
      \ifthenelse{\boolean{hidden}}%
         {\addtocounter{numberofauthors}{1}}
-  }	
-  \newline%	
+  }     
+  \newline%     
 }
 
 
@@ -236,7 +236,7 @@
 }%
 
 \DeclareOption{twoside}{% 
-  \setboolean{onesided}{false}%	
+  \setboolean{onesided}{false}% 
   \PassOptionsToClass{twoside}{book}%
   \PassOptionsToClass{twoside}{article}%
   \ifthenelse{\boolean{screen}}{%
@@ -256,31 +256,31 @@ the documentclass command!\MessageBreak}}{}
 % The bluelines option is obsolete (kept for backwards compatability)
 \DeclareOption{bluelines}{\typeout{NRdoc warning: Option bluelines is obsolete.}}
 \DeclareOption{american}{\PassOptionsToPackage{american}{babel}
-                         \setboolean{language_selected}{true}	
-	                 \setboolean{firstindent}{false}
+                         \setboolean{language_selected}{true}   
+                         \setboolean{firstindent}{false}
                          \setboolean{english_selected}{true}}
 \DeclareOption{british}{\PassOptionsToPackage{british}{babel}
-                        \setboolean{language_selected}{true}	
+                        \setboolean{language_selected}{true}    
                         \setboolean{firstindent}{false}
                         \setboolean{english_selected}{true}}
 \DeclareOption{english}{\PassOptionsToPackage{english}{babel}
-                        \setboolean{language_selected}{true}	
+                        \setboolean{language_selected}{true}    
                          \setboolean{firstindent}{false}
                         \setboolean{english_selected}{true}}
 \DeclareOption{UKenglish}{\PassOptionsToPackage{UKenglish}{babel}
                           \setboolean{language_selected}{true}
- 	                  \setboolean{firstindent}{false}
+                          \setboolean{firstindent}{false}
                           \setboolean{english_selected}{true}}
 \DeclareOption{USenglish}{\PassOptionsToPackage{USenglish}{babel}
-                          \setboolean{language_selected}{true}	
+                          \setboolean{language_selected}{true}  
                           \setboolean{firstindent}{false}
                           \setboolean{english_selected}{true}}
 \DeclareOption{norsk}{\PassOptionsToPackage{norsk}{babel}
-                      \setboolean{norsk_selected}{true}	
-	              \setboolean{firstindent}{true}
+                      \setboolean{norsk_selected}{true} 
+                      \setboolean{firstindent}{true}
                       \setboolean{language_selected}{true}}
 \DeclareOption{nynorsk}{\PassOptionsToPackage{nynorsk}{babel}
-                        \setboolean{nynorsk_selected}{true}	
+                        \setboolean{nynorsk_selected}{true}     
                         \setboolean{firstindent}{true}
                         \setboolean{language_selected}{true}}
 % The times option is obsolete (kept for backwards compatability)
@@ -328,10 +328,10 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\targetgroupname}         {M\aa lgruppe}
         \renewcommand{\titlename}               {Tittel}
         \renewcommand{\yearname}                {{\AA}r}
-	\ifthenelse{\boolean{longreport}}{
-	\providecommand{\abstractname}		{Sammendrag}}{}
+        \ifthenelse{\boolean{longreport}}{
+        \providecommand{\abstractname}          {Sammendrag}}{}
         \renewcommand{\nrname}                  {Norsk Regnesentral}
-	\renewcommand{\aboutauthorsheading}     {Forfatter\ifthenelse{\value{numberofauthors}>1}{ne}{en}}
+        \renewcommand{\aboutauthorsheading}     {Forfatter\ifthenelse{\value{numberofauthors}>1}{ne}{en}}
 
 %  Nynorsk
 \ifthenelse{\boolean{nynorsk_selected}}{%
@@ -339,13 +339,13 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
         \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
-        \renewcommand{\closedavailable}         {Lukka}	
-	\ifthenelse{\boolean{longreport}}{
-	\providecommand{\abstractname}		{Samandrag}}{}
+        \renewcommand{\closedavailable}         {Lukka} 
+        \ifthenelse{\boolean{longreport}}{
+        \providecommand{\abstractname}          {Samandrag}}{}
         \renewcommand{\aboutauthorsheading}     {Forfattar\ifthenelse{\value{numberofauthors}>1}{ane}{en}}
         }{}
 }{\ifthenelse{\boolean{longreport}}{
-	\providecommand{\abstractname}		{Abstract}}{}}
+        \providecommand{\abstractname}          {Abstract}}{}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Loading other packages and the base class
@@ -364,7 +364,7 @@ the documentclass command!\MessageBreak}}{}
 \RequirePackage{textcomp}       % for special characters
 \RequirePackage{array}          % for tabular functionality
 \RequirePackage{float}          % for float control
-\RequirePackage[plain]{algorithm}	% algorithm
+\RequirePackage[plain]{algorithm}       % algorithm
 
 \ifpdf\RequirePackage{thumbpdf} \fi      % for thumbnails
 
@@ -424,7 +424,7 @@ the documentclass command!\MessageBreak}}{}
 \definecolor{nrblue}{cmyk}{1,0.66,0,0}
 
 \ifthenelse{\boolean{screen}}{
-% use hypertex tools	
+% use hypertex tools    
 \@twosidefalse
 \ifpdf
   \RequirePackage[pdftex,colorlinks=true,pdfpagelabels,%
@@ -580,7 +580,7 @@ the documentclass command!\MessageBreak}}{}
     \ifthenelse{\boolean{report}}{%
       \ifthenelse{\boolean{norsk_selected} \or
         \boolean{nynorsk_selected}}{%
-	\designelement{elements/rapport-s1}
+        \designelement{elements/rapport-s1}
       }{%
         \designelement{elements/report-s1}
       }}{%
@@ -643,7 +643,7 @@ the documentclass command!\MessageBreak}}{}
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
-	% Write authors outside page.    
+        % Write authors outside page.    
     \makebox[0pt]{\mbox{}\hspace{100cm}\textcolor{white}{\@author}}
     \setboolean{hidden}{false}
     \frontpageprinttitle
@@ -814,7 +814,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \titleitem{\projectname}         {\printproject}
       \titleitem{\projectnumbername}   {\printprojectnumber}
       \titleitem{\researchfieldname}   {\printresearchfield}
-      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}	
+      \titleitem{\numberofpagesname}   {\pageref*{LastPage}}    
       \titleitem{\copyright\ Copyright}{\nrname}
     \end{titlelist}
   }
@@ -839,10 +839,10 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \renewcommand{\maketitle}{%
   \setboolean{titlepagemade}{true}
   \hypersetup{pdftitle={\printtitle},
-	      pdfkeywords={\printkeywords},
+              pdfkeywords={\printkeywords},
               pdfsubject={\printsubject},
-	      pdfauthor={\printauthorforpdf}
-	}% 
+              pdfauthor={\printauthorforpdf}
+        }% 
   %\setboolean{pdfdataset}{true}
   \pagenumbering{arabic}
   \nrfrontpage%  
@@ -1023,7 +1023,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \qquad\usebox{\footerlogo}%
     \qquad\thepage}
  
-}	
+}       
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1036,7 +1036,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
                 \or%
                 \boolean{nynorsk_selected}}{%    
        \bibliographystyle{nrnorsk}
-     }{%	
+     }{%        
        \bibliographystyle{plainnat}
      }
   }{%
@@ -1135,9 +1135,9 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 
 \AtEndDocument{%
   \ifthenelse{\boolean{noindex}}%
-	{%
-  	}{%
-  	\printindex%
-  	}
+        {%
+        }{%
+        \printindex%
+        }
   \clearpage\lastpage@putlabel%
 }
