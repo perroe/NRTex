@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/09/08 v2.2.4 NR report class]
+\ProvidesClass{nrdoc}[2005/09/19 v2.2.5 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -901,6 +901,10 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \@starttoc{loe}%
   \clearemptydoublepage
 }
+
+
+\renewcommand{\l@table}{\@dottedtocline{1}{0em}{3.5em}}
+\renewcommand{\l@figure}{\@dottedtocline{1}{0em}{3.5em}} 
 
 % Example environment
 \ifthenelse{\boolean{longreport}}{
