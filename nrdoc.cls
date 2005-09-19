@@ -903,9 +903,6 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 }
 
 
-\renewcommand{\l@table}{\@dottedtocline{1}{0em}{3.5em}}
-\renewcommand{\l@figure}{\@dottedtocline{1}{0em}{3.5em}} 
-
 % Example environment
 \ifthenelse{\boolean{longreport}}{
   \newcounter{example}[chapter]
@@ -1135,7 +1132,9 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \fi
 
 
-\AtBeginDocument{}
+\AtBeginDocument{\renewcommand{\l@table}{\@dottedtocline{1}{0em}{3.5em}}
+\renewcommand{\l@figure}{\@dottedtocline{1}{0em}{3.5em}} 
+}
 
 \AtEndDocument{%
   \ifthenelse{\boolean{noindex}}%
