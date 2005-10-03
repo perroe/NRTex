@@ -3,6 +3,11 @@
 
 Task					Fixed		Releases
 
+change availability options to 
+open/åpen, internal/intern, 
+confidential/konfidensiell and 
+strictly confidential/strengt 
+konfidensiell
 make Date on the front page be equal 
 to Date + Year on page 3		2.1.8		2005.08.18
 allow that aboutauthors is not 
