@@ -74,7 +74,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \providecommand{\authorname}            {Author\ifthenelse{\value{numberofauthors}>1}{s}{}}
-\providecommand{\availabilityname}      {Availability}
+\providecommand{\availabilityname}      		{Availability}
+\providecommand{\availabilitylevel}     		{Confidential}
+\providecommand{\availabilitylevelopen}     		{Open}
+\providecommand{\availabilitylevelinternal}     	{Internal}
+\providecommand{\availabilitylevelcondidential}		{Confidential}
+\providecommand{\availabilitylevelstrictlyconfidential} {Strictly confidential}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
 \providecommand{\examplename}           {Example}
@@ -168,6 +173,19 @@
 \providecommand{\printtarget}{%
                 \typeout{NRdoc warning: Target group not defined}}
 \providecommand{\target}[1]{\renewcommand{\printtarget}{#1}}
+
+\providecommand{\printavailability}{%
+                \typeout{NRdoc warning: Availability level not
+defined}}
+
+\providecommand{\availability}[1]{%
+\ifthenelse{\equal{#1}{Open}}{\renewcommand{\availabilitylevel}{\availabilitylevelopen}}{%
+\ifthenelse{\equal{#1}{Internal}}{\renewcommand{\availabilitylevel}{\availabilitylevelinternal}}{%
+\ifthenelse{\equal{#1}{Confidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelconfidential}}{%
+\ifthenelse{\equal{#1}{Strictlyconfidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelstrictlyconfidential}}{%
+\typeout{NRdoc warning: Unknown availability level: #1} %
+}}}}
+\renewcommand{\printavailability}{\availabilitylevel}}
 
 \providecommand{\printresearchfield}{%
 \typeout{NRdoc warning: Reserach field not defined}}
@@ -309,7 +327,11 @@ the documentclass command!\MessageBreak}}{}
             \boolean{nynorsk_selected}}{%
         \renewcommand{\authorname}              {Forfatter\ifthenelse{\value{numberofauthors}>1}{e}{}}
         \renewcommand{\availabilityname}        {Tilgjengelighet}
-        \renewcommand{\closedavailable}         {Lukket}
+	\renewcommand{\availabilitylevel}     			{Konfidensiell}
+	\renewcommand{\availabilitylevelopen}     		{{\AA}pen}
+	\renewcommand{\availabilitylevelinternal}     		{Intern}
+	\renewcommand{\availabilitylevelcondidential}		{Konfidensiell}
+	\renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
         \renewcommand{\examplename}             {Eksempel}
         \renewcommand{\emailname}               {e-post}
@@ -338,8 +360,8 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\listexamplename}         {Eksempel}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
+	\renewcommand{\availabilitylevelopen}   {Open}
         \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
-        \renewcommand{\closedavailable}         {Lukka} 
         \ifthenelse{\boolean{longreport}}{
         \providecommand{\abstractname}          {Samandrag}}{}
         \renewcommand{\aboutauthorsheading}     {Forfattar\ifthenelse{\value{numberofauthors}>1}{ane}{en}}
@@ -792,7 +814,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \begin{titlelist}
       \titleitem{\keywordsname}        {\printkeywords}
       \titleitem{\targetgroupname}     {\printtarget}
-      \titleitem{\availabilityname}    {\ifthenelse{\boolean{closedavailability}}{\closedavailable}{\openavailable}}
+      \titleitem{\availabilityname}    {\printavailability}
       \titleitem{\projectname}         {\printproject}
       \titleitem{\projectnumbername}   {\printprojectnumber}
       \titleitem{\researchfieldname}   {\printresearchfield}
@@ -810,7 +832,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     \begin{titlelist}
       \titleitem{\keywordsname}        {\printkeywords}
       \titleitem{\targetgroupname}     {\printtarget}
-      \titleitem{\availabilityname}    {\ifthenelse{\boolean{closedavailability}}{\closedavailable}{\openavailable}}
+      \titleitem{\availabilityname}    {\printavailability}
       \titleitem{\projectname}         {\printproject}
       \titleitem{\projectnumbername}   {\printprojectnumber}
       \titleitem{\researchfieldname}   {\printresearchfield}

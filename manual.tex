@@ -16,6 +16,7 @@
 \keywords{\LaTeX, NR}
 \projectnumber{}
 \project{}
+\availability{Internal}
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
 \researchfield{}
@@ -91,9 +92,6 @@ The class option \textit{long}\index{option!long}
 gives access to part\index{part} and chapter\index{chapter} commands.
 By default the highest level is section\index{section}.
 
-\subsection{Closed}
-The option \textit{closed}
-\index{option!closed} gives a closed report. 
 
 
 \section{Front and title page\label{sec:fronttitle}}
@@ -138,6 +136,18 @@ to supply just the last five digits:
 \shortisbn{0481-9}
 \end{verbatim}
 
+The availability level is given by
+\verb+\availability+\index{availability@\verb+\availability+}. There
+are four possible levels of availability:
+\begin{itemize}
+\item open\index{availability!open}: Open for everyone. Available
+from NR's web site.
+\item internal\index{availability!internal}: Open for everyone at NR. 
+\item confidential\index{availability!confidential}: Confedential. 
+\item strictlyconfidential\index{availability!strictly confidential}:
+Strictly confedential. 
+\end{itemize}
+
 A typical preamble\index{preamble} then looks as follows:
 \begin{verbatim}
 
@@ -148,7 +158,7 @@ A typical preamble\index{preamble} then looks as follows:
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
 \researchfield{}
-
+\availability{Internal}
 \end{verbatim}
 At the beginning of the document, we specify the title,
 author(s) and abstract:
