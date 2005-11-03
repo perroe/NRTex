@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/11/03 v2.2.6 NR report class]
+\ProvidesClass{nrdoc}[2005/09/19 v2.2.5 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -74,11 +74,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \providecommand{\authorname}            {Author\ifthenelse{\value{numberofauthors}>1}{s}{}}
-\providecommand{\availabilityname}                      {Availability}
-\providecommand{\availabilitylevel}                     {Confidential}
-\providecommand{\availabilitylevelopen}                 {Open}
-\providecommand{\availabilitylevelinternal}             {Internal}
-\providecommand{\availabilitylevelcondidential}         {Confidential}
+\providecommand{\availabilityname}      		{Availability}
+\providecommand{\availabilitylevel}     		{Confidential}
+\providecommand{\availabilitylevelopen}     		{Open}
+\providecommand{\availabilitylevelinternal}     	{Internal}
+\providecommand{\availabilitylevelcondidential}		{Confidential}
 \providecommand{\availabilitylevelstrictlyconfidential} {Strictly confidential}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
@@ -181,7 +181,7 @@ defined}}
 \providecommand{\availability}[1]{%
 \ifthenelse{\equal{#1}{Open}}{\renewcommand{\availabilitylevel}{\availabilitylevelopen}}{%
 \ifthenelse{\equal{#1}{Internal}}{\renewcommand{\availabilitylevel}{\availabilitylevelinternal}}{%
-\ifthenelse{\equal{#1}{Confidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelconfidential}}{%
+\ifthenelse{\equal{#1}{Confidential}}{}{%
 \ifthenelse{\equal{#1}{Strictlyconfidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelstrictlyconfidential}}{%
 \typeout{NRdoc warning: Unknown availability level: #1} %
 }}}}
@@ -327,11 +327,11 @@ the documentclass command!\MessageBreak}}{}
             \boolean{nynorsk_selected}}{%
         \renewcommand{\authorname}              {Forfatter\ifthenelse{\value{numberofauthors}>1}{e}{}}
         \renewcommand{\availabilityname}        {Tilgjengelighet}
-        \renewcommand{\availabilitylevel}                       {Konfidensiell}
-        \renewcommand{\availabilitylevelopen}                   {{\AA}pen}
-        \renewcommand{\availabilitylevelinternal}               {Intern}
-        \renewcommand{\availabilitylevelcondidential}           {Konfidensiell}
-        \renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
+	\renewcommand{\availabilitylevel}     			{Konfidensiell}
+	\renewcommand{\availabilitylevelopen}     		{{\AA}pen}
+	\renewcommand{\availabilitylevelinternal}     		{Intern}
+	\renewcommand{\availabilitylevelcondidential}		{Konfidensiell}
+	\renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
         \renewcommand{\examplename}             {Eksempel}
         \renewcommand{\emailname}               {e-post}
@@ -360,7 +360,7 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\listexamplename}         {Eksempel}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
-        \renewcommand{\availabilitylevelopen}   {Open}
+	\renewcommand{\availabilitylevelopen}   {Open}
         \renewcommand{\numberofpagesname}       {Tal p\aa\ sider}
         \ifthenelse{\boolean{longreport}}{
         \providecommand{\abstractname}          {Samandrag}}{}
@@ -408,7 +408,7 @@ the documentclass command!\MessageBreak}}{}
   {\providecommand{\theHalgorithm}{\arabic{algorithm}}%
    \LoadClass{article}[2000/05/19]}
 
-\def\toclevel@algorithm{0}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Loading other packages after the base class
