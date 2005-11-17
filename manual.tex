@@ -1,7 +1,7 @@
 % $Id$
 % Specify language of the report
 
-\documentclass[note,screen,citealphanumeric,british,12pt]{nrdoc}
+\documentclass[note,screen,british,11pt]{nrdoc}
 
 
 % Verbatim is already loaded by nrdoc. It is only
@@ -11,7 +11,7 @@
 % -------------------------------------------------
 % BEGIN nrdoc special commands
 \ifx\nrdocument\undefined\relax\else
-\reportnumber{sand/}
+\reportnumber{sand/08/05}
 %\publicationyear{2003}
 \keywords{\LaTeX, NR}
 \projectnumber{}
@@ -42,12 +42,15 @@ This document gives an example of the use of the \texttt{nrdoc} class. The
 purpose of this document class is to provide a unified style for NR
 notes and reports conforming with standard typographical practice in
 Norwegian and English.  
+The \texttt{nrdoc} class is written by Lars Brusletto Sveen of Munch
+Design and modified by Harald H. Soleng and Anders Løland.
 \end{abstract}
 
 \tableofcontents
-\listoffigures
 
 \section{Introduction}
+The \texttt{nrdoc} class is written by Lars Brusletto Sveen of Munch
+Design and modified by Harald H. Soleng and Anders Løland.
 This document gives an example of the use of the \texttt{nrdoc} class. 
 In Appendix \ref{sec:code} the \LaTeX\ source code for this document is
 given.  
@@ -106,12 +109,6 @@ specifies the text in the heading of each page. If \verb!\shorttitle!
 taken from \verb!\title!. 
 
 The date\index{date} is taken from \verb!\date!.
-By default the year is taken from the current 
-year at the time of processing.
-The publication year\index{year} can be set using 
-\texttt{publicationyear}%
-\index{publicationyear@\verb+\publicationyear+}.
-
 
 The note or publication number is given by
 \verb+\reportnumber+\index{reportnumber@\verb+\reportnumber+}.
@@ -175,15 +172,14 @@ author(s) and abstract:
 \maketitle
 \end{verbatim}
 Separate each author with the \verb+\and+\index{and@\verb+\and+}
-command. The email\index{email@\verb+\email+} address is optional.
+command. The email\index{email@\verb+\email+} address and the
+\verb+\aboutauthors+\index{aboutauthors@\verb+\aboutauthors+} command are optional.
 \begin{verbatim}
 \begin{abstract}
 The abstract is obligatory!
 \end{abstract}
 
 \tableofcontents        % optional
-
-
 \end{verbatim}
 Note that a \verb+\mainmatter+\index{mainmatter@\verb+\mainmatter+}
 command is required before the first section or chapter.
@@ -223,14 +219,14 @@ given here (and in Figure \ref{fig:logo}):
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=8cm,angle=45]{figs/fotball}
-    \caption{\label{fig:logo} Rolling NR logo.}
+    \caption{\label{fig:logo} Rolling NR ball.}
   \end{center}
 \end{figure}
 \end{verbatim}
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=8cm,angle=45]{figs/fotball}
-    \caption{\label{fig:logo} Rolling NR logo.}
+    \caption{\label{fig:logo} Rolling NR ball.}
   \end{center}
 \end{figure}
 Note that the extension of the figure file name should be dropped. The
@@ -243,6 +239,8 @@ files should have the following format:\index{format}
 \item [pdf\LaTeX] pdf  [.pdf], jpeg [.JPG/.JPEG/.jpeg/.jpg] or png [.png] formats
   \index{format!pdf} \index{format!jpeg}\index{format!png}
 \end{description}
+We recommend pdf\LaTeX, since this gives instant pdf files and enables
+inclusion of jpeg and png images (in addition to pdf files).
 
 \subsection{Format conversion}
 postscript files can be converted to pdf using the \texttt{ps2pdf}
@@ -256,8 +254,8 @@ The default size is 11pt, but 10pt and 12pt sizes are also supported
 through standard 
 options.\index{option!10pt}\index{option!11pt}\index{option!12pt}
 
-The standard font is type 1 versions of computer modern. The exception is
-the typewriter font which has been replaced with almost European fonts.
+The standard font is type 1 versions of palatino. An important exception is
+the typewriter font, which has been replaced with almost European fonts.
 
 
 \section{Mathematics}\index{mathematics}
@@ -341,24 +339,25 @@ different language\index{language} support:
 \item[\textit{USenglish}] US english. \index{option!USenglish} 
 \end{description}
 
-\section{The draft option}\index{option!draft}
+\section{Additional options}
+\subsection{The draft option}\index{option!draft}
 
 The draft option prevents figure inclusion, turns off the cover
 generation and adds marks on oversized lines. This option also 
 prints equation labels in the margin.
 
-\section{The showlabels option}\index{option!showlabels}
+\subsection{The showlabels option}\index{option!showlabels}
 
 This option prints equation labels in the margin.
 
 
-\section{The nodesign option}\index{option!nodesign}
+\subsection{The nodesign option}\index{option!nodesign}
 
 The nodesign option prevents inclusion of the design elements created
 by Much Design. It is used to speed up processing in the writing stage.
 This option must be removed in the final run.
 
-\section{The dvips option}\index{option!dvips}
+\subsection{The dvips option}\index{option!dvips}
 
 This package is designed to produce pdf output either via
 \LaTeX\ followed by dvipdfm or directly by pdf\LaTeX.
@@ -407,7 +406,7 @@ Pdf bookmarks does not work correctly for chapters and sections in appendices.
 Some postprocessing of the bookmark file (file extension .out) 
 may be needed to translate \LaTeX\ codes, since bookmarks must 
 be written in PDFEncoding. To aid this process, the .out file 
-is not rewritten by LATEX if it is edited to contain 
+is not rewritten by \LaTeX if it is edited to contain 
 a line \let\WriteBookmarks\relax.
 
 \bibliography{ref}
@@ -415,9 +414,9 @@ a line \let\WriteBookmarks\relax.
 \clearpage
 \appendix
 
-\section{Setting up Unix variables}
-For the system to find the \texttt{nrdoc} class, the variable
-\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} needs to be set. This
+\section{Setting Unix variables}
+For the system to find the \texttt{nrdoc} class, the variables
+\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} and \texttt{BSTINPUTS}\index{texinputs@BSTINPUTS} needs to be set. These
 variable should have been set for you, but if you get the message 
 \texttt{TEXINPUTS: Undefined variable.} after typing \texttt{echo
 \$TEXINPUTS} in Unix/Linux, you need to set the variable:
@@ -426,6 +425,11 @@ you have a \texttt{.cshrc} file), the  \texttt{.cshrc} file should
 include this line:
 \begin{verbatim}
 setenv TEXINPUTS .:/nr/group/maler/nrdoc:
+\end{verbatim}
+If you have problems with {Bib}\TeX, it might help to set the variable
+\texttt{BSTINPUTS}:
+\begin{verbatim}
+setenv BSTINPUTS .:/nr/group/maler/nrdoc:
 \end{verbatim}
 
 \section{The \LaTeX{} code for this document\label{sec:code}}
