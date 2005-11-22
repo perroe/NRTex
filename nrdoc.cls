@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/11/03 v2.2.6-2 NR report class]
+\ProvidesClass{nrdoc}[2005/11/21 v2.2.6-3 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -20,18 +20,13 @@
 \RequirePackage{ifthen}             % for logic in class file
 \RequirePackage{calc}               % for math in class file
 \RequirePackage{textcase}
-
+\RequirePackage{ifpdf}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newif\ifpdf
-\ifx\pdfoutput\undefined
-    \pdffalse
-\else
-    \pdfoutput=1
-    \pdftrue
-    \pdfcompresslevel=9
+\ifpdf
+   \pdfcompresslevel=9
 \fi
 
 %\newboolean{pdfdataset}

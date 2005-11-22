@@ -32,7 +32,7 @@
 \title{User manual for nrdoc: a \LaTeX\ class for notes and reports}
 \author{Harald H. Soleng \email{harald.soleng@nr.no} \and 
          Anders Løland \email{anders.loland@nr.no}}
-\aboutauthors{Local \LaTeX\ gurus}
+\aboutauthors{The authors are local \LaTeX\ gurus}
 \date{\today}
 \maketitle
 
@@ -42,15 +42,23 @@ This document gives an example of the use of the \texttt{nrdoc} class. The
 purpose of this document class is to provide a unified style for NR
 notes and reports conforming with standard typographical practice in
 Norwegian and English.  
-The \texttt{nrdoc} class is written by Lars Brusletto Sveen of Munch
-Design and modified by Harald H. Soleng and Anders Løland.
+The \texttt{nrdoc} class was originally
+written by Harald H. Soleng and Anders Løland. 
+redesigned by Lars Brusletto Sveen of Munch
+Design, and again modified by Harald H. Soleng and Anders Løland.
 \end{abstract}
 
 \tableofcontents
 
 \section{Introduction}
-The \texttt{nrdoc} class is written by Lars Brusletto Sveen of Munch
-Design and modified by Harald H. Soleng and Anders Løland.
+The \texttt{nrdoc} class was first written by \cite{NRDocSource03,NRDocManual03}
+Harald H. Soleng and Anders Løland. When   Munch
+Design redesigned the graphical profile of the Institute, the class was
+modified
+by Lars Brusletto Sveen. Later 
+the original authors have fine tuned the class 
+and added more functionality.
+
 This document gives an example of the use of the \texttt{nrdoc} class. 
 In Appendix \ref{sec:code} the \LaTeX\ source code for this document is
 given.  
@@ -166,7 +174,7 @@ author(s) and abstract:
 \author{Harald Soleng \email{harald.soleng@nr.no} \and 
         Anders Løland \email{anders.loland@nr.no}}
 
-\aboutauthors{Local \TeX\ Gurus}
+\aboutauthors{The authors are local \LaTeX\ Gurus}
 \date{\today}
 
 \maketitle
@@ -181,8 +189,6 @@ The abstract is obligatory!
 
 \tableofcontents        % optional
 \end{verbatim}
-Note that a \verb+\mainmatter+\index{mainmatter@\verb+\mainmatter+}
-command is required before the first section or chapter.
 
 \section{Including a figure}
 
@@ -243,7 +249,7 @@ We recommend pdf\LaTeX, since this gives instant pdf files and enables
 inclusion of jpeg and png images (in addition to pdf files).
 
 \subsection{Format conversion}
-postscript files can be converted to pdf using the \texttt{ps2pdf}
+postscript files can be converted to pdf using the \texttt{eps2pdf}
 command or Acrobat Distiller. 
 pdf files can be converted to postscript using the \texttt{pdf2ps}
 command or Adobe Acrobat. 
@@ -374,32 +380,59 @@ an index file.
 
 \section{Default packages}
 
-The following packages are loaded by default:
+The following packages are loaded by default (or by use of options):
 \begin{description}
+\item[\textit{a4wide}] For page geometry. \index{package!a4wide} 
+\item[\textit{afterpage}] For float control. \index{package!afterpage}
+\item[\textit{amsmath}] For advanced mathematical typesetting. \index{package!amsmath}\item[\textit{algoritm}] For algorithm (type of float). 
+\index{package!algorithm}
+\item[\textit{array}] For added tabular functionality \index{package!array}
+\item[\textit{babel}] For language support. \index{package!babel} 
+\item[\textit{calc}] For numerical programming constructs in \LaTeX. 
+\index{package!calc}
+\item[\textit{caption}] For formatting of captions.
+\index{package!caption} 
+\item[\textit{color}] For colour fonts. \index{package!color}
+\item[\textit{fancyhdr}] For headers. \index{package!fancyhdr} 
+\item[\textit{fontenc}] For font encoding (using T1). \index{package!fontenc}
+\item[\textit{float}] For float control. \index{package!float} 
+\item[\textit{graphicx}] for graphics inclusion. \index{package!graphicx} 
+\item[\textit{hyperref}] For hyperlinks. \index{package!hyperref}
+\item[\textit{ifpdf}] Provides tests for  pdf\LaTeX. 
+\index{package!ifpdf} 
+\item[\textit{ifthen}] Provides programming constructs in \LaTeX. \index{package!ifthen} 
+\item[\textit{indentfirst}] Handles Norwegian type indentation.\index{package!firstindent} 
 \item[\textit{inputenc}] Handles Norwegian
   letters. \index{package!inputenc} 
-\item[\textit{amsmath}] For advanced math. \index{package!amsmath} 
-\item[\textit{paralist}] For list
-  environments. \index{package!paralist} 
-\item[\textit{fancyhdr}] For
-  headers. \index{package!fancyhdr} 
-\item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
-Also contains a useful \texttt{comment} environment.
-\item[\textit{xspace}] For space control. \index{package!xspace}
-\item[\textit{rotating}] For text rotation. \index{package!rotating} 
 \item[\textit{makeidx}] For index. \index{package!makeidx}
 \item[\textit{multicol}] For multiple columns. \index{package!multicol} 
-\item[\textit{color}] For colour. \index{package!color}
-\item[\textit{graphicx}] for graphics
-  inclusion. \index{package!graphicx} 
-\item[\textit{babel}] For language support. \index{package!babel}
-%\item[\textit{geometry}] For page geometry. \index{package!geometry}
-\item[\textit{a4wide}] For page geometry. \index{package!a4wide} 
-\item[\textit{hyperref}] For hyperlinks. \index{package!hyperref}
+\item[\textit{natbib}] For bibliography. \index{package!natbib} 
+\item[\textit{paralist}] For list environments. \index{package!paralist}
+\item[\textit{parskip}] For non-indenting paragraphs. \index{package!parskip} 
+\item[\textit{rotating}] For text rotation. \index{package!rotating} 
+\item[\textit{showlabels}] For printing of labels (in drafts). 
+\index{package!showlabels} 
+\item[\textit{textcase}] For text lower case and upper case functions.
+\item[\textit{textcomp}] For special characters. 
+\index{package!textcase}
+\item[\textit{textpos}] For absolute positioning of text on front page.
+\index{package!textpos} 
+\item[\textit{thumbpdf}] For thumbnails in pdf.
+\index{package!thumbpdf}
+\item[\textit{titlesec}] For title formatting.
+\index{package!titlesec} 
+\item[\textit{geometry}] For page geometry. \index{package!geometry}
+
+
+\item[\textit{verbatim}] For verbatim text. \index{package!verbatim} 
+Also contains a useful \texttt{comment} environment.
+
+\item[\textit{xspace}] For space control. \index{package!xspace}
 \end{description} 
 For more information about most of these packages,
 consult the book by \cite{latexcompanion}.
 
+\pagebreak
 \section{Shortcomings}
 
 Pdf bookmarks does not work correctly for chapters and sections in appendices.
@@ -416,7 +449,8 @@ a line \let\WriteBookmarks\relax.
 
 \section{Setting Unix variables}
 For the system to find the \texttt{nrdoc} class, the variables
-\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} and \texttt{BSTINPUTS}\index{texinputs@BSTINPUTS} needs to be set. These
+\texttt{TEXINPUTS}\index{texinputs@TEXINPUTS} and 
+\texttt{BSTINPUTS}\index{texinputs@BSTINPUTS} needs to be set. These
 variable should have been set for you, but if you get the message 
 \texttt{TEXINPUTS: Undefined variable.} after typing \texttt{echo
 \$TEXINPUTS} in Unix/Linux, you need to set the variable:
