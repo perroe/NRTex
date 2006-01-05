@@ -1,17 +1,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%	Identification 
+%       Identification 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nrfoils}[2005/09/09]
+\ProvidesClass{nrfoils}[2005/12/19]
 
 \RequirePackage{ifthen}
 \RequirePackage{babel}
 
+
 \RequirePackage{color} 
+
 
 \RequirePackage[urlcolor=yellow]{hyperref}
 
@@ -128,7 +130,7 @@
   \begingroup
     \setcounter{page}{0}
     \def\thefootnote{\fnsymbol{footnote}} \newpage
-	
+        
     \@maketitle
     \thispagestyle{foilheadings}
     \@thanks
@@ -147,13 +149,13 @@
     \advance\abovetitleskip -\baselineskip % \null adds this space
   \fi
   \null\vskip\abovetitleskip
-  \mbox{}\hspace{210mm}\makebox[0pt]{\raisebox{-165mm}[0pt][0pt]{%	
-	\includegraphics[width=0.4\paperwidth]{logos/NR_ball_rgb}}}\\
-	\raisebox{40mm}[0pt][0pt]{%
-	\mbox{}\hspace{-15mm}%
-	\includegraphics[height=25mm]{logos/NR_wave}}%
-	\hspace{90mm}%
-	\raisebox{45mm}[0pt][0pt]{\small\texttt{www.nr.no}}%
+  \mbox{}\hspace{210mm}\makebox[0pt]{\raisebox{-165mm}[0pt][0pt]{%      
+        \includegraphics[width=0.4\paperwidth]{logos/NR_ball_rgb}}}\\
+        \raisebox{40mm}[0pt][0pt]{%
+        \mbox{}\hspace{-15mm}%
+        \includegraphics[height=25mm]{logos/NR_wave}}%
+        \hspace{90mm}%
+        \raisebox{45mm}[0pt][0pt]{\small\texttt{www.nr.no}}%
 
   \vspace{-4em}  
 
@@ -165,7 +167,7 @@
      {\small\lineskip \authorauthorskip
        \@author
        \par}
-	
+        
      {\small\vskip\authordateskip {\@date}}
   \end{flushleft}
   \par

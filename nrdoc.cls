@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2005/11/21 v2.2.6-3 NR report class]
+\ProvidesClass{nrdoc}[2006/01/05 v2.2.6-4 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -146,10 +146,12 @@
   \typeout{NRdoc warning: Report number not set}No number}
 \providecommand{\reportnumber}[1]{\renewcommand{\printreportnumber}{%
     \MakeUppercase{#1}}}
-
+\providecommand{\pdfprintkeywords}{%
+}
 \providecommand{\printkeywords}{%
-                \typeout{NRdoc warning: Keywords not defined}}
-\providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}}
+  \protect\typeout{NRdoc warning: Keywords not defined}}
+\providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}%
+                              \renewcommand{\pdfprintkeywords}{#1}}
 
 \providecommand{\printsubject}{}
 \providecommand{\subject}[1]{\renewcommand{\printsubject}{#1}}
@@ -857,7 +859,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \renewcommand{\maketitle}{%
   \setboolean{titlepagemade}{true}
   \hypersetup{pdftitle={\printtitle},
-              pdfkeywords={\printkeywords},
+              pdfkeywords={\pdfprintkeywords},
               pdfsubject={\printsubject},
               pdfauthor={\printauthorforpdf}
         }% 
