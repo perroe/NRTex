@@ -176,3 +176,4 @@
 }
 
 \newcommand{\section}[1]{\foilhead{\raisebox{10mm}[0pt]{\textcolor{white}{#1}}}\par\vspace{-25mm}\par}
+

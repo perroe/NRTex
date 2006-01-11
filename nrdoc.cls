@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2006/01/05 v2.2.6-4 NR report class]
+\ProvidesClass{nrdoc}[2006/01/10 v2.2.6-5 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -938,15 +938,26 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \def\ftype@example{2}
 
 \newenvironment{example}{%
-  \def\@captype{example}
-}{}
+
+  \list{}{\topsep 0pt%
+          \itemsep 0pt%
+          \labelwidth 0pt%
+          \leftmargin 0pt%
+          \listparindent \parindent%
+          \itemindent 0pt
+          \parsep 0pt}\item\relax%  
+ \def\@captype{example}%
+}{\endlist}
 
 \captionsetup[example]{%
+  belowskip=10pt,
+  position=above,
   format=default,
-  labelsep=period,
+  labelsep=period,  
   singlelinecheck=false,
   font={normalsize, rm},
-  labelfont=bf}
+  labelfont=bf%
+}
 
 % Titletoc formats the table of contents, LoF etc.
 \RequirePackage{titletoc}[2002/03/27]
