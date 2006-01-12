@@ -1074,9 +1074,9 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \ifthenelse{\boolean{norsk_selected}%
         \or%
         \boolean{nynorsk_selected}}{%    
-        \bibliographystyle{nrnorsk}
+        \bibliographystyle{apalike-url-norsk}
       }{%        
-        \bibliographystyle{plainnat}
+        \bibliographystyle{apalike-url}
       }
     }{%
       \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
@@ -1087,9 +1087,9 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
       \or%
       \boolean{nynorsk_selected}}{%
       \typeout{nrdoc uses alphabethic citation labels}
-      \bibliographystyle{nrnorsk}
+      \bibliographystyle{apalike-url-norsk}
     }{%
-      \bibliographystyle{plainnat} %\bibliographystyle{nrplain}
+      \bibliographystyle{apalike-url} %\bibliographystyle{nrplain}
       \typeout{nrdoc uses alphabethic citation labels}
     }
   }
