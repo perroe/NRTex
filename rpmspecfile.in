@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.24 2005-11-03 16:54:03 soleng Exp $
+# $Id: rpmspecfile.in,v 1.25 2006-01-12 14:38:54 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -50,12 +50,19 @@ rm -rf %{buildroot}
 /usr/share/texmf/tex/latex/nrdoc/logos/*
 /usr/share/texmf/tex/latex/nrdoc/elements/*
 /usr/share/texmf/doc/latex/nrdoc/manual.pdf
-/usr/share/texmf/bibtex/bst/nrdoc/nrplain.bst
+/usr/share/texmf/bibtex/bst/nrdoc/apalike-url.bst
+/usr/share/texmf/bibtex/bst/nrdoc/apalike-url-norsk.bst
+/usr/share/texmf/bibtex/bst/nrdoc/unsrturl.bst
 /usr/share/texmf/bibtex/bst/nrdoc/nrunsrt.bst
 /usr/share/texmf/bibtex/bst/nrdoc/nrnorsk.bst
+/usr/share/texmf/bibtex/bst/nrdoc/nrplain.bst
 
 
 %changelog
+* Thu Jan 12 2006 Harald H. Soleng <harald.soleng@nr.no>
+- Added url support in bibliographies.
+* Wed Jan 11 2006 Harald H. Soleng <harald.soleng@nr.no>
+- Fixed problems with pdf keywords. Version 2.2.6-5 
 * Thu Nov 03 2005 Harald H. Soleng <anders.loland@nr.no>
 - Anders fixed availability error. Version 2.2.6-2 
 * Thu Nov 03 2005 Harald H. Soleng <harald.soleng@nr.no>

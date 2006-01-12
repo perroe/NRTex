@@ -73,9 +73,9 @@ install: html manual printmanual rpm
 	cp nrfoils.cls $(INSTALLPATH)/
 	cp background.sty $(INSTALLPATH)/
 	cp manual.pdf $(INSTALLPATH)/	
-	cp nrplain.bst $(INSTALLPATH)/	
-	cp nrunsrt.bst  $(INSTALLPATH)/		
-	cp nrnorsk.bst  $(INSTALLPATH)/	
+	cp apalike-url-norsk.bst $(INSTALLPATH)/	
+	cp apalike-url.bst  $(INSTALLPATH)/		
+	cp unsrturl.bst  $(INSTALLPATH)/	
 	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
 	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
@@ -95,7 +95,8 @@ tgz:	manual
 	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png  ${TGZNAME}/logos; \
 	cp elements/*.eps elements/*.pdf ${TGZNAME}/elements; \
 	cp ${MAIN}.cls ${MAIN}old.cls nrfoils.cls background.sty \
-	$(MANUAL).pdf \
+	$(MANUAL).pdf apalike-url.bst apalike-url-norsk.bst \
+	unsrturl.bst \
 	nrunsrt.bst nrnorsk.bst  nrplain.bst ${TGZNAME}
 	tar cvfz ${TGZNAME}.tar.gz ${TGZNAME}
 

@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2006/01/10 v2.2.6-5 NR report class]
+\ProvidesClass{nrdoc}[2006/01/13 v2.2.6-6 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -1079,7 +1079,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
         \bibliographystyle{apalike-url}
       }
     }{%
-      \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
+      \bibliographystyle{unsrturl} %\bibliographystyle{nrunsrt}
     }
     \typeout{nrdoc uses numeric citation labels}
   }{%
