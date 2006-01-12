@@ -55,7 +55,9 @@
 \newboolean{dvips}
 \newboolean{nodesign}
 \newboolean{noindex}
+\newboolean{nobibstyle}
 
+\setboolean{nobibstyle}{false}
 \setboolean{noindex}{false}
 
 
@@ -227,6 +229,7 @@ defined}}
 }
 
 \DeclareOption{showlabels}{\setboolean{showlabels}{true}}
+\DeclareOption{nobibstyle}{\setboolean{nobibstyle}{true}}
 
 \DeclareOption{note}{\setboolean{report}{false}}
 \DeclareOption{report}{\setboolean{report}{true}}
@@ -1062,28 +1065,33 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 %   Bibliography and index
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifthenelse{\boolean{citenumeric}}{%
-  \ifthenelse{\boolean{citealphanumeric}}{%
+\ifthenelse{\boolean{nobibstyle}}{%
+  \typeout{NRdoc warning: No bibliography style set  by package. Use your own}
+}%
+{
+  \ifthenelse{\boolean{citenumeric}}{%
+    \ifthenelse{\boolean{citealphanumeric}}{%
+      \ifthenelse{\boolean{norsk_selected}%
+        \or%
+        \boolean{nynorsk_selected}}{%    
+        \bibliographystyle{nrnorsk}
+      }{%        
+        \bibliographystyle{plainnat}
+      }
+    }{%
+      \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
+    }
+    \typeout{nrdoc uses numeric citation labels}
+  }{%
     \ifthenelse{\boolean{norsk_selected}%
-                \or%
-                \boolean{nynorsk_selected}}{%    
-       \bibliographystyle{nrnorsk}
-     }{%        
-       \bibliographystyle{plainnat}
-     }
-  }{%
-       \bibliographystyle{unsrtnat} %\bibliographystyle{nrunsrt}
-  }
-  \typeout{nrdoc uses numeric citation labels}
-}{%
-  \ifthenelse{\boolean{norsk_selected}%
-    \or%
-    \boolean{nynorsk_selected}}{%
-    \typeout{nrdoc uses alphabethic citation labels}
-    \bibliographystyle{nrnorsk}
-  }{%
-    \bibliographystyle{plainnat} %\bibliographystyle{nrplain}
-    \typeout{nrdoc uses alphabethic citation labels}
+      \or%
+      \boolean{nynorsk_selected}}{%
+      \typeout{nrdoc uses alphabethic citation labels}
+      \bibliographystyle{nrnorsk}
+    }{%
+      \bibliographystyle{plainnat} %\bibliographystyle{nrplain}
+      \typeout{nrdoc uses alphabethic citation labels}
+    }
   }
 }
 
