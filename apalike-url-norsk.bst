@@ -81,7 +81,7 @@ INTEGERS { hrefform addeprints }
 % Following constants may be adjusted by hand, if desired
 FUNCTION {init.config.constants}
 {
-  "Available from: " 'urlintro :=  % prefix before URL
+  "Tilgjengelig fra: " 'urlintro :=  % prefix before URL
   "http://arxiv.org/abs/" 'eprinturl :=  % prefix to make URL from eprint ref
   "arXiv:" 'eprintprefix := % text prefix printed before eprint ref
   #0 'addeprints := % 0=no eprints; 1=include eprints
@@ -471,8 +471,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-	{ "pages" pages n.dashify tie.or.space.connect }
-	{ "page" pages tie.or.space.connect }
+	{ "side" pages n.dashify tie.or.space.connect }
+	{ "side" pages tie.or.space.connect }
       if$
     }
   if$
