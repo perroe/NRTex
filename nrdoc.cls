@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2006/01/13 v2.2.6-6 NR report class]
+\ProvidesClass{nrdoc}[2006/03/11 v2.2.7-0 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -134,6 +134,10 @@
 
 \providecommand{\printshorttitle}{\@title}
 \providecommand{\shorttitle}[1]{\renewcommand{\printshorttitle}{#1}}
+
+\providecommand{\@subtitle}{}
+\providecommand{\printsubtitle}{\@subtitle}
+\providecommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
 
 \providecommand{\printtitle}{\@title}
 \providecommand{\nrtitle}[1]{\renewcommand{\printtitle}{#1}}
@@ -625,6 +629,11 @@ the documentclass command!\MessageBreak}}{}
         \selectfont
         \raggedright
         \noindent\@title
+        \ifthenelse{\equal{\@subtitle}{}}{}{
+          \vspace{0.5em} 
+          \fontsize{20}{24} \selectfont\newline 
+          \@subtitle
+        }        
       \end{minipage}
     \end{textblock}
 }
