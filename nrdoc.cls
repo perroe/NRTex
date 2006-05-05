@@ -80,9 +80,11 @@
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
 \providecommand{\examplename}           {Example}
+\providecommand{\exercisename}          {Exercise}
 \providecommand{\emailname}             {e-mail}
 \providecommand{\keywordsname}          {Keywords}
 \providecommand{\listexamplename}       {List of Examples}
+\providecommand{\listexercisename}    	{List of Exercises}
 \providecommand{\numberofpagesname}     {Number of pages}
 \providecommand{\notename}              {Note}
 \providecommand{\nrdocument}            {NR Document}
@@ -338,9 +340,11 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
         \renewcommand{\examplename}             {Eksempel}
+        \renewcommand{\exercisename}            {Oppgave}
         \renewcommand{\emailname}               {e-post}
         \renewcommand{\keywordsname}            {Emneord}
         \renewcommand{\listexamplename}         {Eksempler}
+        \renewcommand{\listexercisename}        {Oppgaver}
         \renewcommand{\numberofpagesname}       {Antall sider}
         \renewcommand{\notename}                {Notat}
         \renewcommand{\openavailable}           {{\AA}pen}
@@ -362,6 +366,8 @@ the documentclass command!\MessageBreak}}{}
 %  Nynorsk
 \ifthenelse{\boolean{nynorsk_selected}}{%
         \renewcommand{\listexamplename}         {Eksempel}
+        \renewcommand{\listexercisename}        {Oppgåver}
+        \renewcommand{\exercisename}        	{Oppgåve}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
         \renewcommand{\availabilitylevelopen}   {Open}
@@ -971,6 +977,55 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   labelfont=bf%
 }
 
+% Exercise
+\newcommand{\listofexercises}{% 
+  \clearemptydoublepage
+  \ifthenelse{\boolean{longreport}}{%
+    \chapter*{\listexercisename}}{%
+    \section*{\listexercisename}}
+  \addtocontents{loe}{\protect\hypertarget{loe}{}%
+    \protect\pdfbookmark[1]{\listexercisename}{loe}}
+  \@starttoc{loe}%
+  \clearemptydoublepage
+}
+
+
+% Exercise environment
+\ifthenelse{\boolean{longreport}}{
+  \newcounter{exercise}[chapter]
+  \def\theexercise{\thechapter.\@arabic\c@exercise}
+}{
+  \newcounter{exercise}[section]
+  \def\theexercise{\thesection.\@arabic\c@exercise}
+}
+\let\l@exercise\l@figure
+\providecommand\ext@exercise{loe}
+\providecommand\fnum@exercise{\exercisename~\theexercise}
+\def\toclevel@exercise{0}
+\def\ftype@exercise{2}
+
+\newenvironment{exercise}{%
+
+  \list{}{\topsep 0pt%
+          \itemsep 0pt%
+          \labelwidth 0pt%
+          \leftmargin 0pt%
+          \listparindent \parindent%
+          \itemindent 0pt
+          \parsep 0pt}\item\relax%  
+ \def\@captype{exercise}%
+}{\endlist}
+
+\captionsetup[exercise]{%
+  belowskip=10pt,
+  position=above,
+  format=default,
+  labelsep=period,  
+  singlelinecheck=false,
+  font={normalsize, rm},
+  labelfont=bf%
+}
+
 % Titletoc formats the table of contents, LoF etc.
 \RequirePackage{titletoc}[2002/03/27]
 \contentsmargin{2em}
@@ -1013,6 +1068,11 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
 \contentsuse{example}{loe}
 \titlecontents{example}[2em]%
+  {\sffamily}{\contentslabel{2em}}%
+  {\hspace{-2em}}%
+  {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
+\contentsuse{exercise}{loe}
+\titlecontents{exercise}[2em]%
   {\sffamily}{\contentslabel{2em}}%
   {\hspace{-2em}}%
   {\textnormal{\sffamily\titlerule*[1pc]{.}}\contentspage}
