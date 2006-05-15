@@ -511,6 +511,10 @@ the documentclass command!\MessageBreak}}{}
 % Load geometry and set page layout
 \RequirePackage{geometry}[2002/07/08]
 
+\ifthenelse{\boolean{screen}}{%
+\geometry{a4paper, left=30mm, right=30mm, 
+top=20mm, bottom=35mm,
+footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 
 \ifthenelse{\boolean{onesided}}{%
 \typeout{Selecting onesided page geometry}

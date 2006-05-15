@@ -33,6 +33,12 @@
 \setboolean{handouts}{false}
 \newboolean{white}
 \setboolean{white}{false}
+
+
+\providecommand{\@subtitle}{}
+\providecommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+
+
 % -------  Options
 
 
@@ -162,7 +168,8 @@
   \vspace*{\stretch{2}}
   \begin{flushleft}
     
-     {\large\bfseries \@title \par}
+     {\large\bfseries \@title \par} 
+     {\normalsize\bfseries \@subtitle \par}
      \vskip\titleauthorskip
      {\small\lineskip \authorauthorskip
        \@author
