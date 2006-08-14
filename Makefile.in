@@ -10,7 +10,7 @@ MANUAL = manual
 PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 
-WEBPATH = /nr/www/virtual/intern.nr.no/htdocs/drift
+WEBPATH = /nr/www/virtual/files.nr.no/htdocs
 VERSION = <<version_number>>
 PATCH   = <<patch_number>>
 TGZNAME = nrtex-${VERSION}
@@ -18,7 +18,7 @@ RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
              --define "_rpmdir $$PWD" \
              --define "_srcrpmdir $$PWD"
-RPMFILE = i386/nrtex-${VERSION}-${PATCH}.i386.rpm
+RPMFILE = i586/nrtex-${VERSION}-${PATCH}.i586.rpm
 
 .SUFFIXES: .tex .dvi .pdf
 
@@ -76,7 +76,7 @@ install: html manual printmanual rpm
 	cp apalike-url-norsk.bst $(INSTALLPATH)/	
 	cp apalike-url.bst  $(INSTALLPATH)/		
 	cp unsrturl.bst  $(INSTALLPATH)/	
-	cp nrdoc.html $(WEBPATH)/info/latex-maler.html
+	cp nrdoc.html $(WEBPATH)/latex-maler/index.html
 	cp $(MANUAL).pdf $(WEBPATH)/latex-maler/	
 	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
 	cp -r $(MANUAL).web/*  $(WEBPATH)/latex-maler/$(MANUAL).web/	
