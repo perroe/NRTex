@@ -18,7 +18,10 @@ RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
              --define "_rpmdir $$PWD" \
              --define "_srcrpmdir $$PWD"
-RPMFILE = i586/nrtex-${VERSION}-${PATCH}.i586.rpm
+
+RPMPATH = i586
+
+RPMFILE = nrtex-${VERSION}-${PATCH}.i586.rpm
 
 .SUFFIXES: .tex .dvi .pdf
 
@@ -81,7 +84,10 @@ install: html manual printmanual rpm
 	cp $(MANUAL).tex $(WEBPATH)/latex-maler/
 	cp -r $(MANUAL).web/*  $(WEBPATH)/latex-maler/$(MANUAL).web/	
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
-	cp $(RPMFILE) $(WEBPATH)/latex-maler/
+	cp $(RPMPATH)/$(RPMFILE) $(WEBPATH)/latex-maler/
+	rm -f $(WEBPATH)/latex-maler/nrtex.i586.rpm 
+	ln -s $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
+	chgrp -R www  $(WEBPATH)/latex-maler
 
 clean:
 	rm -f  *~ *.aux *.dvi \
