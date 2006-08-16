@@ -1,4 +1,4 @@
-# $Id: rpmspecfile.in,v 1.25 2006-01-12 14:38:54 soleng Exp $
+# $Id: rpmspecfile.in,v 1.26 2006-08-16 11:36:42 soleng Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
@@ -31,7 +31,7 @@ mkdir -p -m755  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/elements/
 install -m644 manual.pdf  %{buildroot}/usr/share/texmf/doc/latex/nrdoc/
 install -m644 logos/*.eps logos/*.pdf logos/*.jpg logos/*.png %{buildroot}/usr/share/texmf/tex/latex/nrdoc/logos/
 install -m644 elements/*.eps elements/*.pdf  %{buildroot}/usr/share/texmf/tex/latex/nrdoc/elements/
-install -m644 nrdoc.cls nrdocold.cls nrfoils.cls background.sty %{buildroot}/usr/share/texmf/tex/latex/nrdoc/
+install -m644 nrdoc.cls nrdocold.cls nrfoils.cls background.sty pause.sty %{buildroot}/usr/share/texmf/tex/latex/nrdoc/
 install -m644 *.bst %{buildroot}/usr/share/texmf/bibtex/bst/nrdoc/
 
 %clean
@@ -47,6 +47,7 @@ rm -rf %{buildroot}
 /usr/share/texmf/tex/latex/nrdoc/nrdocold.cls
 /usr/share/texmf/tex/latex/nrdoc/nrfoils.cls
 /usr/share/texmf/tex/latex/nrdoc/background.sty
+/usr/share/texmf/tex/latex/nrdoc/pause.sty
 /usr/share/texmf/tex/latex/nrdoc/logos/*
 /usr/share/texmf/tex/latex/nrdoc/elements/*
 /usr/share/texmf/doc/latex/nrdoc/manual.pdf
@@ -59,6 +60,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Aug 16 2006 Harald H. Soleng <harald.soleng@nr.no>
+- Added pause.sty.
 * Thu Jan 12 2006 Harald H. Soleng <harald.soleng@nr.no>
 - Added url support in bibliographies.
 * Wed Jan 11 2006 Harald H. Soleng <harald.soleng@nr.no>
