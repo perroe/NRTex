@@ -15,7 +15,7 @@
 \RequirePackage{color} 
 
 
-\RequirePackage[urlcolor=yellow]{hyperref}
+\RequirePackage[urlcolor=yellow,citecolor=black]{hyperref}
 
 \RequirePackage{pause}
 \RequirePackage{moreverb}
