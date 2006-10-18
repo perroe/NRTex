@@ -197,6 +197,8 @@ defined}}
 \providecommand{\researchfield}[1]{\renewcommand{\printresearchfield}{#1}}
 
 \newboolean{frontpagefiguredefined}
+\setboolean{frontpagefiguredefined}{false}
+
 \providecommand{\frontpagefigurefile}{}
 \providecommand{\frontpagefigurecpright}{}
 \providecommand{\frontpagefigure}[2][{}]{%
