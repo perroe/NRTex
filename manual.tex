@@ -223,14 +223,14 @@ given here (and in Figure \ref{fig:logo}):
 \begin{verbatim}
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=8cm,angle=45]{figs/fotball}
+    \includegraphics[width=0.3\linewidth,angle=45]{figs/fotball}
     \caption{\label{fig:logo} Rolling NR ball.}
   \end{center}
 \end{figure}
 \end{verbatim}
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=8cm,angle=45]{figs/fotball}
+    \includegraphics[width=0.3\linewidth,angle=45]{figs/fotball}
     \caption{\label{fig:logo} Rolling NR ball.}
   \end{center}
 \end{figure}
@@ -275,6 +275,41 @@ packages so that the full power of these extensions are available.
 \end{split}
 \end{align}
 
+\section{The example environment\index{example}}
+
+The example environment enables inclusion of numbered examples in your
+notes and reports.
+\begin{example}\caption{Example of example --  a quote!}
+\begin{quote}
+"Dirty-looking rascals, but I suppose every one has some little
+immortal spark concealed about him. You would not think it, to look at
+them. There is no a priori probability about it. A strange enigma is
+man!" 
+
+"Winwood Reade is good upon the subject," said Holmes. "He
+remarks that, while the individual man is an insoluble puzzle, in the
+aggregate he becomes a mathematical certainty. You can, for example,
+never foretell what any one man will do, but you can say with
+precision what an average number will be up to. Individuals vary, but
+percentages remain constant. So says the statistician." 
+
+\textit{--The Sign of Four , Arthur Conan Doyle}
+\end{quote}
+\end{example}
+Note that each example must have a title, which is given in a caption;
+\begin{verbatim}
+\begin{example}\caption{Example of example --  a quote!}
+\begin{quote}
+"Dirty-looking rascals, but I suppose every one has some little
+...
+percentages remain constant. So says the statistician." 
+
+\textit{--The Sign of Four , Arthur Conan Doyle}
+\end{quote}
+\end{example}
+\end{verbatim}
+A list of examples can be generated using the command \verb+\listofexamples+\index{listofexamples@\verb+\listofexamples+}.
+
 \section{Citation using {Bib}\TeX}
  
 Citations\index{cite}
@@ -291,7 +326,7 @@ numerical citations due to external demands.}  is used.
 The required style files are 
 automatically loaded by \texttt{nrdoc} and support both norsk
 and english. Some examples are given in Table \ref{tab:cite}.    
-\begin{table}[ht]
+\begin{table}[htb]
 \centering
 \begin{tabular}{lll}
 \hline
@@ -431,7 +466,6 @@ Also contains a useful \texttt{comment} environment.
 For more information about most of these packages,
 consult the book by \cite{latexcompanion}.
 
-\pagebreak
 \section{Shortcomings}
 
 Pdf bookmarks does not work correctly for chapters and sections in appendices.
