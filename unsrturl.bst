@@ -815,11 +815,12 @@ FUNCTION {inproceedings}
 	  publisher output
 	  format.date "year" output.check
 	}
-	{ address output.nonnull
+	{	 
+	  organization output 
+          new.sentence
+	  publisher output 
+          address output.nonnull
 	  format.date "year" output.check
-	  new.sentence
-	  organization output
-	  publisher output
 	}
       if$
     }
