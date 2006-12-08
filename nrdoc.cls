@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2006/03/11 v2.2.7-0 NR report class]
+\ProvidesClass{nrdoc}[2006/12/08 v2.2.8-0 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -21,6 +21,7 @@
 \RequirePackage{calc}               % for math in class file
 \RequirePackage{textcase}
 \RequirePackage{ifpdf}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -400,6 +401,8 @@ the documentclass command!\MessageBreak}}{}
 \RequirePackage{float}          % for float control
 \RequirePackage[plain]{algorithm}       % algorithm
 
+
+
 \ifpdf\RequirePackage{thumbpdf} \fi      % for thumbnails
 
 \RequirePackage{afterpage}      % for float control
@@ -426,6 +429,7 @@ the documentclass command!\MessageBreak}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Loading other packages after the base class
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \ifthenelse{\boolean{showlabels}}{%
  \RequirePackage{showlabels}}
@@ -454,6 +458,7 @@ the documentclass command!\MessageBreak}}{}
 }{%
  \RequirePackage[sort,round]{natbib}
 }
+
 
 % NR profile blue in CMYK values
 \definecolor{nrblue}{cmyk}{1,0.66,0,0}
@@ -564,6 +569,10 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 \titlespacing{\subsection}{0pt}{\baselineskip-\parskip}{-\parskip}
 \titlespacing{\subsubsection}{0pt}{\baselineskip-\parskip}{-\parskip}
 
+
+\RequirePackage[absolute]{textpos}[2003/09/07]
+
+
 % Format the captions
 \RequirePackage{caption}[2004/01/23]
 \captionsetup{%
@@ -572,8 +581,7 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
   singlelinecheck=false,
   font={small, sf}}
 
-% Absolute positioning of elements, handy for the front page
-\RequirePackage[absolute]{textpos}[2003/09/07]
+\RequirePackage{subfig}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -877,6 +885,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \setcounter{figure}{0}%
   \renewcommand{\thefigure}{\thesection.\arabic{figure}}%
   \gdef\theHfigure{\theHsection.\arabic{figure}}%
+  \gdef\theHsubfigure{\theHfigure.\arabic{subfigure}}%
   }%
 }
 
@@ -1170,9 +1179,11 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   }
 }
 
-\renewenvironment{thebibliography}[1]{%
+\renewenvironment{thebibliography}[1]{% 
   \ifthenelse{\boolean{longreport}}{%
+    \phantomsection
     \chapter*{\refname}\addcontentsline{toc}{chapter}{\refname}}{%
+    \phantomsection
     \section*{\refname}\addcontentsline{toc}{section}{\refname}}
   \list{\@biblabel{\@arabic\c@enumiv}}{%
     \settowidth\labelwidth{\@biblabel{#1}}%
