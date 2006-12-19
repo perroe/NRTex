@@ -619,7 +619,7 @@ FUNCTION {format.thesis.type}
 
 FUNCTION {format.tr.number}
 { type empty$
-    { "Technical Report" }
+    { "Teknisk rapport" }
     'type
   if$
   number empty$
