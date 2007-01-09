@@ -90,7 +90,7 @@
 \raisebox{-205.5mm}[0pt][0pt]{%
 \mbox{}\hspace{-0mm}\textcolor{nrblue}{%
 \rule{1.05\paperwidth}{25mm}}}\\[-\baselineskip]%
-\raisebox{-205.5mm}[0pt][0pt]{%
+\raisebox{-205.0mm}[0pt][0pt]{%
 \mbox{}\hspace{7mm}\includegraphics[height=25mm]{logos/NR_wave}}\\[-\baselineskip]%
 \raisebox{-195mm}[0pt][0pt]{%
 \hspace{270mm}\textcolor{white}{\textsf{\tiny\thepage}}}%
