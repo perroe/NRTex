@@ -6,7 +6,7 @@
 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nrfoils}[2005/12/19]
+\ProvidesClass{nrfoils}[2007/04/27]
 
 \RequirePackage{ifthen}
 \RequirePackage{babel}
@@ -123,6 +123,7 @@
 \renewcommand{\labelitemii}{\textcolor{black}{$\star$}}
 \renewcommand{\labelitemiii}{\textcolor{black}{$\ast$}}
 \renewcommand{\labelitemiv}{\textcolor{black}{$\circ$}}
+\hypersetup{urlcolor=nrblue}
 
 }{%
 \renewcommand{\labelitemi}{\textcolor{red}{$\bullet$}}
