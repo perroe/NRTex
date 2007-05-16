@@ -749,7 +749,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
     geologien i petroleumsreservoarer og overv{\aa}king av
     klimaendringer. NR er ogs{\aa} ledende i Norge innen utvalgte
     deler av informasjons- og kommunikasjonsteknologi.
-    Problemstillinger kan v{\ae}re overv{\aa}ke inntrengning i
+    Problemstillinger kan v{\ae}re {\aa} overv{\aa}ke inntrengning i
     datasystemer, e-l{\ae}ring i skole og n{\ae}ringsliv, bruk av
     datateknologi i markedsanalyser samt anvendelser av multimedia
     p{\aa} forskjellige plattformer. NRs visjon er
