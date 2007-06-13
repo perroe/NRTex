@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2007/06/11 v2.2.10-0 NR report class]
+\ProvidesClass{nrdoc}[2007/06/11 v2.2.10-1 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -764,13 +764,16 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 % If several entries are required, use multiple calls to
 % \aboutpageentry and separate them with \par\bigskip as in
 % \aboutpagetext below.
-\providecommand{\aboutothers}{}
+\providecommand{\aboutotherstext}{}
+
+\providecommand{\aboutothers}[2]{%
+\renewcommand{\aboutotherstext}{\aboutpageentry{#1}{#2}}}
 
 \providecommand{\printaboutpagetext}{%
   \ifthenelse{\boolean{aboutauthors}}{%
   \aboutpageentry{\aboutauthorsheading}{\aboutauthorstext}\par\bigskip}{}
   \aboutpageentry{\nrname}{\aboutnrtext}\par\bigskip
-  \aboutothers
+  \aboutotherstext\par\bigskip
 }
 
 \providecommand{\nraboutpage}{%
