@@ -11,7 +11,7 @@
 
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 
-\ProvidesClass{nrdoc}[2007/06/11 v2.2.10-1 NR report class]
+\ProvidesClass{nrdoc}[2007/10/08 v2.2.11-1 NR report class]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding logic and math to latex for easy programming
@@ -65,7 +65,8 @@
 \newcounter{numberofauthors}
 \setcounter{numberofauthors}{1}
 
-
+\newcounter{largenumberofauthors}
+\setcounter{largenumberofauthors}{4}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Adding new functions
@@ -670,7 +671,12 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
         }
         && \printreportnumber\\
         \colorbox{nrblue}{\textcolor{white}{\authorname}}
-        && \@author\\
+        && 
+        \ifthenelse{\value{numberofauthors}>\value{largenumberofauthors}}{\vspace{-2em}\begin{multicols}{2}
+        }{}
+        \@author 
+        \ifthenelse{\value{numberofauthors}>\value{largenumberofauthors}}{\end{multicols}}{}
+        \\
         \colorbox{nrblue}{\textcolor{white}{\datename}}
         && \@date\\
         \ifthenelse{\boolean{report}}{%
