@@ -57,6 +57,8 @@
 \newboolean{nodesign}
 \newboolean{noindex}
 \newboolean{nobibstyle}
+\newboolean{utf8}
+\setboolean{utf8}{false}
 
 \setboolean{nobibstyle}{false}
 \setboolean{noindex}{false}
@@ -221,6 +223,7 @@ defined}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \DeclareOption{noindex}{\setboolean{noindex}{true}}
+\DeclareOption{utf8}{\setboolean{utf8}{true}}
 
 \DeclareOption{long}{\setboolean{longreport}{true}}
 \DeclareOption{10pt}{%
@@ -370,8 +373,8 @@ the documentclass command!\MessageBreak}}{}
 %  Nynorsk
 \ifthenelse{\boolean{nynorsk_selected}}{%
         \renewcommand{\listexamplename}         {Eksempel}
-        \renewcommand{\listexercisename}        {Oppgåver}
-        \renewcommand{\exercisename}        	{Oppgåve}
+        \renewcommand{\listexercisename}        {Oppg\aa ver}
+        \renewcommand{\exercisename}        	{Oppg\aa ve}
         \renewcommand{\authorname}              {Forfattar\ifthenelse{\value{numberofauthors}>1}{ar}{}}
         \renewcommand{\availabilityname}        {Tilgjengeleg}
         \renewcommand{\availabilitylevelopen}   {Open}
@@ -388,7 +391,7 @@ the documentclass command!\MessageBreak}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \RequirePackage[T1]{fontenc}
-\RequirePackage[latin1]{inputenc}
+
 \RequirePackage{amsmath}        % for advanced math
 \RequirePackage{fancyhdr}       % for headers
 \RequirePackage{rotating}       % for text rotation
@@ -414,7 +417,9 @@ the documentclass command!\MessageBreak}}{}
   \RequirePackage{babel}
 }{}
 
-
+\ifthenelse{\boolean{utf8}}{%
+\RequirePackage[utf8]{inputenc}}{%
+\RequirePackage[latin1]{inputenc}}
 
 
 
