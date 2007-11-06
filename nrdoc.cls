@@ -34,7 +34,7 @@
 %\setboolean{pdfdataset}{false}
 
 \newboolean{aboutauthors}\setboolean{aboutauthors}{false}
-
+\newboolean{qualityassurance}\setboolean{qualityassurance}{false}
 
 \newboolean{longreport}
 \newboolean{onesided} 
@@ -83,6 +83,7 @@
 \providecommand{\availabilitylevelstrictlyconfidential} {Strictly confidential}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
+\providecommand{\qaname}              	{Quality assurance}
 \providecommand{\examplename}           {Example}
 \providecommand{\exercisename}          {Exercise}
 \providecommand{\emailname}             {e-mail}
@@ -109,6 +110,7 @@
 
 
 \providecommand{\aboutauthors}[1]{\setboolean{aboutauthors}{true}\renewcommand{\aboutauthorstext}{#1}}
+\providecommand{\qa}[1]{\setboolean{qualityassurance}{true}\renewcommand{\printqa}{#1}}
 
 \providecommand{\designelement}[1]{%
   \ifthenelse{\boolean{nodesign}}{%
@@ -160,6 +162,11 @@
     \MakeUppercase{#1}}}
 \providecommand{\pdfprintkeywords}{%
 }
+\providecommand{\printqa}{%
+  \typeout{NRdoc warning: QA person undefined}Unknown}
+\providecommand{\printqatext}{%
+  \ifthenelse{\boolean{qualityassurance}}{%
+       \titleitem{\qaname}	\printqa}{}}
 \providecommand{\printkeywords}{%
   \protect\typeout{NRdoc warning: Keywords not defined}}
 \providecommand{\keywords}[1]{\renewcommand{\printkeywords}{#1}%
@@ -346,6 +353,7 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\availabilitylevelcondidential}           {Konfidensiell}
         \renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
+	\renewcommand{\qaname}              	{Kvalitetssikring} 
         \renewcommand{\examplename}             {Eksempel}
         \renewcommand{\exercisename}            {Oppgave}
         \renewcommand{\emailname}               {e-post}
@@ -702,7 +710,22 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 }
 
 \providecommand{\nrfrontpage}{%
-  \ifthenelse{\boolean{draftversion}}{}{% else final version
+  \ifthenelse{\boolean{draftversion}}{
+    \thispagestyle{empty}%
+    \noindent
+    \setboolean{hidden}{true}%\typeout{Making front page!}
+        % Write authors outside page.    
+    \makebox[0pt]{\mbox{}\hspace{100cm}\textcolor{white}{\@author}}
+    \setboolean{hidden}{false}
+    \frontpageprinttitle
+    \frontpageprintmatter
+    \frontpageprintfigure
+    \frontpageprintelements
+    % Trick LaTeX into believing there is something here...
+    \hspace{0pt}
+    \clearpage
+   }
+   {% else final version
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
@@ -787,6 +810,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \aboutotherstext\par\bigskip
 }
 
+
 \providecommand{\nraboutpage}{%
   \thispagestyle{empty}
   \noindent
@@ -833,7 +857,8 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
   \begin{titlelist}
     \titleitem{\textbf{\large\titlename}}{\textbf{\large\printtitle}}
     \titleitem{\textbf{\authorname}}     {\textbf{\@author}}
-    \titleitem{\datename}                {\@date}
+    \printqatext
+   \titleitem{\datename}                {\@date}
 %    \titleitem{\yearname}                {\printyear}
     \ifthenelse{\boolean{report}}{\titleitem{\isbnname}{\printisbn}}{}
     \titleitem{\publicationnumbername}   {\printreportnumber}
