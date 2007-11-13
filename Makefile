@@ -11,8 +11,8 @@ PRINT  = printmanual
 INSTALLPATH = /nr/group/maler/nrdoc
 
 WEBPATH = /nr/www/virtual/files.nr.no/htdocs
-VERSION = 2.3.0
-PATCH   = 1
+VERSION = 2.4.0
+PATCH   = 0
 TGZNAME = nrtex-${VERSION}
 RPMFLAGS =   --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
@@ -87,7 +87,7 @@ install: html manual printmanual rpm
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 	cp $(RPMPATH)/$(RPMFILE) $(WEBPATH)/latex-maler/
 	rm -f $(WEBPATH)/latex-maler/nrtex.i586.rpm 
-	ln -s $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
+	cp $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
 	chgrp -Rf www  $(WEBPATH)/latex-maler
 
 clean:
