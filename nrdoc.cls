@@ -198,10 +198,11 @@ defined}}
 \providecommand{\availability}[1]{%
 \ifthenelse{\equal{#1}{Open}}{\renewcommand{\availabilitylevel}{\availabilitylevelopen}}{%
 \ifthenelse{\equal{#1}{Internal}}{\renewcommand{\availabilitylevel}{\availabilitylevelinternal}}{%
+\ifthenelse{\equal{#1}{StatoilHydro restricted}}{\renewcommand{\availabilitylevel}{\availabilitylevelstatoilhydro}}{%
 \ifthenelse{\equal{#1}{Confidential}}{}{%
 \ifthenelse{\equal{#1}{Strictlyconfidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelstrictlyconfidential}}{%
 \typeout{NRdoc warning: Unknown availability level: #1} %
-}}}}
+}}}}}
 \renewcommand{\printavailability}{\availabilitylevel}}
 
 \providecommand{\printresearchfield}{%
