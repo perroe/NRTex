@@ -79,7 +79,8 @@
 \providecommand{\availabilitylevel}                     {Confidential}
 \providecommand{\availabilitylevelopen}                 {Open}
 \providecommand{\availabilitylevelinternal}             {Internal}
-\providecommand{\availabilitylevelcondidential}         {Confidential}
+\providecommand{\availabilitylevelconfidential}         {Confidential}
+\providecommand{\availabilitylevelstatoilhydro}         {StatoilHydro restricted}
 \providecommand{\availabilitylevelstrictlyconfidential} {Strictly confidential}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
@@ -350,7 +351,8 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\availabilitylevel}                       {Konfidensiell}
         \renewcommand{\availabilitylevelopen}                   {{\AA}pen}
         \renewcommand{\availabilitylevelinternal}               {Intern}
-        \renewcommand{\availabilitylevelcondidential}           {Konfidensiell}
+        \renewcommand{\availabilitylevelconfidential}           {Konfidensiell}
+        \renewcommand{\availabilitylevelstatoilhydro}           {StatoilHydro begrenset}
         \renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
 	\renewcommand{\qaname}              	{Kvalitetssikring} 
