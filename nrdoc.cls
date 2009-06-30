@@ -44,7 +44,9 @@
 \newboolean{showlabels}
 \newboolean{closedavailability}
 \newboolean{noindentpar}
-\setboolean{noindentpar}{false}
+\setboolean{noindentpar}{true}
+\newboolean{indentpar}
+\setboolean{indentpar}{false}
 \newboolean{firstindent}
 \newboolean{language_selected}
 \newboolean{norsk_selected}
@@ -293,6 +295,7 @@ the documentclass command!\MessageBreak}}{}
 
 \DeclareOption{closed}{\setboolean{closedavailability}{true}}
 \DeclareOption{noindentpar}{\setboolean{noindentpar}{true}}
+\DeclareOption{indentpar}{\setboolean{noindentpar}{false}}
 % The bluelines option is obsolete (kept for backwards compatability)
 \DeclareOption{bluelines}{\typeout{NRdoc warning: Option bluelines is obsolete.}}
 \DeclareOption{american}{\PassOptionsToPackage{american}{babel}
@@ -610,9 +613,10 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 
 % Fix layout of list environments with utilities from the paralist
 % package.
-\setdefaultitem{\textperiodcentered}{--}
+\setdefaultitem{\textbullet}%\textperiodcentered
+               {--}
                {\textasteriskcentered}%{\footnotesize\textbullet}
-               {\textbullet}
+               {\textperiodcentered}
 \setdefaultenum{1.}{a.}{1)}{a)}
 \setdefaultleftmargin{2em}{2em}{2em}{2em}{1em}{1em}
 
