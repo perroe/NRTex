@@ -1,11 +1,12 @@
-# $Id: rpmspecfile.in,v 1.26 2006-08-16 11:36:42 soleng Exp $
+# $Id: rpmspecfile.in,v 1.27 2009-07-01 13:32:58 perroe Exp $
 
 # %_topdir: $HOME/nrtex/rpm
 Summary: NR Latex document class
 Name: nrtex
 Version: <<version_number>>
 Release: <<patch_number>>
-Copyright: Norwegian Computing Center
+License: (C) Norwegian Computing Center 2009
+Vendor:  Norwegian Computing Center
 Group: Applications/Publishing
 BuildRoot: %{_builddir}/%{name}-root
 Source0:  %{name}-%{version}.tar.gz
@@ -60,6 +61,8 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jul 01 2009 Per Røe <per.roe@nr.no>
+- Replaced Copyright with License.
 * Wed Aug 16 2006 Harald H. Soleng <harald.soleng@nr.no>
 - Added pause.sty.
 * Thu Jan 12 2006 Harald H. Soleng <harald.soleng@nr.no>
