@@ -5,62 +5,57 @@
 #
 #########################################################
 
-MAIN  = nrdoc
-MANUAL = manual
-PRINT  = printmanual
-INSTALLPATH = /nr/group/maler/nrdoc
+MAIN     := nrdoc
+MANUAL   := manual
+PRINT    := printmanual
+INSTALLPATH := /nr/group/maler/nrdoc
 
-WEBPATH = /nr/www/virtual/files.nr.no/htdocs
-VERSION = 2.4.0
-PATCH   = 0
-TGZNAME = nrtex-${VERSION}
-RPMFLAGS =   --define "_sourcedir $$PWD" \
+WEBPATH  := /nr/www/virtual/files.nr.no/htdocs
+VERSION  := 2.5.0
+PATCH    := 0
+TGZNAME  := nrtex-${VERSION}
+RPMFLAGS :=  --define "_sourcedir $$PWD" \
              --define "_builddir $$PWD/BUILD" \
              --define "_rpmdir $$PWD" \
              --define "_srcrpmdir $$PWD"
 
-RPMPATH = i586
+RPMPATH  := i586
 
-RPMFILE = nrtex-${VERSION}-${PATCH}.i586.rpm
+RPMFILE  := nrtex-${VERSION}-${PATCH}.i586.rpm
 
 .SUFFIXES: .tex .dvi .pdf
-
-.SILENT: config
+.SILENT:   config
+.PHONY:    all clean manual printmanual html install tgz rpm
 
 all:	manual
 
 config:
-	configure
+	./configure
 
 
-
-manual: 
-	latex '\scrollmode \input '"$(MANUAL)";\
-	makeindex $(MANUAL); \
-	bibtex $(MANUAL); \
-	latex '\scrollmode \input '"$(MANUAL)";\
+manual:  
+	pdflatex '\scrollmode \input '"$(MANUAL)";
+	makeindex $(MANUAL); 
+	bibtex $(MANUAL); 
+	pdflatex '\scrollmode \input '"$(MANUAL)";
 	while ( \
-	grep -s 'No file $(MANUAL).toc' $(MANUAL).log || \
-	grep -s 'Rerun to get cross-references right'\
-	$(MANUAL).log ); \
-	do latex '\scrollmode \input '"$(MANUAL)"; \
-	done; \
-	dvipdfm -p a4 -o   $(MANUAL).pdf $(MANUAL).dvi
+	    grep -s 'No file $(MANUAL).toc' $(MANUAL).log || \
+	    grep -s 'Rerun to get cross-references right' $(MANUAL).log ); \
+	    do pdflatex '\scrollmode \input '"$(MANUAL)"; \
+	    done; 
 
 
 printmanual: 
 	perl -e 'open (IFILE,"<manual.tex"); open(OFILE,">printmanual.tex"); while(<IFILE>) { s/\\documentclass\[note,screen,british,11pt\]\{nrdoc\}/\\documentclass\[note,twoside,british,11pt\]\{nrdoc\}/;print OFILE; } close(IFILE); close(OFILE)';
-	latex '\scrollmode \input '"$(PRINT)";\
-	makeindex $(PRINT); \
-	bibtex $(PRINT); \
-	latex '\scrollmode \input '"$(PRINT)";\
+	pdflatex '\scrollmode \input '"$(PRINT)";
+	makeindex $(PRINT); 
+	bibtex $(PRINT); 
+	pdflatex '\scrollmode \input '"$(PRINT)";
 	while ( \
-	grep -s 'No file $(PRINT).toc' $(PRINT).log || \
-	grep -s 'Rerun to get cross-references right'\
-	$(PRINT).log ); \
-	do latex '\scrollmode \input '"$(PRINT)"; \
-	done; \
-	dvipdfm -p a4 -o   $(PRINT).pdf $(PRINT).dvi
+	    grep -s 'No file $(PRINT).toc' $(PRINT).log || \
+	    grep -s 'Rerun to get cross-references right' $(PRINT).log ); \
+	    do pdflatex '\scrollmode \input '"$(PRINT)"; \
+	    done; 
 
 
 html:	
@@ -87,8 +82,8 @@ install: html manual printmanual rpm
 	cp $(PRINT).pdf $(WEBPATH)/latex-maler/
 	cp $(RPMPATH)/$(RPMFILE) $(WEBPATH)/latex-maler/
 	rm -f $(WEBPATH)/latex-maler/nrtex.i586.rpm 
-	cp $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
-	chgrp -Rf www  $(WEBPATH)/latex-maler
+	ln -s $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
+#	chgrp -Rf www  $(WEBPATH)/latex-maler   # Operation not permitted!
 
 clean:
 	rm -f  *~ *.aux *.dvi \
@@ -99,8 +94,8 @@ tgz:	manual
 	mkdir -p ${TGZNAME}
 	mkdir -p ${TGZNAME}/elements
 	mkdir -p ${TGZNAME}/logos
-	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png  ${TGZNAME}/logos; \
-	cp elements/*.eps elements/*.pdf ${TGZNAME}/elements; \
+	cp logos/*.pdf logos/*.eps logos/*.jpg logos/*.png  ${TGZNAME}/logos;
+	cp elements/*.eps elements/*.pdf ${TGZNAME}/elements; 
 	cp ${MAIN}.cls ${MAIN}old.cls nrfoils.cls background.sty pause.sty \
 	$(MANUAL).pdf apalike-url.bst apalike-url-norsk.bst \
 	unsrturl.bst \
@@ -110,5 +105,5 @@ tgz:	manual
 rpm:	tgz 
 	-rm -rf BUILD/*
 	mkdir -p BUILD
-	rpmbuild ${RPMFLAGS} -v -bb --clean  nrtex.spec
+	rpmbuild ${RPMFLAGS} --target i586 -v -bb --clean  nrtex.spec
 
