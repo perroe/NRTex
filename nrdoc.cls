@@ -602,7 +602,7 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
   font={small, sf}}
 
 \RequirePackage{subfig}
-
+\RequirePackage{eso-pic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Miscellaneous formatting
@@ -643,22 +643,19 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 \textblockorigin{0mm}{0mm}
 
 \providecommand{\frontpageprintelements}{%
-  \begin{textblock}{211}(0,0)
-    \noindent
-    \ifthenelse{\boolean{report}}{%
-      \ifthenelse{\boolean{norsk_selected} \or
-        \boolean{nynorsk_selected}}{%
-        \designelement{elements/rapport-s1}
-      }{%
-        \designelement{elements/report-s1}
-      }}{%
-      \ifthenelse{\boolean{norsk_selected} \or
-        \boolean{nynorsk_selected}}{%
-        \designelement{elements/notat-s1}
-      }{%
-        \designelement{elements/note-s1}
-      }}
-  \end{textblock}
+  \ifthenelse{\boolean{report}}{%
+    \ifthenelse{\boolean{norsk_selected} \or
+      \boolean{nynorsk_selected}}{%
+      \designelement{elements/rapport-s1}
+    }{%
+      \designelement{elements/report-s1}
+    }}{%
+    \ifthenelse{\boolean{norsk_selected} \or
+      \boolean{nynorsk_selected}}{%
+      \designelement{elements/notat-s1}
+    }{%
+      \designelement{elements/note-s1}
+    }}
 }
 
 \providecommand{\frontpageprinttitle}{
@@ -718,6 +715,7 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 
 \providecommand{\nrfrontpage}{%
   \ifthenelse{\boolean{draftversion}}{
+    \AddToShipoutPicture*{\frontpageprintelements}	
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
@@ -727,12 +725,12 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     \frontpageprinttitle
     \frontpageprintmatter
     \frontpageprintfigure
-    \frontpageprintelements
     % Trick LaTeX into believing there is something here...
     \hspace{0pt}
     \clearpage
    }
    {% else final version
+    \AddToShipoutPicture*{\frontpageprintelements}
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
@@ -742,7 +740,6 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     \frontpageprinttitle
     \frontpageprintmatter
     \frontpageprintfigure
-    \frontpageprintelements
     % Trick LaTeX into believing there is something here...
     \hspace{0pt}
     \clearpage
