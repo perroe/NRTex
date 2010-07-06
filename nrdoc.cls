@@ -759,39 +759,35 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 Use \texttt{$\backslash$aboutauthors} to enter author information.}
 
 \providecommand{\aboutnrtext}{%
-  Norsk Regnesentral (Norwegian Computing Center, NR) is a private,
-  independent, non-profit foundation established in 1952. NR carries
-  out contract research and development projects in the areas of
-  information and communication technology and applied statistical
-  modeling. The clients are a broad range of industrial, commercial
-  and public service organizations in the national as well as the
-  international market. Our scientific and technical capabilities are
-  further developed in co-operation with The Research Council of
-  Norway and key customers. The results of our projects may take the
-  form of reports, software, prototypes, and short courses. A proof of
-  the confidence and appreciation our clients have for us is given by
-  the fact that most of our new contracts are signed with previous
-  customers.}
+Norsk Regnesentral (Norwegian Computing Center, NR) is a private,
+independent, non-profit foundation established in 1952. NR carries out
+contract research and development projects in the areas of information
+and communication technology and applied statistical modelling. The
+clients are a broad range of industrial, commercial and public service
+organizations in the national as well as the international market. Our
+scientific and technical capabilities are further developed in
+co-operation with The Research Council of Norway and key
+customers. The results of our projects may take the form of reports,
+software, prototypes, and short courses. A proof of the confidence and
+appreciation our clients have for us is given by the fact that most of
+our new contracts are signed with previous customers.}
 
 % A separate translation into nynorsk should be provided here
 \ifthenelse{\boolean{norsk_selected} \or
   \boolean{nynorsk_selected}}{%
   \renewcommand{\aboutnrtext}{%
-    Norsk Regnesentral (NR) er en privat, uavhengig stiftelse som
-    utf{\o}rer oppdragsforskning for bedrifter og det offentlige i det
-    norske og internasjonale markedet. NR ble etablert i 1952 og har
-    kontorer i Informatikkbygningen ved Universitetet i Oslo. NR er et
-    av Europas st{\o}rste milj{\o}er innen anvendt statistikk. Det
-    jobbes med sv{\ae}rt mange forskjellige problemstillinger slik som
-    estimering av torskebestanden, finansiell risiko, beskrivelse av
-    geologien i petroleumsreservoarer og overv{\aa}king av
-    klimaendringer. NR er ogs{\aa} ledende i Norge innen utvalgte
-    deler av informasjons- og kommunikasjonsteknologi.
-    Problemstillinger kan v{\ae}re {\aa} overv{\aa}ke inntrengning i
-    datasystemer, e-l{\ae}ring i skole og n{\ae}ringsliv, bruk av
-    datateknologi i markedsanalyser samt anvendelser av multimedia
-    p{\aa} forskjellige plattformer. NRs visjon er
-    forskningsresultater som brukes og synes.}}{}
+ Norsk Regnesentral (NR) er en privat, uavhengig stiftelse som utf{\o}rer
+ oppdrags\-forskning for bedrifter og det offentlige i det norske og
+ internasjonale markedet. NR ble etablert i 1952 og har kontorer i
+ Informatikkbygningen ved Universitetet i Oslo. NR er et av Europas
+ st{\o}rste milj{\o}er innen anvendt statistikk. Det jobbes med sv{\ae}rt mange
+ forskjellige problemstillinger slik som finansiell risiko,
+ jordobservasjon, estimering av torskebestanden og beskrivelse av
+ geologien i petroleumsreservoarer. NR er ogs{\aa} ledende i Norge innen
+ utvalgte deler av informasjons- og kommunikasjonsteknologi. Innen
+ IKT-omr{\aa}det har NR innsatsomr{\aa}dene e-inkludering,
+ informasjonssikkerhet og multimedia multikanal. NRs visjon er
+ forskningsresultater som brukes og synes.}}{}
 
 % The command \aboutothers is provided to allow entries for other
 % organisations, eg. if an author is external to NR. A
