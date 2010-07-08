@@ -11,7 +11,7 @@ PRINT    := printmanual
 INSTALLPATH := /nr/group/maler/nrdoc
 
 WEBPATH  := /nr/www/virtual/files.nr.no/htdocs
-VERSION  := 2.5.1
+VERSION  := 2.6.0
 PATCH    := 0
 TGZNAME  := nrtex-${VERSION}
 RPMFLAGS :=  --define "_sourcedir $$PWD" \
