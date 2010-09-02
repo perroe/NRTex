@@ -202,6 +202,7 @@ defined}}
 \ifthenelse{\equal{#1}{Open}}{\renewcommand{\availabilitylevel}{\availabilitylevelopen}}{%
 \ifthenelse{\equal{#1}{Internal}}{\renewcommand{\availabilitylevel}{\availabilitylevelinternal}}{%
 \ifthenelse{\equal{#1}{StatoilHydro restricted}}{\renewcommand{\availabilitylevel}{\availabilitylevelstatoilhydro}}{%
+\ifthenelse{\equal{#1}{Statoil restricted}}{\renewcommand{\availabilitylevel}{\availabilitylevelstatoil}}{%
 \ifthenelse{\equal{#1}{Confidential}}{}{%
 \ifthenelse{\equal{#1}{Strictlyconfidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelstrictlyconfidential}}{%
 \typeout{NRdoc warning: Unknown availability level: #1} %
@@ -358,6 +359,7 @@ the documentclass command!\MessageBreak}}{}
         \renewcommand{\availabilitylevelinternal}               {Intern}
         \renewcommand{\availabilitylevelconfidential}           {Konfidensiell}
         \renewcommand{\availabilitylevelstatoilhydro}           {StatoilHydro begrenset}
+        \renewcommand{\availabilitylevelstatoil}           {Statoil begrenset}
         \renewcommand{\availabilitylevelstrictlyconfidential}   {Strengt konfidensiell}
         \renewcommand{\datename}                {Dato}
 	\renewcommand{\qaname}              	{Kvalitetssikring} 
