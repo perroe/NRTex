@@ -206,7 +206,7 @@ defined}}
 \ifthenelse{\equal{#1}{Confidential}}{}{%
 \ifthenelse{\equal{#1}{Strictlyconfidential}}{\renewcommand{\availabilitylevel}{\availabilitylevelstrictlyconfidential}}{%
 \typeout{NRdoc warning: Unknown availability level: #1} %
-}}}}}
+}}}}}}
 \renewcommand{\printavailability}{\availabilitylevel}}
 
 \providecommand{\printresearchfield}{%
