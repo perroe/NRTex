@@ -83,6 +83,7 @@
 \providecommand{\availabilitylevelinternal}             {Internal}
 \providecommand{\availabilitylevelconfidential}         {Confidential}
 \providecommand{\availabilitylevelstatoilhydro}         {StatoilHydro restricted}
+\providecommand{\availabilitylevelstatoil}         {Statoil restricted}
 \providecommand{\availabilitylevelstrictlyconfidential} {Strictly confidential}
 \providecommand{\closedavailable}       {Closed}
 \providecommand{\datename}              {Date}
