@@ -1,0 +1,5 @@
+nrtex (2.6.0) unstable; urgency=low
+
+  * Initial Release as a Debian package.
+
+ -- Thor Kristoffersen <thor@nr.no>  Tue, 07 Sep 2010 16:10:53 +0200

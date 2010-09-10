@@ -1,0 +1,13 @@
+Source: nrtex
+Section: unknown
+Priority: extra
+Maintainer: Thor Kristoffersen <thor@nr.no>
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, latex2html, texlive-science
+Standards-Version: 3.8.4
+Homepage: http://intern.nr.no/wiki/index.php/Latex-maler
+
+Package: nrtex
+Architecture: all
+Depends: ${misc:Depends}
+Description: TeX extensions for NR.
+ TeX extensions for NR.
