@@ -121,8 +121,11 @@ The note or publication number is given by
 \verb+\reportnumber+\index{reportnumber@\verb+\reportnumber+}.
 The keywords of the document are given by
 \verb+\keywords+\index{keywords@\verb+\keywords+}.
-The project number is given by 
-\verb+\project+\index{project@\verb+\project+}, and the target group by
+The project title is given by 
+\verb+\project+\index{project@\verb+\project+},
+the project number by
+\verb+\projectnumber+\index{projectnumber@\verb+\projectnumber+},
+ and the target group by
 \verb+\target+\index{target@\verb+\target+}.
 The research field is specified using
 \verb+\researchfield+\index{researchfield@\verb+\researchfield+}. Optionally, the name of a quality assurerer may be specified by
@@ -151,6 +154,7 @@ from NR's web site.
 \item Confidential\index{availability!confidential}: Confidential. 
 \item Strictlyconfidential\index{availability!strictly confidential}:
 Strictly confidential. 
+\item Statoil restricted\index{availability!Statoil restricted}: Statoil restricted. 
 \end{itemize}
 
 A typical preamble\index{preamble} then looks as follows:
@@ -159,7 +163,8 @@ A typical preamble\index{preamble} then looks as follows:
 \documentclass[note,screen,twoside,british,12pt]{nrdoc}
 \reportnumber{sand/03/03}
 \keywords{\LaTeX, NR}
-\project{}
+\project{Fun with \LaTeX}
+\projectnumber{314259}
 \frontpagefigure{figs/texfriendly} % No file extension.
 \target{All employees}
 \researchfield{}
