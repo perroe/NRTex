@@ -785,11 +785,11 @@ our new contracts are signed with previous customers.}
  Informatikkbygningen ved Universitetet i Oslo. NR er et av Europas
  st{\o}rste milj{\o}er innen anvendt statistikk. Det jobbes med sv{\ae}rt mange
  forskjellige problemstillinger slik som finansiell risiko,
- jordobservasjon, estimering av torskebestanden og beskrivelse av
- geologien i petroleumsreservoarer. NR er ogs{\aa} ledende i Norge innen
- utvalgte deler av informasjons- og kommunikasjonsteknologi. Innen
+ jord\-observasjon, estimering av torske\-bestanden og beskrivelse av
+ geologien i petroleums\-reservoarer. NR er ogs{\aa} ledende i Norge innen
+ utvalgte deler av informasjons- og kommunikasjons\-teknologi. Innen
  IKT-omr{\aa}det har NR innsatsomr{\aa}dene e-inkludering,
- informasjonssikkerhet og multimedia multikanal. NRs visjon er
+ informasjons\-sikkerhet og smarte infor\-masjons\-systemer. NRs visjon er
  forskningsresultater som brukes og synes.}}{}
 
 % The command \aboutothers is provided to allow entries for other
