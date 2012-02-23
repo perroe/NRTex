@@ -27,7 +27,7 @@ manual:
 	    done; 
 
 printmanual: 
-	perl -pe '$$. < 10 || s/,screen,/,twoside,/' manual.tex > printmanual.tex
+	perl -pe '$$. < 10 && s/,screen,/,twoside,/' manual.tex > printmanual.tex
 	pdflatex '\scrollmode \input $(PRINT)'
 	makeindex $(PRINT)
 	bibtex $(PRINT)
