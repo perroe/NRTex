@@ -43,30 +43,29 @@ html:
 	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
 install: html manual printmanual
-	install -d $(INSTALLPATH)
-	install -d $(INSTALLPATH)/elements
-	install -d $(INSTALLPATH)/logos
-	install -d $(WEBPATH)/latex-maler
-	install -d $(WEBPATH)/latex-maler/$(MANUAL).web
-	install nrdoc.cls $(INSTALLPATH)
-	install elements/*.eps $(INSTALLPATH)/elements
-	install elements/*.pdf $(INSTALLPATH)/elements
-	install logos/*.eps $(INSTALLPATH)/logos
-	install logos/*.pdf $(INSTALLPATH)/logos
-	install nrdocold.cls $(INSTALLPATH)
-	install nrfoils.cls $(INSTALLPATH)
-	install background.sty $(INSTALLPATH)
-	install pause.sty $(INSTALLPATH)
-	install manual.pdf $(INSTALLPATH)
-	install apalike-url-norsk.bst $(INSTALLPATH)
-	install apalike-url.bst $(INSTALLPATH)
-	install unsrturl.bst $(INSTALLPATH)
-	install nrdoc.html $(WEBPATH)/latex-maler/index.html
-	install $(MANUAL).pdf $(WEBPATH)/latex-maler
-	install $(MANUAL).tex $(WEBPATH)/latex-maler
-	install $(MANUAL).web/* $(WEBPATH)/latex-maler/$(MANUAL).web
-	install $(PRINT).pdf $(WEBPATH)/latex-maler
-#	chgrp -Rf www  $(WEBPATH)/latex-maler   # Operation not permitted!
+	install -m 775 -d $(INSTALLPATH)
+	install -m 775 -d $(INSTALLPATH)/elements
+	install -m 775 -d $(INSTALLPATH)/logos
+	install -m 775 -d $(WEBPATH)/latex-maler
+	install -m 775 -d $(WEBPATH)/latex-maler/$(MANUAL).web
+	install -m 775 nrdoc.cls $(INSTALLPATH)
+	install -m 775 elements/*.eps $(INSTALLPATH)/elements
+	install -m 775 elements/*.pdf $(INSTALLPATH)/elements
+	install -m 775 logos/*.eps $(INSTALLPATH)/logos
+	install -m 775 logos/*.pdf $(INSTALLPATH)/logos
+	install -m 775 nrdocold.cls $(INSTALLPATH)
+	install -m 775 nrfoils.cls $(INSTALLPATH)
+	install -m 775 background.sty $(INSTALLPATH)
+	install -m 775 pause.sty $(INSTALLPATH)
+	install -m 775 manual.pdf $(INSTALLPATH)
+	install -m 775 apalike-url-norsk.bst $(INSTALLPATH)
+	install -m 775 apalike-url.bst $(INSTALLPATH)
+	install -m 775 unsrturl.bst $(INSTALLPATH)
+	install -m 775 nrdoc.html $(WEBPATH)/latex-maler/index.html
+	install -m 775 $(MANUAL).pdf $(WEBPATH)/latex-maler
+	install -m 775 $(MANUAL).tex $(WEBPATH)/latex-maler
+	install -m 775 $(MANUAL).web/* $(WEBPATH)/latex-maler/$(MANUAL).web
+	install -m 775 $(PRINT).pdf $(WEBPATH)/latex-maler
 
 tgz:	manual
 	mkdir -p ${TGZNAME}
