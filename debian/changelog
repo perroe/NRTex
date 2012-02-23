@@ -1,3 +1,16 @@
+nrtex (2.6.2) unstable; urgency=low
+
+  * Updated "about NR" text.
+  * Printmanual is now not in screen format.
+
+ -- Per Røe <Per.Roe@nr.no>  Thu, 23 Feb 2012 10:38:00 +0200
+
+nrtex (2.6.1) unstable; urgency=low
+
+  * Updated "about NR" text.
+
+ -- Per Røe <Per.Roe@nr.no>  Tue, 29 Nov 2011 12:12:00 +0200
+
 nrtex (2.6.0) unstable; urgency=low
 
   * Initial Release as a Debian package.
