@@ -79,21 +79,22 @@
  
 
 \definecolor{nrblue}{RGB}{8,46,154}
+\definecolor{nrwhite}{RGB}{255,255,255}
 
 \rightfooter{}
 \rightheader{%
 \mbox{}\makebox[\textwidth]{%
 \begin{minipage}{1.05\paperwidth}
 \raisebox{-15mm}[0pt][0pt]{%
-\mbox{}\hspace{-0mm}\textcolor{nrblue}{%
+\mbox{}\hspace{-0mm}\textcolor{nrwhite}{%
 \rule{1.05\paperwidth}{30mm}}}\\[-\baselineskip]%
 \raisebox{-205.5mm}[0pt][0pt]{%
-\mbox{}\hspace{-0mm}\textcolor{nrblue}{%
+\mbox{}\hspace{-0mm}\textcolor{nrwhite}{%
 \rule{1.05\paperwidth}{25mm}}}\\[-\baselineskip]%
-\raisebox{-205.0mm}[0pt][0pt]{%
-\mbox{}\hspace{7mm}\includegraphics[height=25mm]{logos/NR_wave}}\\[-\baselineskip]%
+\raisebox{-198.0mm}[0pt][0pt]{%
+\mbox{}\hspace{15mm}\includegraphics[height=20mm]{logos/NR-logo_grunnform_stor_rgb}}\\[-\baselineskip]%
 \raisebox{-195mm}[0pt][0pt]{%
-\hspace{270mm}\textcolor{white}{\textsf{\tiny\thepage}}}%
+\hspace{270mm}\textcolor{nrblue}{\textsf{\footnotesize\thepage}}}%
 \end{minipage}
 }}
 
@@ -113,7 +114,7 @@
 }{%
 \hypersetup{colorlinks=true}%
 
-\color{white}    % text
+\color{black}    % text
 
 
 %% choose some colored item labels
@@ -123,7 +124,7 @@
 \renewcommand{\labelitemii}{\textcolor{black}{$\star$}}
 \renewcommand{\labelitemiii}{\textcolor{black}{$\ast$}}
 \renewcommand{\labelitemiv}{\textcolor{black}{$\circ$}}
-\hypersetup{urlcolor=nrblue}
+\hypersetup{urlcolor=nrwhite}
 
 }{%
 \renewcommand{\labelitemi}{\textcolor{red}{$\bullet$}}
@@ -150,19 +151,19 @@
   \ifthenelse{\boolean{white}}{%
   \pagecolor{white}\color{black}}{}
 }
-\def\@maketitle{\newpage\pagecolor{nrblue} % background
+\def\@maketitle{\newpage\pagecolor{nrwhite} % background
 \zerolistvertdimens
   \if@compatibility\else
     \advance\abovetitleskip -\baselineskip % \null adds this space
   \fi
   \null\vskip\abovetitleskip
-  \mbox{}\hspace{210mm}\makebox[0pt]{\raisebox{-165mm}[0pt][0pt]{%      
-        \includegraphics[width=0.4\paperwidth]{logos/NR_ball_rgb}}}\\
-        \raisebox{40mm}[0pt][0pt]{%
-        \mbox{}\hspace{-15mm}%
-        \includegraphics[height=25mm]{logos/NR_wave}}%
+  \mbox{}\hspace{230mm}\makebox[0pt]{\raisebox{-165mm}[0pt][0pt]{%      
+        \includegraphics[width=0.36\paperwidth]{logos/NR_ball_new}}}\\
+        \raisebox{30mm}[0pt][0pt]{%
+        \mbox{}\hspace{-5mm}%
+        \includegraphics[height=25mm]{logos/NR-logo_utvidet_stor_rgb}}%
         \hspace{90mm}%
-        \raisebox{45mm}[0pt][0pt]{\small\texttt{www.nr.no}}%
+        %\raisebox{45mm}[0pt][0pt]{\small\texttt{www.nr.no}}%
 
   \vspace{-4em}  
 
@@ -183,5 +184,5 @@
   %\vfil
 }
 
-\newcommand{\section}[1]{\foilhead{\raisebox{10mm}[0pt]{\textcolor{white}{#1}}}\par\vspace{-25mm}\par}
+\newcommand{\section}[1]{\foilhead{\raisebox{10mm}[0pt]{\textcolor{black}{#1}}}\par\vspace{-25mm}\par}
 
