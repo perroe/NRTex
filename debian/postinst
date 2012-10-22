@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+mktexlsr
+
+#DEBHELPER#
+
+exit 0

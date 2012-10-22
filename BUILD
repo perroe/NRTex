@@ -8,5 +8,5 @@ To build an rpm:
   make -C rpm
 
 To build a Debian package, first update debian/changelog, then:
-  fakeroot debian/rules binary
-  fakeroot debian/rules clean
+  debuild clean
+  debuild -us -uc -b

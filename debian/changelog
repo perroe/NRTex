@@ -1,3 +1,11 @@
+nrtex (2.6.3) UNRELEASED; urgency=low
+
+  * Added dependency on texlive-science.
+  * Added postinst script to rehash database.
+  * Improved conformance to Debian policy.
+
+ -- Thor Kristoffersen <thor@nr.no>  Mon, 22 Oct 2012 20:41:46 +0200
+
 nrtex (2.6.2) unstable; urgency=low
 
   * Updated "about NR" text.

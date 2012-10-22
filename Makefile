@@ -48,24 +48,24 @@ install: html manual printmanual
 	install -m 775 -d $(INSTALLPATH)/logos
 	install -m 775 -d $(WEBPATH)/latex-maler
 	install -m 775 -d $(WEBPATH)/latex-maler/$(MANUAL).web
-	install -m 775 nrdoc.cls $(INSTALLPATH)
-	install -m 775 elements/*.eps $(INSTALLPATH)/elements
-	install -m 775 elements/*.pdf $(INSTALLPATH)/elements
-	install -m 775 logos/*.eps $(INSTALLPATH)/logos
-	install -m 775 logos/*.pdf $(INSTALLPATH)/logos
-	install -m 775 nrdocold.cls $(INSTALLPATH)
-	install -m 775 nrfoils.cls $(INSTALLPATH)
-	install -m 775 background.sty $(INSTALLPATH)
-	install -m 775 pause.sty $(INSTALLPATH)
-	install -m 775 manual.pdf $(INSTALLPATH)
-	install -m 775 apalike-url-norsk.bst $(INSTALLPATH)
-	install -m 775 apalike-url.bst $(INSTALLPATH)
-	install -m 775 unsrturl.bst $(INSTALLPATH)
-	install -m 775 nrdoc.html $(WEBPATH)/latex-maler/index.html
-	install -m 775 $(MANUAL).pdf $(WEBPATH)/latex-maler
-	install -m 775 $(MANUAL).tex $(WEBPATH)/latex-maler
-	install -m 775 $(MANUAL).web/* $(WEBPATH)/latex-maler/$(MANUAL).web
-	install -m 775 $(PRINT).pdf $(WEBPATH)/latex-maler
+	install -m 664 nrdoc.cls $(INSTALLPATH)
+	install -m 664 elements/*.eps $(INSTALLPATH)/elements
+	install -m 664 elements/*.pdf $(INSTALLPATH)/elements
+	install -m 664 logos/*.eps $(INSTALLPATH)/logos
+	install -m 664 logos/*.pdf $(INSTALLPATH)/logos
+	install -m 664 nrdocold.cls $(INSTALLPATH)
+	install -m 664 nrfoils.cls $(INSTALLPATH)
+	install -m 664 background.sty $(INSTALLPATH)
+	install -m 664 pause.sty $(INSTALLPATH)
+	install -m 664 manual.pdf $(INSTALLPATH)
+	install -m 664 apalike-url-norsk.bst $(INSTALLPATH)
+	install -m 664 apalike-url.bst $(INSTALLPATH)
+	install -m 664 unsrturl.bst $(INSTALLPATH)
+	install -m 664 nrdoc.html $(WEBPATH)/latex-maler/index.html
+	install -m 664 $(MANUAL).pdf $(WEBPATH)/latex-maler
+	install -m 664 $(MANUAL).tex $(WEBPATH)/latex-maler
+	install -m 664 $(MANUAL).web/* $(WEBPATH)/latex-maler/$(MANUAL).web
+	install -m 664 $(PRINT).pdf $(WEBPATH)/latex-maler
 
 tgz:	manual
 	mkdir -p ${TGZNAME}
