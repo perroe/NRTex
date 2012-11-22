@@ -158,7 +158,7 @@
 \providecommand{\isbn}[1]{%
   \renewcommand{\printisbn}{#1}}
 \providecommand{\shortisbn}[1]{%
-  \renewcommand{\printisbn}{82-536-#1}}
+  \renewcommand{\printisbn}{82-539-#1}}
 
 \providecommand{\printreportnumber}{%
   \typeout{NRdoc warning: Report number not set}No number}
