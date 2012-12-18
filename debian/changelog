@@ -1,5 +1,7 @@
-nrtex (2.6.3) UNRELEASED; urgency=low
+nrtex (2.6.3) unstable; urgency=low
 
+  * Fixed error in setting of ISBN numbers.
+  * Updated the Latex slides so they resemble the PowerPoint ones.
   * Added dependency on texlive-science.
   * Added postinst script to rehash database.
   * Improved conformance to Debian policy.
