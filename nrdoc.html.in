@@ -60,8 +60,16 @@
   </p>
     
       <p>
-      En <a href="http://files.nr.no/latex-maler/nrtex-<<version_number>>-<<patch_number>>.i586.rpm">
+        Filer for lettvint installasjon på Linux er også tilgjengelig:
+        <ul>
+          <li> RPM for Redhat og lignende: <a href="http://files.nr.no/latex-maler/nrtex-<<version_number>>-<<patch_number>>.i586.rpm">
 nrtex-<<version_number>>-<<patch_number>>.i586.rpm</a>
+          </li>
+          <li> For Debian og Ubuntu: <a href="http://files.nr.no/latex-maler/nrtex_<<version_number>>_all.deb">
+nrtex_<<version_number>>_all.deb</a>
+          </li>
+        </ul>
+      En 
       fil for lettvint installasjon på linux er også tilgjengelig.
       </p>
     <p>
