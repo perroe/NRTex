@@ -49,10 +49,8 @@ install: html manual printmanual
 	install -m 775 -d $(WEBPATH)
 	install -m 775 -d $(WEBPATH)/$(MANUAL).web
 	install -m 664 nrdoc.cls $(INSTALLPATH)
-	install -m 664 elements/*.eps $(INSTALLPATH)/elements
-	install -m 664 elements/*.pdf $(INSTALLPATH)/elements
-	install -m 664 logos/*.eps $(INSTALLPATH)/logos
-	install -m 664 logos/*.pdf $(INSTALLPATH)/logos
+	install -m 664 elements/* $(INSTALLPATH)/elements
+	install -m 664 logos/* $(INSTALLPATH)/logos
 	install -m 664 nrdocold.cls $(INSTALLPATH)
 	install -m 664 nrfoils.cls $(INSTALLPATH)
 	install -m 664 background.sty $(INSTALLPATH)

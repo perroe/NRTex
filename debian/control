@@ -8,7 +8,7 @@ Homepage: http://intern.nr.no/wiki/index.php/Latex-maler
 
 Package: nrtex
 Architecture: all
-Depends: ${misc:Depends}, texlive-science
+Depends: ${misc:Depends}, foiltex, texlive-science
 Description: TeX extensions for NR.
  A set of TeX extensions for producing notes and reports conforming to NR's
  graphical profile.
