@@ -6,8 +6,8 @@ PRINT       = printmanual
 DATE        = $(shell date)
 VERSION     = $(shell cat version)
 RELEASE     = $(shell cat release)
-INSTALLPATH = $(DESTDIR)/nr/group/maler/nrdoc
-WEBPATH     = $(DESTDIR)/nr/www/virtual/files.nr.no/htdocs
+INSTALLPATH = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
+WEBPATH     = $(DESTDIR)/usr/share/doc/nrtex
 TGZNAME     = nrtex-${VERSION}
 
 .SUFFIXES: .tex .dvi .pdf
@@ -46,8 +46,8 @@ install: html manual printmanual
 	install -m 775 -d $(INSTALLPATH)
 	install -m 775 -d $(INSTALLPATH)/elements
 	install -m 775 -d $(INSTALLPATH)/logos
-	install -m 775 -d $(WEBPATH)/latex-maler
-	install -m 775 -d $(WEBPATH)/latex-maler/$(MANUAL).web
+	install -m 775 -d $(WEBPATH)
+	install -m 775 -d $(WEBPATH)/$(MANUAL).web
 	install -m 664 nrdoc.cls $(INSTALLPATH)
 	install -m 664 elements/*.eps $(INSTALLPATH)/elements
 	install -m 664 elements/*.pdf $(INSTALLPATH)/elements
@@ -61,11 +61,11 @@ install: html manual printmanual
 	install -m 664 apalike-url-norsk.bst $(INSTALLPATH)
 	install -m 664 apalike-url.bst $(INSTALLPATH)
 	install -m 664 unsrturl.bst $(INSTALLPATH)
-	install -m 664 nrdoc.html $(WEBPATH)/latex-maler/index.html
-	install -m 664 $(MANUAL).pdf $(WEBPATH)/latex-maler
-	install -m 664 $(MANUAL).tex $(WEBPATH)/latex-maler
-	install -m 664 $(MANUAL).web/* $(WEBPATH)/latex-maler/$(MANUAL).web
-	install -m 664 $(PRINT).pdf $(WEBPATH)/latex-maler
+	install -m 664 nrdoc.html $(WEBPATH)/index.html
+	install -m 664 $(MANUAL).pdf $(WEBPATH)
+	install -m 664 $(MANUAL).tex $(WEBPATH)
+	install -m 664 $(MANUAL).web/* $(WEBPATH)/$(MANUAL).web
+	install -m 664 $(PRINT).pdf $(WEBPATH)
 
 tgz:	manual
 	mkdir -p ${TGZNAME}
