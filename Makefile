@@ -7,6 +7,7 @@ DATE        = $(shell date)
 VERSION     = $(shell cat version)
 RELEASE     = $(shell cat release)
 CLASSPATH   = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
+BIBSTYPATH  = $(DESTDIR)/usr/share/texlive/texmf-dist/bibtex/bst/nrtex
 DOCPATH     = $(DESTDIR)/usr/share/doc/nrtex
 TGZNAME     = nrtex-${VERSION}
 
@@ -46,6 +47,7 @@ install: html manual printmanual
 	install -m 775 -d $(CLASSPATH)
 	install -m 775 -d $(CLASSPATH)/elements
 	install -m 775 -d $(CLASSPATH)/logos
+	install -m 775 -d $(BIBSTYPATH)
 	install -m 775 -d $(DOCPATH)
 	install -m 775 -d $(DOCPATH)/$(MANUAL).web
 	install -m 664 nrdoc.cls $(CLASSPATH)
@@ -56,8 +58,8 @@ install: html manual printmanual
 	install -m 664 background.sty $(CLASSPATH)
 	install -m 664 pause.sty $(CLASSPATH)
 	install -m 664 manual.pdf $(CLASSPATH)
-	install -m 664 apalike-url-norsk.bst $(CLASSPATH)
-	install -m 664 apalike-url.bst $(CLASSPATH)
+	install -m 664 apalike-url-norsk.bst $(BIBSTYPATH)
+	install -m 664 apalike-url.bst $(BIBSTYPATH)
 	install -m 664 unsrturl.bst $(CLASSPATH)
 	install -m 664 nrdoc.html $(DOCPATH)/index.html
 	install -m 664 $(MANUAL).pdf $(DOCPATH)

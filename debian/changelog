@@ -1,8 +1,14 @@
+nrtex (2.6.5) unstable; urgency=low
+
+  * Put bst files in correct location.
+
+ -- Thor Kristoffersen <thor@nr.no>  Tue, 05 Mar 2013 12:03:25 +0100
+
 nrtex (2.6.4) unstable; urgency=low
 
   * Changed to standard filesystem layout.
 
- -- Thor Kristoffersen <thor@triumph.ad.nr.no>  Thu, 28 Feb 2013 16:57:33 +0100
+ -- Thor Kristoffersen <thor@nr.no>  Thu, 28 Feb 2013 16:57:33 +0100
 
 nrtex (2.6.3) unstable; urgency=low
 
