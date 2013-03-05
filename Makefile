@@ -6,8 +6,8 @@ PRINT       = printmanual
 DATE        = $(shell date)
 VERSION     = $(shell cat version)
 RELEASE     = $(shell cat release)
-INSTALLPATH = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
-WEBPATH     = $(DESTDIR)/usr/share/doc/nrtex
+CLASSPATH   = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
+DOCPATH     = $(DESTDIR)/usr/share/doc/nrtex
 TGZNAME     = nrtex-${VERSION}
 
 .SUFFIXES: .tex .dvi .pdf
@@ -43,27 +43,27 @@ html:
 	latex2html -split 0 -no_navigation -dir manual.web -local_icons manual
 
 install: html manual printmanual
-	install -m 775 -d $(INSTALLPATH)
-	install -m 775 -d $(INSTALLPATH)/elements
-	install -m 775 -d $(INSTALLPATH)/logos
-	install -m 775 -d $(WEBPATH)
-	install -m 775 -d $(WEBPATH)/$(MANUAL).web
-	install -m 664 nrdoc.cls $(INSTALLPATH)
-	install -m 664 elements/* $(INSTALLPATH)/elements
-	install -m 664 logos/* $(INSTALLPATH)/logos
-	install -m 664 nrdocold.cls $(INSTALLPATH)
-	install -m 664 nrfoils.cls $(INSTALLPATH)
-	install -m 664 background.sty $(INSTALLPATH)
-	install -m 664 pause.sty $(INSTALLPATH)
-	install -m 664 manual.pdf $(INSTALLPATH)
-	install -m 664 apalike-url-norsk.bst $(INSTALLPATH)
-	install -m 664 apalike-url.bst $(INSTALLPATH)
-	install -m 664 unsrturl.bst $(INSTALLPATH)
-	install -m 664 nrdoc.html $(WEBPATH)/index.html
-	install -m 664 $(MANUAL).pdf $(WEBPATH)
-	install -m 664 $(MANUAL).tex $(WEBPATH)
-	install -m 664 $(MANUAL).web/* $(WEBPATH)/$(MANUAL).web
-	install -m 664 $(PRINT).pdf $(WEBPATH)
+	install -m 775 -d $(CLASSPATH)
+	install -m 775 -d $(CLASSPATH)/elements
+	install -m 775 -d $(CLASSPATH)/logos
+	install -m 775 -d $(DOCPATH)
+	install -m 775 -d $(DOCPATH)/$(MANUAL).web
+	install -m 664 nrdoc.cls $(CLASSPATH)
+	install -m 664 elements/* $(CLASSPATH)/elements
+	install -m 664 logos/* $(CLASSPATH)/logos
+	install -m 664 nrdocold.cls $(CLASSPATH)
+	install -m 664 nrfoils.cls $(CLASSPATH)
+	install -m 664 background.sty $(CLASSPATH)
+	install -m 664 pause.sty $(CLASSPATH)
+	install -m 664 manual.pdf $(CLASSPATH)
+	install -m 664 apalike-url-norsk.bst $(CLASSPATH)
+	install -m 664 apalike-url.bst $(CLASSPATH)
+	install -m 664 unsrturl.bst $(CLASSPATH)
+	install -m 664 nrdoc.html $(DOCPATH)/index.html
+	install -m 664 $(MANUAL).pdf $(DOCPATH)
+	install -m 664 $(MANUAL).tex $(DOCPATH)
+	install -m 664 $(MANUAL).web/* $(DOCPATH)/$(MANUAL).web
+	install -m 664 $(PRINT).pdf $(DOCPATH)
 
 tgz:	manual
 	mkdir -p ${TGZNAME}
