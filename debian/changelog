@@ -1,3 +1,9 @@
+nrtex (2.6.6) unstable; urgency=low
+
+  * Adapted BibTeX style file location depending on TeX Live version.
+
+ -- Thor Kristoffersen <thor@nr.no>  Tue, 05 Mar 2013 19:32:33 +0100
+
 nrtex (2.6.5) unstable; urgency=low
 
   * Put bst files in correct location.
