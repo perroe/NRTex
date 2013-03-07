@@ -6,13 +6,13 @@ set -e
 # behave differently depending on which one is installed.
 
 NRTEX_CLASS_DIR=/usr/share/texmf/tex/latex/nrtex
-TEXLIVE_BST_DIR_OLD=/usr/share/texmf-texlive/bibtex/bst
 TEXLIVE_BST_DIR_NEW=/usr/share/texlive/texmf-dist/bibtex/bst
+TEXLIVE_BST_DIR_OLD=/usr/share/texmf-texlive/bibtex/bst
 
-if [ -d $TEXLIVE_BST_DIR_OLD ]; then
-    cp -a $NRTEX_CLASS_DIR/bst $TEXLIVE_BST_DIR_OLD/nrtex
-elif [ -d $TEXLIVE_BST_DIR_NEW ]; then
+if [ -d $TEXLIVE_BST_DIR_NEW ]; then
     cp -a $NRTEX_CLASS_DIR/bst $TEXLIVE_BST_DIR_NEW/nrtex
+elif [ -d $TEXLIVE_BST_DIR_OLD ]; then
+    cp -a $NRTEX_CLASS_DIR/bst $TEXLIVE_BST_DIR_OLD/nrtex
 fi
 
 mktexlsr

@@ -6,9 +6,12 @@ TEXLIVE_BST_DIR_OLD=/usr/share/texmf-texlive/bibtex/bst/nrtex
 TEXLIVE_BST_DIR_NEW=/usr/share/texlive/texmf-dist/bibtex/bst/nrtex
 
 if [ -d $TEXLIVE_BST_DIR_OLD ]; then
-    rm -rf $TEXLIVE_BST_DIR_OLD
-elif [ -d $TEXLIVE_BST_DIR_NEW ]; then
-    rm -rf $TEXLIVE_BST_DIR_NEW
+    rm -f $TEXLIVE_BST_DIR_OLD/*.bst
+    rmdir $TEXLIVE_BST_DIR_OLD
+fi
+if [ -d $TEXLIVE_BST_DIR_NEW ]; then
+    rm -f $TEXLIVE_BST_DIR_NEW/*.bst
+    rmdir $TEXLIVE_BST_DIR_NEW
 fi
 
 #DEBHELPER#
