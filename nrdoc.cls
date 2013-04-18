@@ -328,6 +328,10 @@ the documentclass command!\MessageBreak}}{}
                         \setboolean{nynorsk_selected}{true}     
                         \setboolean{firstindent}{true}
                         \setboolean{language_selected}{true}}
+\DeclareOption{englishTitle}{\setboolean{english_selected}{true}
+                             \setboolean{firstindent}{false}
+                             \setboolean{nynorsk_selected}{false}
+                             \setboolean{norsk_selected}{false}}
 % The times option is obsolete (kept for backwards compatability)
 \DeclareOption{times}{\typeout{NRdoc warning: Option times is obsolete.}}
 

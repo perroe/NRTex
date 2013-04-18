@@ -418,6 +418,16 @@ This package is designed to produce pdf output either via
 By using the dvips option you can use \LaTeX\ followed by dvips to produce
 postscript.
 
+\subsection{The englishTitle option}\index{option!englishTitle}
+
+When specifying both english and norsk as options for multi-lingual
+documents the nrdoc style will choose norwegian as language for cover page
+and title matter. The option \texttt{englishTitle} will choose english
+as default language, including cover and title matter. Switching to
+norwegian language is done by \texttt{\textbackslash
+  selectlanguage\textbraceleft{norsk}\textbraceright}.
+
+
 \section{Making an index}\index{index}
 
 There is support for making indexes with makeindex.
