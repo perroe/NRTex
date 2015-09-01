@@ -789,14 +789,15 @@ oppdrags\-forskning for bedrifter og det offentlige i det norske og
 internasjonale markedet. NR ble etablert i 1952 og har kontorer i
 Kristen Nygaards hus ved Universitetet i Oslo. NR er et av Europas
 st{\o}rste milj{\o}er innen anvendt statistisk-matematisk modellering og har
-et senter for forskningsdrevet innovasjon, Statistics for Innovation --
-(sfi)$^2$, med finansiering fra Norges forskningsr{\aa}d. Det jobbes med et
-bredt spekter av problemstillinger, for eksempel finansiell risiko,
-jord\-observasjon, estimering av fiske\-bestander og beskrivelse av
-geologien i petroleums\-reservoarer. NR er ledende i Norge innen
-utvalgte deler av informasjons- og kommunikasjonsteknologi. Innen
-IKT-omr{\aa}det har NR innsatsomr{\aa}dene e-inkludering,
-infor\-ma\-sjons\-sikkerhet og smarte infor\-masjons\-systemer. 
+et senter for forskningsdrevet innovasjon, Big Insight, med
+finansiering fra Norges forskningsr{\aa}d, bedrifter og offentlige
+partnere. Innen statistikk jobbes det med et bredt spekter av
+problemstillinger, for eksempel finansiell risiko, jord\-observasjon,
+estimering av fiske\-bestander, helse og beskrivelse av geologien i
+petroleums\-reservoarer. NR er ledende i Norge innen utvalgte deler av
+informasjons- og kommunikasjons\-teknologi. Innen IKT-omr{\aa}det har NR
+innsats\-omr{\aa}dene e-inkludering, informasjons\-sikkerhet og smarte
+informasjons\-systemer. 
 
 \begin{center}
 NRs visjon er forskningsresultater som brukes og synes.
