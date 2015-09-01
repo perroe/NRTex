@@ -1,15 +1,18 @@
 DESTDIR =
 
-MAIN        = nrdoc
-MANUAL      = manual
-PRINT       = printmanual
-DATE        = $(shell date)
-VERSION     = $(shell cat version)
-RELEASE     = $(shell cat release)
-CLASSPATH   = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
-BIBSTYPATH  = $(CLASSPATH)/bst
-DOCPATH     = $(DESTDIR)/usr/share/doc/nrtex
-TGZNAME     = nrtex-${VERSION}
+MAIN           = nrdoc
+MANUAL         = manual
+PRINT          = printmanual
+DATE           = $(shell date)
+VERSION        = $(shell cat version)
+RELEASE        = $(shell cat release)
+CLASSPATH      = $(DESTDIR)/usr/share/texmf/tex/latex/nrtex
+BIBSTYPATH     = $(CLASSPATH)/bst
+DOCPATH        = $(DESTDIR)/usr/share/doc/nrtex
+TGZNAME        = nrtex-${VERSION}
+NR_INSTALLPATH = /nr/group/maler/nrdoc
+NR_WEBPATH     = /nr/www/virtual/files.nr.no/htdocs
+
 
 .SUFFIXES: .tex .dvi .pdf
 .PHONY:    all clean manual printmanual html install
@@ -66,6 +69,27 @@ install: html manual printmanual
 	install -m 664 $(MANUAL).tex $(DOCPATH)
 	install -m 664 $(MANUAL).web/* $(DOCPATH)/$(MANUAL).web
 	install -m 664 $(PRINT).pdf $(DOCPATH)
+
+install_nr: html manual printmanual
+	install -m 664 nrdoc.cls $(NR_INSTALLPATH)
+	install -m 664 elements/* $(NR_INSTALLPATH)/elements
+	install -m 664 logos/* $(NR_INSTALLPATH)/logos
+	install -m 664 nrdocold.cls $(NR_INSTALLPATH)
+	install -m 664 nrfoils.cls $(NR_INSTALLPATH)
+	install -m 664 background.sty $(NR_INSTALLPATH)
+	install -m 664 pause.sty $(NR_INSTALLPATH)
+	install -m 664 manual.pdf $(NR_INSTALLPATH)
+	install -m 664 apalike-url-norsk.bst $(NR_INSTALLPATH)
+	install -m 664 apalike-url.bst $(NR_INSTALLPATH)
+	install -m 664 unsrturl.bst $(NR_INSTALLPATH)
+	install -T -m 664 nrdoc.html $(NR_WEBPATH)/latex-maler/index.html
+	install -m 664 $(MANUAL).pdf $(NR_WEBPATH)/latex-maler
+	install -m 664 $(MANUAL).tex $(NR_WEBPATH)/latex-maler
+	install -m 664 $(MANUAL).web/* $(NR_WEBPATH)/latex-maler/$(MANUAL).web
+	install -m 664 $(PRINT).pdf $(NR_WEBPATH)/latex-maler
+#	cp $(RPMPATH)/$(RPMFILE) $(WEBPATH)/latex-maler/
+#	rm -f $(WEBPATH)/latex-maler/nrtex.i586.rpm
+#	ln -s $(WEBPATH)/latex-maler/$(RPMFILE) $(WEBPATH)/latex-maler/nrtex.i586.rpm
 
 tgz:	manual
 	mkdir -p ${TGZNAME}
