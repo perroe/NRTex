@@ -1,3 +1,9 @@
+nrtex (2.7.0) unstable; urgency=low
+
+  * Updated Norwegian text about NR.
+
+ -- Anders Løland <anderslo@nr.no>  Tue, 01 Sep 2015 15:00:00 +0100
+
 nrtex (2.6.7) unstable; urgency=low
 
   * Modified prerm script to delete files more safely.
