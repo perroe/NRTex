@@ -487,8 +487,8 @@ the documentclass command!\MessageBreak}}{}
 }
 
 
-% NR profile blue in CMYK values
-\definecolor{nrblue}{cmyk}{1,0.66,0,0}
+% NR profile blue in RGB values
+\definecolor{nrblue}{RGB}{32,60,136}
 
 \ifthenelse{\boolean{screen}}{
 % use hypertex tools    
@@ -653,15 +653,15 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
   \ifthenelse{\boolean{report}}{%
     \ifthenelse{\boolean{norsk_selected} \or
       \boolean{nynorsk_selected}}{%
-      \designelement{elements/rapport-s1}
+      \designelement{elements/rapport-s1uten}
     }{%
-      \designelement{elements/report-s1}
+      \designelement{elements/report-s1uten}
     }}{%
     \ifthenelse{\boolean{norsk_selected} \or
       \boolean{nynorsk_selected}}{%
-      \designelement{elements/notat-s1}
+      \designelement{elements/notat-s1uten}
     }{%
-      \designelement{elements/note-s1}
+      \designelement{elements/note-s1uten}
     }}
 }
 
