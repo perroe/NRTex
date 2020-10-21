@@ -593,8 +593,8 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     {\sffamily\bfseries}%
     {\normalsize\thesubsubsection}%
     {0.5em}{\normalsize}}
-\titlespacing{\subsection}{0pt}{\baselineskip-\parskip}{-\parskip}
-\titlespacing{\subsubsection}{0pt}{\baselineskip-\parskip}{-\parskip}
+%\titlespacing{\subsection}{0pt}{\baselineskip-\parskip}{-\parskip}
+%\titlespacing{\subsubsection}{0pt}{\baselineskip-\parskip}{-\parskip}
 
 
 \RequirePackage[absolute]{textpos}[2003/09/07]
