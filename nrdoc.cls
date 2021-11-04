@@ -609,7 +609,6 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
   font={small, sf}}
 
 \RequirePackage{subfig}
-\RequirePackage{eso-pic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   Miscellaneous formatting
@@ -722,7 +721,9 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
 
 \providecommand{\nrfrontpage}{%
   \ifthenelse{\boolean{draftversion}}{
-    \AddToShipoutPicture*{\frontpageprintelements}	
+    \begin{textblock}{210}(0,0)
+      \frontpageprintelements
+    \end{textblock}
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
@@ -737,7 +738,9 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     \clearpage
    }
    {% else final version
-    \AddToShipoutPicture*{\frontpageprintelements}
+    \begin{textblock}{210}(0,0)
+      \frontpageprintelements
+    \end{textblock}
     \thispagestyle{empty}%
     \noindent
     \setboolean{hidden}{true}%\typeout{Making front page!}
