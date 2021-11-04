@@ -1,3 +1,9 @@
+nrtex (2.9.0) unstable; urgency=low
+
+  * Fixed bug causing text to disappear from front page.
+
+ -- Thor Kristoffersen <thor@nr.no>  Thu, 04 Nov 2021 09:42:37 +0100
+
 nrtex (2.8.0) unstable; urgency=low
 
   * New front pages.
