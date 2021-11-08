@@ -1,3 +1,9 @@
+nrtex (2.10.0) unstable; urgency=low
+
+  * Improved spacing around titles.
+
+ -- Thor Kristoffersen <thor@nr.no>  Mon, 08 Nov 2021 16:14:09 +0100
+
 nrtex (2.9.0) unstable; urgency=low
 
   * Fixed bug causing text to disappear from front page.
