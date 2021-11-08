@@ -570,12 +570,10 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     {\sffamily\bfseries}%
     {\Huge\thechapter}%
     {1em}{\huge}[\thispagestyle{fancy}]
-  \titlespacing{\chapter}{0pt}{-\baselineskip}{10ex}
   \titleformat{\section}[hang]%
     {\sffamily\bfseries}%
     {\Large\thesection}%
     {0.5em}{\Large}
-  \titlespacing{\section}{0pt}{\baselineskip-\parskip}{-\parskip}
   \titleformat{\subsection}[hang]
     {\sffamily\bfseries}%
     {\normalsize\thesubsection}%
@@ -584,7 +582,6 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     {\sffamily\bfseries}%
     {\LARGE\thesection}%
     {0.5em}{\LARGE}
-  \titlespacing{\section}{0pt}{1.5\baselineskip-0.5\parskip}{\baselineskip-\parskip}
   \titleformat{\subsection}[hang]
     {\sffamily\bfseries}%
     {\large\thesubsection}%
@@ -593,8 +590,9 @@ footskip=20mm, footnotesep=\baselineskip, nohead, twoside=false}}{}
     {\sffamily\bfseries}%
     {\normalsize\thesubsubsection}%
     {0.5em}{\normalsize}}
-%\titlespacing{\subsection}{0pt}{\baselineskip-\parskip}{-\parskip}
-%\titlespacing{\subsubsection}{0pt}{\baselineskip-\parskip}{-\parskip}
+\titlespacing{\section}{0pt}{*4}{*1.5}
+\titlespacing{\subsection}{0pt}{*2}{*0}
+\titlespacing{\subsubsection}{0pt}{*1}{*0}
 
 
 \RequirePackage[absolute]{textpos}[2003/09/07]
