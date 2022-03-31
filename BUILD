@@ -8,7 +8,7 @@ To build an rpm:
   make -C rpm
 
 To build a Debian package, first update debian/changelog, then:
-  debuild clean
+  debuild -- clean
   debuild -us -uc -b
 
 To build and install the central version for NR:
