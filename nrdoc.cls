@@ -3,7 +3,7 @@
 %%
 %% Based on nrdoc.cls by
 %% Harald H. Soleng <harald.soleng@nr.no>
-%% Anders Løland <anders.loland@nr.no>
+%% Anders LÃ¸land <anders.loland@nr.no>
 %%
 %% by Lars Brusletto Sveen <lars@munch-design.no>
 %%
@@ -773,7 +773,7 @@ Use \texttt{$\backslash$aboutauthors} to enter author information.}
 \ifthenelse{\boolean{norsk_selected} \or
   \boolean{nynorsk_selected}}{%
   \renewcommand{\aboutnrtext}{%
-    Norsk Regnesentral (NR) er en uavhengig, ideell og allmennyttig privat stiftelse som utfører oppdragsforskning. NR ble etablert i 1952 og har kontorer i Kristen Nygaards hus ved Universitetet i Oslo. Forskningsområdene er statistisk modellering, geomodellering, jordobservasjon, maskinlæring, bildeanalyse, kunstig intelli\-gens, språkteknologi, digital sikkerhet, digital inkludering og digital transformasjon. NR er et av Europas største miljøer innen anvendt statistisk modellering. Instituttet leverer samfunnsnyttige tjenester og skaper nye verdier for kunder og partnere innen et vidt spekter av bransjer: Teknologi og industri, Finans og forsikring, Klima og miljø, Naturressurser, Hav, Helse og Samfunn. Våre oppdragsgivere er privat næringsliv og offentlige virksomheter både i Norge og inter\-nasjonalt, EU og Norges forskningsråd. Vår oppgave er å skape forskningsresultater som brukes og synes.
+    Norsk Regnesentral (NR) er en uavhengig, ideell og allmennyttig privat stiftelse som utfÃ¸rer oppdragsforskning. NR ble etablert i 1952 og har kontorer i Kristen Nygaards hus ved Universitetet i Oslo. ForskningsomrÃ¥dene er statistisk modellering, geomodellering, jordobservasjon, maskinlÃ¦ring, bildeanalyse, kunstig intelli\-gens, sprÃ¥kteknologi, digital sikkerhet, digital inkludering og digital transformasjon. NR er et av Europas stÃ¸rste miljÃ¸er innen anvendt statistisk modellering. Instituttet leverer samfunnsnyttige tjenester og skaper nye verdier for kunder og partnere innen et vidt spekter av bransjer: Teknologi og industri, Finans og forsikring, Klima og miljÃ¸, Naturressurser, Hav, Helse og Samfunn. VÃ¥re oppdragsgivere er privat nÃ¦ringsliv og offentlige virksomheter bÃ¥de i Norge og inter\-nasjonalt, EU og Norges forskningsrÃ¥d. VÃ¥r oppgave er Ã¥ skape forskningsresultater som brukes og synes.
 }}{}
 % The command \aboutothers is provided to allow entries for other
 % organisations, eg. if an author is external to NR. A
