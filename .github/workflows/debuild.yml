@@ -1,0 +1,21 @@
+name: Debuild CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: debuild -- clean
+
+    - name: Build installation package
+      run: debuild -us -uc -bmake
