@@ -14,8 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: debuild -- clean
-
+    - name: Run Install Commands
+      run: sudo apt-get install devscripts
+          
     - name: Build installation package
-      run: debuild -us -uc -bmake
+      run: |
+            debuild -- clean
+            debuild -us -uc -bmake
